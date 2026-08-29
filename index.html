@@ -4,32 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SchwarzPay — Товары, услуги и онлайн</title>
+  <title>SchwarzPay — Продавай. Будь онлайн.</title>
 
-  <meta name="description"
-        content="SchwarzPay помогает продавать товары и услуги онлайн: сайты, Telegram, боты и современные способы оплаты.">
+  <meta
+    name="description"
+    content="SchwarzPay — сайты, Telegram, боты и онлайн-оплата для товаров и услуг."
+  >
 
   <meta name="theme-color" content="#050505">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+
     :root {
       --bg: #050505;
-      --surface: #0c0c0c;
-      --surface-2: #111111;
-      --text: #fff;
+      --surface: #0b0b0b;
+      --surface-2: #101010;
+
+      --text: #ffffff;
       --muted: #99999f;
+
       --line: rgba(255,255,255,.10);
+
       --green: #c8ff5a;
-      --green-soft: rgba(200,255,90,.12);
+      --green-soft: rgba(200,255,90,.10);
+
       --max: 1180px;
+
       --radius: 28px;
     }
+
 
     * {
       box-sizing: border-box;
@@ -37,103 +48,147 @@
       padding: 0;
     }
 
+
     html {
       scroll-behavior: smooth;
     }
 
+
     body {
       background: var(--bg);
       color: var(--text);
+
       font-family: "Manrope", sans-serif;
-      overflow-x: hidden;
+
       line-height: 1.6;
+
+      overflow-x: hidden;
     }
+
 
     body::before {
       content: "";
+
       position: fixed;
+
       inset: 0;
+
       pointer-events: none;
+
       z-index: -2;
 
       background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
 
       background-size: 70px 70px;
 
-      mask-image: linear-gradient(
-        to bottom,
-        black,
-        transparent 85%
-      );
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 85%
+        );
     }
+
 
     body::after {
       content: "";
+
       position: fixed;
 
-      width: 700px;
-      height: 700px;
+      width: 650px;
+      height: 650px;
 
-      right: -350px;
+      right: -300px;
       top: -300px;
 
       border-radius: 50%;
 
-      background: rgba(200,255,90,.08);
+      background: rgba(200,255,90,.07);
 
-      filter: blur(100px);
+      filter: blur(110px);
 
       pointer-events: none;
+
       z-index: -1;
     }
+
 
     a {
       color: inherit;
       text-decoration: none;
     }
 
-    img {
-      display: block;
-      width: 100%;
+
+    button {
+      font: inherit;
     }
 
+
     .container {
-      width: min(calc(100% - 40px), var(--max));
+      width: min(
+        calc(100% - 40px),
+        var(--max)
+      );
+
       margin: auto;
     }
+
 
     section {
       padding: 120px 0;
     }
 
-    /* NAV */
+
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     .nav-wrap {
       position: fixed;
+
       z-index: 1000;
+
       top: 14px;
-      left: 0;
+
       width: 100%;
+
       pointer-events: none;
     }
 
+
     nav {
-      width: min(calc(100% - 24px), 1080px);
+      width: min(
+        calc(100% - 24px),
+        1080px
+      );
+
       height: 64px;
 
       margin: auto;
+
       padding: 0 10px 0 18px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
       border: 1px solid var(--line);
+
       border-radius: 18px;
 
-      background: rgba(8,8,8,.76);
+      background: rgba(8,8,8,.78);
+
       backdrop-filter: blur(22px);
 
       pointer-events: auto;
@@ -141,46 +196,60 @@
       transition: .3s ease;
     }
 
+
     .logo {
       display: flex;
+
       align-items: center;
+
       gap: 10px;
 
       font-family: "Space Grotesk";
-      font-weight: 700;
+
       font-size: 19px;
+
+      font-weight: 700;
     }
+
 
     .logo-mark {
       width: 34px;
       height: 34px;
 
       display: grid;
+
       place-items: center;
 
       border-radius: 10px;
 
       background: var(--green);
+
       color: #000;
 
-      font-weight: 800;
+      font-weight: 900;
     }
+
 
     .nav-links {
       display: flex;
+
       gap: 28px;
 
       color: var(--muted);
+
       font-size: 13px;
     }
 
+
     .nav-links a {
-      transition: .2s;
+      transition: .2s ease;
     }
+
 
     .nav-links a:hover {
       color: #fff;
     }
+
 
     .nav-cta {
       padding: 11px 16px;
@@ -188,48 +257,63 @@
       border-radius: 12px;
 
       background: #fff;
+
       color: #000;
 
       font-size: 13px;
+
       font-weight: 800;
 
-      transition: .2s;
+      transition: .2s ease;
     }
+
 
     .nav-cta:hover {
       background: var(--green);
+
       transform: translateY(-2px);
     }
 
-    /* HERO */
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
       min-height: 100vh;
 
       display: flex;
+
       align-items: center;
 
       padding-top: 150px;
     }
 
+
     .hero-grid {
       display: grid;
+
       grid-template-columns: 1fr .9fr;
 
       gap: 70px;
+
       align-items: center;
     }
+
 
     .eyebrow {
       width: fit-content;
 
       display: flex;
+
       align-items: center;
+
       gap: 9px;
 
       padding: 8px 13px;
 
       border: 1px solid var(--line);
+
       border-radius: 999px;
 
       background: rgba(255,255,255,.035);
@@ -239,6 +323,7 @@
       font-size: 12px;
     }
 
+
     .dot {
       width: 7px;
       height: 7px;
@@ -247,25 +332,32 @@
 
       background: var(--green);
 
-      box-shadow: 0 0 15px var(--green);
+      box-shadow:
+        0 0 15px var(--green);
     }
+
 
     h1 {
       margin-top: 27px;
 
       font-family: "Space Grotesk";
 
-      font-size: clamp(58px, 7vw, 96px);
+      font-size: clamp(
+        58px,
+        7vw,
+        96px
+      );
 
       line-height: .91;
-      letter-spacing: -.075em;
 
-      font-weight: 700;
+      letter-spacing: -.075em;
     }
+
 
     h1 span {
       color: var(--green);
     }
+
 
     .hero-text {
       max-width: 620px;
@@ -275,22 +367,29 @@
       color: var(--muted);
 
       font-size: 17px;
+
       line-height: 1.8;
     }
+
 
     .buttons {
       margin-top: 36px;
 
       display: flex;
+
       gap: 11px;
+
       flex-wrap: wrap;
     }
+
 
     .button {
       min-height: 55px;
 
       display: inline-flex;
+
       align-items: center;
+
       justify-content: center;
 
       padding: 0 22px;
@@ -298,39 +397,53 @@
       border-radius: 15px;
 
       font-size: 14px;
+
       font-weight: 800;
 
-      transition: .25s;
+      transition: .25s ease;
     }
+
 
     .button:hover {
       transform: translateY(-4px);
     }
 
+
     .button-primary {
       background: var(--green);
+
       color: #000;
 
-      box-shadow: 0 15px 45px rgba(200,255,90,.12);
+      box-shadow:
+        0 15px 45px
+        rgba(200,255,90,.12);
     }
+
 
     .button-secondary {
       border: 1px solid var(--line);
+
       background: rgba(255,255,255,.035);
     }
+
 
     .hero-points {
       margin-top: 42px;
 
       display: flex;
+
       gap: 24px;
+
       flex-wrap: wrap;
     }
 
+
     .hero-point {
       color: var(--muted);
+
       font-size: 12px;
     }
+
 
     .hero-point strong {
       display: block;
@@ -338,10 +451,14 @@
       color: #fff;
 
       font-family: "Space Grotesk";
+
       font-size: 21px;
     }
 
-    /* HERO VISUAL */
+
+    /* =========================
+       HERO VISUAL
+    ========================= */
 
     .hero-card {
       position: relative;
@@ -351,50 +468,67 @@
       overflow: hidden;
 
       border: 1px solid var(--line);
+
       border-radius: 34px;
 
       background: #111;
     }
 
+
     .hero-card img {
+      width: 100%;
       height: 100%;
+
       object-fit: cover;
 
-      opacity: .68;
+      opacity: .66;
 
-      filter: grayscale(25%) contrast(1.08);
+      filter:
+        grayscale(20%)
+        contrast(1.08);
     }
+
 
     .hero-card::after {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       background:
         linear-gradient(
           to bottom,
           transparent 25%,
-          rgba(0,0,0,.92)
+          rgba(0,0,0,.94)
         );
     }
 
+
     .visual-caption {
       position: absolute;
+
       z-index: 2;
 
       left: 28px;
       right: 28px;
+
       bottom: 28px;
     }
 
+
     .visual-caption small {
       color: var(--green);
+
       font-size: 11px;
+
       font-weight: 800;
-      text-transform: uppercase;
+
       letter-spacing: .13em;
+
+      text-transform: uppercase;
     }
+
 
     .visual-caption h2 {
       margin-top: 9px;
@@ -402,10 +536,12 @@
       font-family: "Space Grotesk";
 
       font-size: 31px;
+
       line-height: 1.05;
 
       letter-spacing: -.05em;
     }
+
 
     .visual-caption p {
       margin-top: 10px;
@@ -415,30 +551,42 @@
       font-size: 13px;
     }
 
-    /* SECTION */
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
 
     .section-label {
       color: var(--green);
 
       font-size: 11px;
+
       font-weight: 800;
 
       letter-spacing: .15em;
+
       text-transform: uppercase;
     }
 
+
     .section-title {
-      max-width: 760px;
+      max-width: 800px;
 
       margin-top: 16px;
 
       font-family: "Space Grotesk";
 
-      font-size: clamp(43px, 5vw, 70px);
+      font-size: clamp(
+        43px,
+        5vw,
+        70px
+      );
 
       line-height: .98;
+
       letter-spacing: -.065em;
     }
+
 
     .section-text {
       max-width: 650px;
@@ -450,17 +598,22 @@
       font-size: 16px;
     }
 
-    /* CATEGORIES */
+
+    /* =========================
+       CATEGORIES
+    ========================= */
 
     .categories {
       margin-top: 58px;
 
       display: grid;
 
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns:
+        repeat(3, 1fr);
 
       gap: 15px;
     }
+
 
     .category {
       min-height: 250px;
@@ -468,24 +621,31 @@
       padding: 28px;
 
       border: 1px solid var(--line);
+
       border-radius: var(--radius);
 
-      background: rgba(255,255,255,.035);
+      background:
+        rgba(255,255,255,.035);
 
-      transition: .3s;
+      transition: .3s ease;
     }
+
 
     .category:hover {
       transform: translateY(-7px);
 
-      border-color: rgba(200,255,90,.3);
+      border-color:
+        rgba(200,255,90,.3);
 
-      background: rgba(200,255,90,.045);
+      background:
+        rgba(200,255,90,.045);
     }
+
 
     .category-icon {
       font-size: 31px;
     }
+
 
     .category h3 {
       margin-top: 65px;
@@ -493,8 +653,10 @@
       font-family: "Space Grotesk";
 
       font-size: 23px;
+
       letter-spacing: -.035em;
     }
+
 
     .category p {
       margin-top: 8px;
@@ -504,24 +666,31 @@
       font-size: 13px;
     }
 
-    /* ECOSYSTEM */
+
+    /* =========================
+       ECOSYSTEM
+    ========================= */
 
     .ecosystem {
       background: var(--surface);
 
       border-top: 1px solid var(--line);
+
       border-bottom: 1px solid var(--line);
     }
+
 
     .ecosystem-grid {
       margin-top: 60px;
 
       display: grid;
 
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:
+        1fr 1fr;
 
       gap: 18px;
     }
+
 
     .eco-card {
       min-height: 330px;
@@ -529,17 +698,22 @@
       padding: 35px;
 
       border: 1px solid var(--line);
+
       border-radius: var(--radius);
 
-      background: rgba(255,255,255,.025);
+      background:
+        rgba(255,255,255,.025);
     }
+
 
     .eco-number {
       color: #555;
 
       font-family: "Space Grotesk";
+
       font-size: 13px;
     }
+
 
     .eco-card h3 {
       margin-top: 48px;
@@ -550,6 +724,7 @@
 
       letter-spacing: -.05em;
     }
+
 
     .eco-card p {
       max-width: 480px;
@@ -563,75 +738,94 @@
       line-height: 1.7;
     }
 
+
     .eco-tags {
       margin-top: 25px;
 
       display: flex;
+
       gap: 8px;
+
       flex-wrap: wrap;
     }
+
 
     .tag {
       padding: 9px 12px;
 
       border: 1px solid var(--line);
+
       border-radius: 999px;
 
-      background: rgba(255,255,255,.035);
+      background:
+        rgba(255,255,255,.035);
 
       font-size: 12px;
     }
 
-    /* PAYMENT */
+
+    /* =========================
+       PAYMENT
+    ========================= */
 
     .payment {
       margin-top: 60px;
 
       display: grid;
 
-      grid-template-columns: .9fr 1.1fr;
+      grid-template-columns:
+        .9fr 1.1fr;
 
       gap: 18px;
     }
 
+
     .payment-image {
       min-height: 560px;
 
-      overflow: hidden;
-
       position: relative;
+
+      overflow: hidden;
 
       border-radius: var(--radius);
 
       border: 1px solid var(--line);
     }
 
+
     .payment-image img {
+      width: 100%;
       height: 100%;
 
       object-fit: cover;
 
-      filter: grayscale(20%) contrast(1.08);
+      filter:
+        grayscale(20%)
+        contrast(1.08);
     }
+
 
     .payment-image::after {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       background:
         linear-gradient(
           to top,
-          rgba(0,0,0,.8),
+          rgba(0,0,0,.85),
           transparent 60%
         );
     }
+
 
     .payment-info {
       padding: 50px;
 
       border: 1px solid var(--line);
+
       border-radius: var(--radius);
 
       background:
@@ -643,20 +837,28 @@
         var(--surface-2);
     }
 
+
     .payment-info h2 {
       margin-top: 20px;
 
       font-family: "Space Grotesk";
 
-      font-size: clamp(44px, 5vw, 70px);
+      font-size: clamp(
+        44px,
+        5vw,
+        70px
+      );
 
       line-height: .95;
+
       letter-spacing: -.07em;
     }
+
 
     .payment-info h2 span {
       color: var(--green);
     }
+
 
     .payment-info > p {
       margin-top: 24px;
@@ -664,8 +866,10 @@
       color: var(--muted);
 
       font-size: 16px;
+
       line-height: 1.75;
     }
+
 
     .payment-methods {
       margin-top: 35px;
@@ -675,24 +879,33 @@
       gap: 10px;
     }
 
+
     .payment-method {
       display: flex;
+
       align-items: center;
+
       gap: 13px;
 
       padding: 16px;
 
       border: 1px solid var(--line);
+
       border-radius: 16px;
 
-      background: rgba(255,255,255,.025);
+      background:
+        rgba(255,255,255,.025);
     }
+
 
     .method-icon {
       width: 39px;
       height: 39px;
 
+      flex: 0 0 auto;
+
       display: grid;
+
       place-items: center;
 
       border-radius: 11px;
@@ -702,11 +915,13 @@
       font-size: 18px;
     }
 
+
     .payment-method strong {
       display: block;
 
       font-size: 14px;
     }
+
 
     .payment-method span {
       display: block;
@@ -716,10 +931,13 @@
       font-size: 11px;
     }
 
-    /* DELIVERY */
+
+    /* =========================
+       DELIVERY
+    ========================= */
 
     .delivery {
-      margin-top: 70px;
+      margin-top: 18px;
 
       padding: 42px;
 
@@ -732,6 +950,7 @@
       align-items: center;
 
       border: 1px solid var(--line);
+
       border-radius: var(--radius);
 
       background:
@@ -742,6 +961,7 @@
         );
     }
 
+
     .delivery h3 {
       font-family: "Space Grotesk";
 
@@ -749,6 +969,7 @@
 
       letter-spacing: -.05em;
     }
+
 
     .delivery p {
       max-width: 680px;
@@ -760,11 +981,13 @@
       font-size: 14px;
     }
 
+
     .delivery-icon {
       width: 90px;
       height: 90px;
 
       display: grid;
+
       place-items: center;
 
       border-radius: 25px;
@@ -776,37 +999,631 @@
       font-size: 40px;
     }
 
-    /* FLOW */
+
+    /* =========================
+       PRICING
+    ========================= */
+
+    .pricing {
+      background: var(--surface);
+
+      border-top: 1px solid var(--line);
+
+      border-bottom: 1px solid var(--line);
+    }
+
+
+    .pricing-grid {
+      margin-top: 60px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+    }
+
+
+    .price-card {
+      position: relative;
+
+      min-height: 390px;
+
+      padding: 30px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 26px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      transition: .3s ease;
+    }
+
+
+    .price-card:hover {
+      transform: translateY(-7px);
+
+      border-color:
+        rgba(200,255,90,.3);
+    }
+
+
+    .price-card.featured {
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(200,255,90,.13),
+          transparent 45%
+        ),
+        rgba(255,255,255,.035);
+
+      border-color:
+        rgba(200,255,90,.28);
+    }
+
+
+    .price-number {
+      color: #555;
+
+      font-family: "Space Grotesk";
+
+      font-size: 12px;
+    }
+
+
+    .price-card h3 {
+      margin-top: 48px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 25px;
+
+      letter-spacing: -.04em;
+    }
+
+
+    .individual-price {
+      margin-top: 18px;
+
+      color: var(--green);
+
+      font-family: "Space Grotesk";
+
+      font-size: 27px;
+
+      font-weight: 700;
+    }
+
+
+    .big-price {
+      margin-top: 18px;
+
+      color: var(--green);
+
+      font-family: "Space Grotesk";
+
+      font-size: 52px;
+
+      font-weight: 700;
+
+      letter-spacing: -.06em;
+    }
+
+
+    .price-card p {
+      margin-top: 16px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+
+    .price-note {
+      position: absolute;
+
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+
+      padding-top: 17px;
+
+      border-top: 1px solid var(--line);
+
+      color: #bbb;
+
+      font-size: 11px;
+    }
+
+
+    .popular {
+      position: absolute;
+
+      top: 22px;
+      right: 22px;
+
+      padding: 7px 10px;
+
+      border-radius: 999px;
+
+      background: var(--green);
+
+      color: #000;
+
+      font-size: 8px;
+
+      font-weight: 900;
+
+      letter-spacing: .08em;
+    }
+
+
+    /* =========================
+       MANAGEMENT
+    ========================= */
+
+    .management-section {
+      background: var(--bg);
+    }
+
+
+    .management-card {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 25px;
+
+      padding: 55px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 32px;
+
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(200,255,90,.09),
+          transparent 35%
+        ),
+        #090909;
+    }
+
+
+    .management-content h2 {
+      max-width: 650px;
+
+      margin-top: 18px;
+
+      font-family: "Space Grotesk";
+
+      font-size: clamp(
+        43px,
+        5vw,
+        68px
+      );
+
+      line-height: .96;
+
+      letter-spacing: -.07em;
+    }
+
+
+    .management-content h2 span {
+      color: var(--green);
+    }
+
+
+    .management-content p {
+      max-width: 600px;
+
+      margin-top: 22px;
+
+      color: var(--muted);
+
+      font-size: 15px;
+
+      line-height: 1.75;
+    }
+
+
+    .management-list {
+      margin-top: 30px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 10px;
+    }
+
+
+    .management-item {
+      padding: 13px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 14px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      color: #ddd;
+
+      font-size: 12px;
+    }
+
+
+    .check {
+      margin-right: 7px;
+
+      color: var(--green);
+
+      font-weight: 900;
+    }
+
+
+    /* DASHBOARD */
+
+    .management-visual {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+
+    .dashboard {
+      width: 100%;
+
+      padding: 24px;
+
+      border: 1px solid
+        rgba(255,255,255,.12);
+
+      border-radius: 24px;
+
+      background: #111;
+
+      box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.35);
+    }
+
+
+    .dashboard-top {
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      align-items: flex-start;
+    }
+
+
+    .dashboard-top small {
+      color: #666;
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: .12em;
+    }
+
+
+    .dashboard-top h3 {
+      margin-top: 5px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 18px;
+    }
+
+
+    .online-status {
+      display: flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      padding: 6px 9px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(200,255,90,.08);
+
+      color: var(--green);
+
+      font-size: 9px;
+    }
+
+
+    .online-status span {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+    }
+
+
+    .product-preview {
+      margin-top: 30px;
+
+      padding: 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 17px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+
+    .product-image {
+      width: 55px;
+      height: 55px;
+
+      display: grid;
+
+      place-items: center;
+
+      flex: 0 0 auto;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #222,
+          #161616
+        );
+
+      font-size: 25px;
+    }
+
+
+    .product-info {
+      flex: 1;
+    }
+
+
+    .product-info strong {
+      display: block;
+
+      font-size: 13px;
+    }
+
+
+    .product-info span {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+
+    .product-price {
+      color: var(--green);
+
+      font-family: "Space Grotesk";
+
+      font-size: 20px;
+
+      font-weight: 700;
+    }
+
+
+    .dashboard-actions {
+      margin-top: 13px;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 9px;
+    }
+
+
+    .dashboard-actions button {
+      min-height: 44px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.04);
+
+      color: #fff;
+
+      cursor: default;
+
+      font-size: 10px;
+
+      font-weight: 700;
+    }
+
+
+    .dashboard-actions button:first-child {
+      background: var(--green);
+
+      color: #000;
+
+      border-color: var(--green);
+    }
+
+
+    .dashboard-footer {
+      margin-top: 18px;
+
+      padding-top: 16px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      border-top: 1px solid var(--line);
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+
+    .dashboard-footer strong {
+      color: #fff;
+    }
+
+
+    /* SUPPORT */
+
+    .support-strip {
+      margin-top: 18px;
+
+      padding: 34px 40px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+
+    .support-label {
+      color: #666;
+
+      font-size: 9px;
+
+      font-weight: 900;
+
+      letter-spacing: .14em;
+    }
+
+
+    .support-strip h3 {
+      margin-top: 8px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 28px;
+
+      letter-spacing: -.05em;
+    }
+
+
+    .support-strip h3 span {
+      color: var(--green);
+    }
+
+
+    .support-strip p {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+
+    .support-price {
+      flex: 0 0 auto;
+
+      text-align: right;
+    }
+
+
+    .support-price span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+
+    .support-price strong {
+      display: block;
+
+      margin-top: 2px;
+
+      color: var(--green);
+
+      font-family: "Space Grotesk";
+
+      font-size: 38px;
+
+      letter-spacing: -.06em;
+    }
+
+
+    /* =========================
+       FLOW
+    ========================= */
 
     .flow {
       margin-top: 55px;
 
       display: grid;
 
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns:
+        repeat(5, 1fr);
 
       gap: 10px;
     }
 
-    .flow-step {
-      position: relative;
 
+    .flow-step {
       padding: 23px;
 
       min-height: 190px;
 
       border: 1px solid var(--line);
+
       border-radius: 20px;
 
-      background: rgba(255,255,255,.025);
+      background:
+        rgba(255,255,255,.025);
     }
+
 
     .flow-step-number {
       color: #555;
 
       font-family: "Space Grotesk";
+
       font-size: 12px;
     }
+
 
     .flow-step-icon {
       margin-top: 35px;
@@ -814,11 +1631,13 @@
       font-size: 25px;
     }
 
+
     .flow-step h3 {
       margin-top: 12px;
 
       font-size: 15px;
     }
+
 
     .flow-step p {
       margin-top: 5px;
@@ -828,11 +1647,15 @@
       font-size: 11px;
     }
 
-    /* CTA */
+
+    /* =========================
+       CTA
+    ========================= */
 
     .cta-section {
       padding-bottom: 90px;
     }
+
 
     .cta {
       position: relative;
@@ -843,7 +1666,8 @@
 
       text-align: center;
 
-      border: 1px solid rgba(200,255,90,.25);
+      border: 1px solid
+        rgba(200,255,90,.25);
 
       border-radius: 35px;
 
@@ -856,20 +1680,28 @@
         #0b0b0b;
     }
 
+
     .cta h2 {
       margin-top: 15px;
 
       font-family: "Space Grotesk";
 
-      font-size: clamp(50px, 7vw, 90px);
+      font-size: clamp(
+        50px,
+        7vw,
+        90px
+      );
 
       line-height: .92;
+
       letter-spacing: -.075em;
     }
+
 
     .cta h2 span {
       color: var(--green);
     }
+
 
     .cta p {
       max-width: 580px;
@@ -881,11 +1713,16 @@
       font-size: 16px;
     }
 
+
     .telegram {
       margin-top: 35px;
 
       display: inline-flex;
+
       align-items: center;
+
+      justify-content: center;
+
       gap: 10px;
 
       padding: 17px 25px;
@@ -893,21 +1730,29 @@
       border-radius: 16px;
 
       background: var(--green);
+
       color: #000;
 
       font-weight: 800;
 
-      transition: .25s;
+      transition: .25s ease;
     }
+
 
     .telegram:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform:
+        translateY(-5px)
+        scale(1.02);
 
       box-shadow:
-        0 20px 60px rgba(200,255,90,.18);
+        0 20px 60px
+        rgba(200,255,90,.18);
     }
 
-    /* FOOTER */
+
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
       padding: 30px 0 45px;
@@ -919,14 +1764,19 @@
       font-size: 12px;
     }
 
+
     .footer {
       display: flex;
+
       justify-content: space-between;
 
       gap: 20px;
     }
 
-    /* ANIMATION */
+
+    /* =========================
+       REVEAL ANIMATION
+    ========================= */
 
     .reveal {
       opacity: 0;
@@ -938,180 +1788,323 @@
         transform .75s ease;
     }
 
+
     .reveal.show {
       opacity: 1;
+
       transform: translateY(0);
     }
 
-    /* TABLET */
+
+    /* =========================
+       TABLET
+    ========================= */
 
     @media (max-width: 950px) {
 
       .hero-grid,
-      .payment {
+      .payment,
+      .management-card {
         grid-template-columns: 1fr;
       }
+
 
       .hero-card {
         height: 500px;
       }
 
+
       .categories {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
       }
 
-      .flow {
-        grid-template-columns: repeat(2, 1fr);
+
+      .pricing-grid {
+        grid-template-columns:
+          1fr 1fr;
       }
+
+
+      .pricing-grid
+      .price-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+
+      .flow {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
 
       .delivery {
         grid-template-columns: 1fr;
       }
 
-      .delivery-icon {
-        width: 70px;
-        height: 70px;
+
+      .management-card {
+        padding: 40px;
+      }
+
+
+      .support-strip {
+        align-items: flex-start;
       }
     }
 
-    /* MOBILE */
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 650px) {
 
       .container {
-        width: min(calc(100% - 28px), var(--max));
+        width:
+          min(
+            calc(100% - 28px),
+            var(--max)
+          );
       }
+
 
       section {
         padding: 85px 0;
       }
 
+
       .nav-wrap {
         top: 9px;
       }
 
+
       nav {
-        width: calc(100% - 18px);
+        width:
+          calc(100% - 18px);
+
         height: 59px;
       }
+
 
       .nav-links {
         display: none;
       }
 
+
       .nav-cta {
         padding: 10px 13px;
+
         font-size: 11px;
       }
+
 
       .logo {
         font-size: 17px;
       }
+
 
       .logo-mark {
         width: 30px;
         height: 30px;
       }
 
+
       .hero {
         padding-top: 125px;
       }
 
+
       h1 {
-        font-size: clamp(53px, 16vw, 76px);
+        font-size:
+          clamp(
+            53px,
+            16vw,
+            76px
+          );
       }
+
 
       .hero-text {
         font-size: 15px;
       }
 
+
       .buttons {
         flex-direction: column;
       }
+
 
       .button {
         width: 100%;
       }
 
+
       .hero-points {
         gap: 18px;
       }
+
 
       .hero-card {
         height: 440px;
       }
 
+
       .categories,
-      .ecosystem-grid {
+      .ecosystem-grid,
+      .pricing-grid {
         grid-template-columns: 1fr;
       }
+
+
+      .pricing-grid
+      .price-card:last-child {
+        grid-column: auto;
+      }
+
 
       .category {
         min-height: 210px;
       }
 
+
       .category h3 {
         margin-top: 48px;
       }
 
+
       .eco-card {
         min-height: 290px;
+
         padding: 27px;
       }
+
 
       .payment-info {
         padding: 30px 23px;
       }
 
+
       .payment-image {
         min-height: 380px;
       }
+
 
       .delivery {
         padding: 28px 23px;
       }
 
+
+      .delivery-icon {
+        width: 70px;
+        height: 70px;
+
+        font-size: 30px;
+      }
+
+
       .flow {
         grid-template-columns: 1fr;
       }
+
 
       .flow-step {
         min-height: 150px;
       }
 
+
+      .management-card {
+        padding: 30px 22px;
+
+        border-radius: 25px;
+      }
+
+
+      .management-list {
+        grid-template-columns: 1fr;
+      }
+
+
+      .dashboard {
+        padding: 18px;
+      }
+
+
+      .support-strip {
+        flex-direction: column;
+
+        padding: 28px 22px;
+
+        align-items: stretch;
+      }
+
+
+      .support-price {
+        text-align: left;
+      }
+
+
       .cta {
         padding: 65px 20px;
       }
 
+
       .telegram {
         width: 100%;
-        justify-content: center;
       }
+
 
       .footer {
         flex-direction: column;
       }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- NAV -->
+
+  <!-- =========================
+       NAV
+  ========================= -->
 
   <div class="nav-wrap">
+
     <nav>
 
       <a href="#" class="logo">
-        <span class="logo-mark">S</span>
+
+        <span class="logo-mark">
+          S
+        </span>
+
         SchwarzPay
+
       </a>
 
+
       <div class="nav-links">
-        <a href="#для-кого">Для кого</a>
-        <a href="#возможности">Возможности</a>
-        <a href="#оплата">Оплата</a>
+
+        <a href="#для-кого">
+          Для кого
+        </a>
+
+        <a href="#возможности">
+          Возможности
+        </a>
+
+        <a href="#оплата">
+          Оплата
+        </a>
+
+        <a href="#цены">
+          Цены
+        </a>
+
       </div>
+
 
       <a
         href="https://t.me/Duf7484"
@@ -1123,12 +2116,17 @@
       </a>
 
     </nav>
+
   </div>
+
 
 
   <main>
 
-    <!-- HERO -->
+
+    <!-- =========================
+         HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -1136,23 +2134,38 @@
 
         <div class="hero-grid">
 
+
           <div class="reveal">
 
             <div class="eyebrow">
+
               <span class="dot"></span>
+
               Сайты • Telegram • Оплата
+
             </div>
 
+
             <h1>
+
               Продавай.<br>
-              <span>Будь онлайн.</span>
+
+              <span>
+                Будь онлайн.
+              </span>
+
             </h1>
 
+
             <p class="hero-text">
-              SchwarzPay помогает показать твои товары и услуги
-              в интернете, создать собственный сайт, подключить
-              Telegram и сделать удобный путь от клиента до заказа.
+
+              SchwarzPay помогает показать твои товары
+              и услуги в интернете, создать собственный сайт,
+              подключить Telegram и сделать удобный путь
+              от клиента до заказа.
+
             </p>
+
 
             <div class="buttons">
 
@@ -1162,8 +2175,9 @@
                 rel="noopener"
                 class="button button-primary"
               >
-                ✈️ Обсудить проект →
+                Обсудить проект →
               </a>
+
 
               <a
                 href="#возможности"
@@ -1174,26 +2188,50 @@
 
             </div>
 
+
             <div class="hero-points">
 
               <div class="hero-point">
-                <strong>🌐</strong>
+
+                <strong>
+                  🌐
+                </strong>
+
                 Сайт
+
               </div>
 
+
               <div class="hero-point">
-                <strong>✈️</strong>
+
+                <strong>
+                  ✈️
+                </strong>
+
                 Telegram
+
               </div>
 
+
               <div class="hero-point">
-                <strong>💳</strong>
+
+                <strong>
+                  💳
+                </strong>
+
                 Онлайн
+
               </div>
 
+
               <div class="hero-point">
-                <strong>💵</strong>
+
+                <strong>
+                  💵
+                </strong>
+
                 Наличные
+
               </div>
 
             </div>
@@ -1201,24 +2239,28 @@
           </div>
 
 
+
           <div class="hero-card reveal">
 
             <img
               src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85"
-              alt="Работа с современным сайтом"
+              alt="Современный цифровой проект"
               loading="eager"
             >
+
 
             <div class="visual-caption">
 
               <small>
-                SchwarzPay
+                SCHWARZPAY
               </small>
+
 
               <h2>
                 Твой товар или услуга —
                 в цифровом пространстве.
               </h2>
+
 
               <p>
                 Сайт + Telegram + удобный путь к заказу.
@@ -1235,11 +2277,15 @@
     </section>
 
 
-    <!-- FOR WHOM -->
+
+    <!-- =========================
+         ДЛЯ КОГО
+    ========================= -->
 
     <section id="для-кого">
 
       <div class="container">
+
 
         <div class="reveal">
 
@@ -1247,10 +2293,12 @@
             Для кого
           </div>
 
+
           <h2 class="section-title">
             Есть что предложить?
             Покажи это онлайн.
           </h2>
+
 
           <p class="section-text">
             SchwarzPay подходит для разных товаров,
@@ -1261,77 +2309,121 @@
         </div>
 
 
+
         <div class="categories">
 
-          <article class="category reveal">
-            <div class="category-icon">🛋️</div>
 
-            <h3>Мебель</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              🛋️
+            </div>
+
+            <h3>
+              Мебель
+            </h3>
 
             <p>
               Каталог, фотографии, описание,
               цены и связь с продавцом.
             </p>
+
           </article>
 
 
-          <article class="category reveal">
-            <div class="category-icon">📱</div>
 
-            <h3>Техника</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              📱
+            </div>
+
+            <h3>
+              Техника
+            </h3>
 
             <p>
               Покажи товары и сделай
               удобный путь для заказа.
             </p>
+
           </article>
 
 
-          <article class="category reveal">
-            <div class="category-icon">🚚</div>
 
-            <h3>Перевозки</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              🚚
+            </div>
+
+            <h3>
+              Перевозки
+            </h3>
 
             <p>
               Украина ↔ Германия,
               маршруты, информация и заявки.
             </p>
+
           </article>
 
 
-          <article class="category reveal">
-            <div class="category-icon">🔧</div>
 
-            <h3>Услуги</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              🔧
+            </div>
+
+            <h3>
+              Услуги
+            </h3>
 
             <p>
               Расскажи, что ты делаешь,
               и дай клиенту простой способ связаться.
             </p>
+
           </article>
 
 
-          <article class="category reveal">
-            <div class="category-icon">📦</div>
 
-            <h3>Товары</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              📦
+            </div>
+
+            <h3>
+              Товары
+            </h3>
 
             <p>
               Онлайн-витрина для того,
               что ты продаёшь.
             </p>
+
           </article>
 
 
-          <article class="category reveal">
-            <div class="category-icon">🚀</div>
 
-            <h3>Свой проект</h3>
+          <article class="category reveal">
+
+            <div class="category-icon">
+              🚀
+            </div>
+
+            <h3>
+              Свой проект
+            </h3>
 
             <p>
               Если есть идея —
-              можно создать под неё отдельную цифровую систему.
+              можно создать под неё отдельную
+              цифровую систему.
             </p>
+
           </article>
 
         </div>
@@ -1341,7 +2433,10 @@
     </section>
 
 
-    <!-- ECOSYSTEM -->
+
+    <!-- =========================
+         ВОЗМОЖНОСТИ
+    ========================= -->
 
     <section
       class="ecosystem"
@@ -1350,15 +2445,18 @@
 
       <div class="container">
 
+
         <div class="reveal">
 
           <div class="section-label">
             Цифровая экосистема
           </div>
 
+
           <h2 class="section-title">
             Больше, чем просто сайт.
           </h2>
+
 
           <p class="section-text">
             Объедини сайт, Telegram и способы связи
@@ -1368,7 +2466,9 @@
         </div>
 
 
+
         <div class="ecosystem-grid">
+
 
           <article class="eco-card reveal">
 
@@ -1376,9 +2476,11 @@
               01 / САЙТ
             </div>
 
+
             <h3>
               Твоя собственная витрина.
             </h3>
+
 
             <p>
               Показывай товары, услуги, фотографии,
@@ -1386,13 +2488,25 @@
               в одном месте.
             </p>
 
+
             <div class="eco-tags">
-              <span class="tag">📱 Mobile</span>
-              <span class="tag">🖥️ PC</span>
-              <span class="tag">🌐 Online</span>
+
+              <span class="tag">
+                📱 Mobile
+              </span>
+
+              <span class="tag">
+                🖥️ PC
+              </span>
+
+              <span class="tag">
+                🌐 Online
+              </span>
+
             </div>
 
           </article>
+
 
 
           <article class="eco-card reveal">
@@ -1401,9 +2515,11 @@
               02 / TELEGRAM
             </div>
 
+
             <h3>
               Канал + бот.
             </h3>
+
 
             <p>
               Подключай Telegram-канал для публикаций
@@ -1411,13 +2527,25 @@
               каталога или автоматизации.
             </p>
 
+
             <div class="eco-tags">
-              <span class="tag">✈️ Канал</span>
-              <span class="tag">🤖 Бот</span>
-              <span class="tag">⚡ Автоматизация</span>
+
+              <span class="tag">
+                ✈️ Канал
+              </span>
+
+              <span class="tag">
+                🤖 Бот
+              </span>
+
+              <span class="tag">
+                ⚡ Автоматизация
+              </span>
+
             </div>
 
           </article>
+
 
 
           <article class="eco-card reveal">
@@ -1426,9 +2554,11 @@
               03 / ЗАКАЗЫ
             </div>
 
+
             <h3>
               От просмотра до заявки.
             </h3>
+
 
             <p>
               Клиент может посмотреть предложение,
@@ -1436,13 +2566,25 @@
               заказа через удобный для проекта сценарий.
             </p>
 
+
             <div class="eco-tags">
-              <span class="tag">🛍️ Товары</span>
-              <span class="tag">🔧 Услуги</span>
-              <span class="tag">📩 Заявки</span>
+
+              <span class="tag">
+                🛍️ Товары
+              </span>
+
+              <span class="tag">
+                🔧 Услуги
+              </span>
+
+              <span class="tag">
+                📩 Заявки
+              </span>
+
             </div>
 
           </article>
+
 
 
           <article class="eco-card reveal">
@@ -1451,9 +2593,11 @@
               04 / ONLINE
             </div>
 
+
             <h3>
               Локально или через интернет.
             </h3>
+
 
             <p>
               Можно работать с клиентами рядом
@@ -1461,10 +2605,21 @@
               которые находятся в другом городе или стране.
             </p>
 
+
             <div class="eco-tags">
-              <span class="tag">📍 Локально</span>
-              <span class="tag">🌍 Онлайн</span>
-              <span class="tag">📦 Отправка</span>
+
+              <span class="tag">
+                📍 Локально
+              </span>
+
+              <span class="tag">
+                🌍 Онлайн
+              </span>
+
+              <span class="tag">
+                📦 Отправка
+              </span>
+
             </div>
 
           </article>
@@ -1476,11 +2631,15 @@
     </section>
 
 
-    <!-- PAYMENT -->
+
+    <!-- =========================
+         ОПЛАТА
+    ========================= -->
 
     <section id="оплата">
 
       <div class="container">
+
 
         <div class="reveal">
 
@@ -1488,13 +2647,19 @@
             Оплата
           </div>
 
+
           <h2 class="section-title">
+
             НАЛИЧНЫЕ.
+
             <br>
+
             <span style="color:var(--green)">
               ФИАТ + КРИПТА.
             </span>
+
           </h2>
+
 
           <p class="section-text">
             Для локальной продажи клиент может рассчитаться
@@ -1506,7 +2671,9 @@
         </div>
 
 
+
         <div class="payment reveal">
+
 
           <div class="payment-image">
 
@@ -1519,16 +2686,19 @@
           </div>
 
 
+
           <div class="payment-info">
 
             <div class="section-label">
               Два сценария
             </div>
 
+
             <h2>
               Локально
               <span>или онлайн.</span>
             </h2>
+
 
             <p>
               Выбирай подходящий сценарий для своего товара
@@ -1538,7 +2708,9 @@
             </p>
 
 
+
             <div class="payment-methods">
+
 
               <div class="payment-method">
 
@@ -1547,13 +2719,19 @@
                 </div>
 
                 <div>
-                  <strong>Наличные</strong>
+
+                  <strong>
+                    Наличные
+                  </strong>
+
                   <span>
                     При личной встрече с клиентом
                   </span>
+
                 </div>
 
               </div>
+
 
 
               <div class="payment-method">
@@ -1563,13 +2741,19 @@
                 </div>
 
                 <div>
-                  <strong>Фиат онлайн</strong>
+
+                  <strong>
+                    Фиат онлайн
+                  </strong>
+
                   <span>
                     Через доступные возможности провайдера
                   </span>
+
                 </div>
 
               </div>
+
 
 
               <div class="payment-method">
@@ -1579,13 +2763,19 @@
                 </div>
 
                 <div>
-                  <strong>Крипта онлайн</strong>
+
+                  <strong>
+                    Крипта онлайн
+                  </strong>
+
                   <span>
                     Через доступные криптовалютные возможности
                   </span>
+
                 </div>
 
               </div>
+
 
             </div>
 
@@ -1594,7 +2784,6 @@
         </div>
 
 
-        <!-- DELIVERY NOTE -->
 
         <div class="delivery reveal">
 
@@ -1604,6 +2793,7 @@
               📦 Продал — отправь.
             </h3>
 
+
             <p>
               SchwarzPay не занимается доставкой.
               Ты самостоятельно выбираешь подходящий способ
@@ -1612,6 +2802,7 @@
             </p>
 
           </div>
+
 
           <div class="delivery-icon">
             📦
@@ -1624,17 +2815,399 @@
     </section>
 
 
-    <!-- FLOW -->
+
+    <!-- =========================
+         ЦЕНЫ
+    ========================= -->
+
+    <section
+      class="pricing"
+      id="цены"
+    >
+
+      <div class="container">
+
+
+        <div class="reveal">
+
+          <div class="section-label">
+            Цены
+          </div>
+
+
+          <h2 class="section-title">
+            Понятно.
+            <br>
+            <span style="color:var(--green)">
+              Индивидуально.
+            </span>
+          </h2>
+
+
+          <p class="section-text">
+            Каждый проект отличается, поэтому стоимость
+            создания сайта или Telegram-бота рассчитывается
+            индивидуально.
+          </p>
+
+        </div>
+
+
+
+        <div class="pricing-grid">
+
+
+          <article class="price-card reveal">
+
+            <div class="price-number">
+              01
+            </div>
+
+
+            <h3>
+              🌐 Создание сайта
+            </h3>
+
+
+            <div class="individual-price">
+              Индивидуально
+            </div>
+
+
+            <p>
+              Стоимость зависит от сложности проекта,
+              количества страниц, функций и дизайна.
+            </p>
+
+
+            <div class="price-note">
+              Обсуждаем проект перед началом работы.
+            </div>
+
+          </article>
+
+
+
+          <article class="price-card reveal">
+
+            <div class="price-number">
+              02
+            </div>
+
+
+            <h3>
+              🤖 Telegram-бот
+            </h3>
+
+
+            <div class="individual-price">
+              Индивидуально
+            </div>
+
+
+            <p>
+              Стоимость зависит от функций,
+              автоматизации и сложности работы бота.
+            </p>
+
+
+            <div class="price-note">
+              Каждый бот создаётся под конкретную задачу.
+            </div>
+
+          </article>
+
+
+
+          <article class="price-card featured reveal">
+
+            <div class="popular">
+              ОНЛАЙН-ОПЛАТА
+            </div>
+
+
+            <div class="price-number">
+              03
+            </div>
+
+
+            <h3>
+              ⚡ Подключение оплаты
+            </h3>
+
+
+            <div class="big-price">
+              49 €
+            </div>
+
+
+            <p>
+              Единоразовая настройка и подключение
+              доступного платёжного решения через
+              нашего провайдера.
+            </p>
+
+
+            <div class="price-note">
+              Фиат + крипта онлайн.
+            </div>
+
+          </article>
+
+        </div>
+
+
+
+        <!-- SUPPORT -->
+
+        <div class="support-strip reveal">
+
+          <div>
+
+            <div class="support-label">
+              ПОДДЕРЖКА
+            </div>
+
+
+            <h3>
+              Нужно что-то изменить?
+              <span>Мы поможем.</span>
+            </h3>
+
+
+            <p>
+              Новая акция, изменение дизайна,
+              новый раздел, функция или другая доработка.
+            </p>
+
+          </div>
+
+
+          <div class="support-price">
+
+            <span>
+              Изменения и поддержка
+            </span>
+
+
+            <strong>
+              от 30 €
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         УПРАВЛЕНИЕ
+    ========================= -->
+
+    <section
+      class="management-section"
+      id="управление"
+    >
+
+      <div class="container">
+
+
+        <div class="management-card reveal">
+
+
+          <div class="management-content">
+
+            <div class="section-label">
+              После запуска
+            </div>
+
+
+            <h2>
+              Товары и цены —
+              <span>под твоим контролем.</span>
+            </h2>
+
+
+            <p>
+              После завершения разработки и финальной проверки
+              ты получаешь доступ к управлению основным
+              содержимым своего сайта.
+            </p>
+
+
+            <p>
+              Не нужно каждый раз обращаться к нам,
+              чтобы изменить цену или добавить новый товар.
+            </p>
+
+
+
+            <div class="management-list">
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Добавляй новые товары
+              </div>
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Изменяй цены
+              </div>
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Обновляй описания
+              </div>
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Добавляй фотографии
+              </div>
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Удаляй неактуальные товары
+              </div>
+
+
+              <div class="management-item">
+                <span class="check">✓</span>
+                Обновляй информацию
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- MOCKUP -->
+
+          <div class="management-visual">
+
+            <div class="dashboard">
+
+
+              <div class="dashboard-top">
+
+                <div>
+
+                  <small>
+                    МОЙ МАГАЗИН
+                  </small>
+
+
+                  <h3>
+                    Управление товарами
+                  </h3>
+
+                </div>
+
+
+                <div class="online-status">
+
+                  <span></span>
+
+                  Онлайн
+
+                </div>
+
+              </div>
+
+
+
+              <div class="product-preview">
+
+                <div class="product-image">
+                  📦
+                </div>
+
+
+                <div class="product-info">
+
+                  <strong>
+                    Новый товар
+                  </strong>
+
+                  <span>
+                    Добавлено сейчас
+                  </span>
+
+                </div>
+
+
+                <div class="product-price">
+                  99 €
+                </div>
+
+              </div>
+
+
+
+              <div class="dashboard-actions">
+
+                <button>
+                  + Добавить товар
+                </button>
+
+
+                <button>
+                  ✎ Изменить цену
+                </button>
+
+              </div>
+
+
+
+              <div class="dashboard-footer">
+
+                <span>
+                  Товаров
+                </span>
+
+
+                <strong>
+                  24
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================= -->
 
     <section>
 
       <div class="container">
 
+
         <div class="reveal">
 
           <div class="section-label">
-            Как это выглядит
+            Как это работает
           </div>
+
 
           <h2 class="section-title">
             От предложения
@@ -1644,7 +3217,9 @@
         </div>
 
 
+
         <div class="flow">
+
 
           <div class="flow-step reveal">
 
@@ -1652,13 +3227,16 @@
               01
             </div>
 
+
             <div class="flow-step-icon">
               🌐
             </div>
 
+
             <h3>
               Клиент находит
             </h3>
+
 
             <p>
               Через сайт или Telegram.
@@ -1667,19 +3245,23 @@
           </div>
 
 
+
           <div class="flow-step reveal">
 
             <div class="flow-step-number">
               02
             </div>
 
+
             <div class="flow-step-icon">
               🛍️
             </div>
 
+
             <h3>
               Выбирает
             </h3>
+
 
             <p>
               Товар или услугу.
@@ -1688,19 +3270,23 @@
           </div>
 
 
+
           <div class="flow-step reveal">
 
             <div class="flow-step-number">
               03
             </div>
 
+
             <div class="flow-step-icon">
               💬
             </div>
 
+
             <h3>
               Оформляет
             </h3>
+
 
             <p>
               Через удобный сценарий.
@@ -1709,19 +3295,23 @@
           </div>
 
 
+
           <div class="flow-step reveal">
 
             <div class="flow-step-number">
               04
             </div>
 
+
             <div class="flow-step-icon">
               💵
             </div>
 
+
             <h3>
               Оплачивает
             </h3>
+
 
             <p>
               Наличными или онлайн.
@@ -1730,19 +3320,23 @@
           </div>
 
 
+
           <div class="flow-step reveal">
 
             <div class="flow-step-number">
               05
             </div>
 
+
             <div class="flow-step-icon">
               🚀
             </div>
 
+
             <h3>
               Получает результат
             </h3>
+
 
             <p>
               Товар или услугу.
@@ -1757,11 +3351,15 @@
     </section>
 
 
-    <!-- CTA -->
+
+    <!-- =========================
+         CTA
+    ========================= -->
 
     <section class="cta-section">
 
       <div class="container">
+
 
         <div class="cta reveal">
 
@@ -1769,16 +3367,20 @@
             SchwarzPay
           </div>
 
+
           <h2>
-            Готов выйти<br>
+            Готов выйти
+            <br>
             <span>онлайн?</span>
           </h2>
+
 
           <p>
             Расскажи, что ты продаёшь или какую услугу
             предлагаешь. Обсудим сайт, Telegram,
             автоматизацию и подходящий сценарий оплаты.
           </p>
+
 
           <a
             href="https://t.me/Duf7484"
@@ -1798,7 +3400,10 @@
   </main>
 
 
-  <!-- FOOTER -->
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
 
   <footer>
 
@@ -1809,6 +3414,7 @@
         <span>
           © 2026 SchwarzPay
         </span>
+
 
         <span>
           Сайты • Telegram • Цифровые решения
@@ -1821,38 +3427,69 @@
   </footer>
 
 
+
   <script>
-    /* Scroll animations */
 
-    const elements = document.querySelectorAll(".reveal");
+    /* =========================
+       SCROLL REVEAL
+    ========================= */
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      },
-      {
-        threshold: 0.1
+    const elements =
+      document.querySelectorAll(".reveal");
+
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach(
+            (entry) => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "show"
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: .1
+        }
+      );
+
+
+    elements.forEach(
+      (element) => {
+
+        observer.observe(element);
+
       }
     );
 
-    elements.forEach((element) => {
-      observer.observe(element);
-    });
 
 
-    /* Navbar on scroll */
+    /* =========================
+       NAV ON SCROLL
+    ========================= */
 
-    const nav = document.querySelector("nav");
+    const nav =
+      document.querySelector("nav");
+
 
     window.addEventListener(
       "scroll",
       () => {
 
-        if (window.scrollY > 30) {
+        if (
+          window.scrollY > 30
+        ) {
 
           nav.style.background =
             "rgba(5,5,5,.94)";
@@ -1863,7 +3500,7 @@
         } else {
 
           nav.style.background =
-            "rgba(8,8,8,.76)";
+            "rgba(8,8,8,.78)";
 
           nav.style.borderColor =
             "rgba(255,255,255,.10)";
@@ -1871,8 +3508,11 @@
         }
 
       },
-      { passive: true }
+      {
+        passive: true
+      }
     );
+
   </script>
 
 </body>
