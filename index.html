@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SchwarzPay — Товары, услуги и онлайн</title>
+
+  <meta name="description"
+        content="SchwarzPay помогает продавать товары и услуги онлайн: сайты, Telegram, боты и современные способы оплаты.">
+
+  <meta name="theme-color" content="#050505">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0c0c0c;
+      --surface-2: #111111;
+      --text: #fff;
+      --muted: #99999f;
+      --line: rgba(255,255,255,.10);
+      --green: #c8ff5a;
+      --green-soft: rgba(200,255,90,.12);
+      --max: 1180px;
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Manrope", sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+      background-size: 70px 70px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 85%
+      );
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+
+      width: 700px;
+      height: 700px;
+
+      right: -350px;
+      top: -300px;
+
+      border-radius: 50%;
+
+      background: rgba(200,255,90,.08);
+
+      filter: blur(100px);
+
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: auto;
+    }
+
+    section {
+      padding: 120px 0;
+    }
+
+    /* NAV */
+
+    .nav-wrap {
+      position: fixed;
+      z-index: 1000;
+      top: 14px;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    nav {
+      width: min(calc(100% - 24px), 1080px);
+      height: 64px;
+
+      margin: auto;
+      padding: 0 10px 0 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border: 1px solid var(--line);
+      border-radius: 18px;
+
+      background: rgba(8,8,8,.76);
+      backdrop-filter: blur(22px);
+
+      pointer-events: auto;
+
+      transition: .3s ease;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-family: "Space Grotesk";
+      font-weight: 700;
+      font-size: 19px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background: var(--green);
+      color: #000;
+
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      padding: 11px 16px;
+
+      border-radius: 12px;
+
+      background: #fff;
+      color: #000;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      transition: .2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--green);
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      padding-top: 150px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      width: fit-content;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 8px 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.035);
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow: 0 0 15px var(--green);
+    }
+
+    h1 {
+      margin-top: 27px;
+
+      font-family: "Space Grotesk";
+
+      font-size: clamp(58px, 7vw, 96px);
+
+      line-height: .91;
+      letter-spacing: -.075em;
+
+      font-weight: 700;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    .hero-text {
+      max-width: 620px;
+
+      margin-top: 30px;
+
+      color: var(--muted);
+
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .buttons {
+      margin-top: 36px;
+
+      display: flex;
+      gap: 11px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      min-height: 55px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 22px;
+
+      border-radius: 15px;
+
+      font-size: 14px;
+      font-weight: 800;
+
+      transition: .25s;
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+    }
+
+    .button-primary {
+      background: var(--green);
+      color: #000;
+
+      box-shadow: 0 15px 45px rgba(200,255,90,.12);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+    }
+
+    .hero-points {
+      margin-top: 42px;
+
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-point {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero-point strong {
+      display: block;
+
+      color: #fff;
+
+      font-family: "Space Grotesk";
+      font-size: 21px;
+    }
+
+    /* HERO VISUAL */
+
+    .hero-card {
+      position: relative;
+
+      height: 610px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--line);
+      border-radius: 34px;
+
+      background: #111;
+    }
+
+    .hero-card img {
+      height: 100%;
+      object-fit: cover;
+
+      opacity: .68;
+
+      filter: grayscale(25%) contrast(1.08);
+    }
+
+    .hero-card::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 25%,
+          rgba(0,0,0,.92)
+        );
+    }
+
+    .visual-caption {
+      position: absolute;
+      z-index: 2;
+
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+    }
+
+    .visual-caption small {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .visual-caption h2 {
+      margin-top: 9px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 31px;
+      line-height: 1.05;
+
+      letter-spacing: -.05em;
+    }
+
+    .visual-caption p {
+      margin-top: 10px;
+
+      color: #aaa;
+
+      font-size: 13px;
+    }
+
+    /* SECTION */
+
+    .section-label {
+      color: var(--green);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 760px;
+
+      margin-top: 16px;
+
+      font-family: "Space Grotesk";
+
+      font-size: clamp(43px, 5vw, 70px);
+
+      line-height: .98;
+      letter-spacing: -.065em;
+    }
+
+    .section-text {
+      max-width: 650px;
+
+      margin-top: 22px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      margin-top: 58px;
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 15px;
+    }
+
+    .category {
+      min-height: 250px;
+
+      padding: 28px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background: rgba(255,255,255,.035);
+
+      transition: .3s;
+    }
+
+    .category:hover {
+      transform: translateY(-7px);
+
+      border-color: rgba(200,255,90,.3);
+
+      background: rgba(200,255,90,.045);
+    }
+
+    .category-icon {
+      font-size: 31px;
+    }
+
+    .category h3 {
+      margin-top: 65px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 23px;
+      letter-spacing: -.035em;
+    }
+
+    .category p {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* ECOSYSTEM */
+
+    .ecosystem {
+      background: var(--surface);
+
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ecosystem-grid {
+      margin-top: 60px;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+    }
+
+    .eco-card {
+      min-height: 330px;
+
+      padding: 35px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background: rgba(255,255,255,.025);
+    }
+
+    .eco-number {
+      color: #555;
+
+      font-family: "Space Grotesk";
+      font-size: 13px;
+    }
+
+    .eco-card h3 {
+      margin-top: 48px;
+
+      font-family: "Space Grotesk";
+
+      font-size: 31px;
+
+      letter-spacing: -.05em;
+    }
+
+    .eco-card p {
+      max-width: 480px;
+
+      margin-top: 13px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    .eco-tags {
+      margin-top: 25px;
+
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 9px 12px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.035);
+
+      font-size: 12px;
+    }
+
+    /* PAYMENT */
+
+    .payment {
+      margin-top: 60px;
+
+      display: grid;
+
+      grid-template-columns: .9fr 1.1fr;
+
+      gap: 18px;
+    }
+
+    .payment-image {
+      min-height: 560px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      border-radius: var(--radius);
+
+      border: 1px solid var(--line);
+    }
+
+    .payment-image img {
+      height: 100%;
+
+      object-fit: cover;
+
+      filter: grayscale(20%) contrast(1.08);
+    }
+
+    .payment-image::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,.8),
+          transparent 60%
+        );
+    }
+
+    .payment-info {
+      padding: 50px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(200,255,90,.11),
+          transparent 40%
+        ),
+        var(--surface-2);
+    }
+
+    .payment-info h2 {
+      margin-top: 20px;
+
+      font-family: "Space Grotesk";
+
+      font-size: clamp(44px, 5vw, 70px);
+
+      line-height: .95;
+      letter-spacing: -.07em;
+    }
+
+    .payment-info h2 span {
+      color: var(--green);
+    }
+
+    .payment-info > p {
+      margin-top: 24px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .payment-methods {
+      margin-top: 35px;
+
+      display: grid;
+
+      gap: 10px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      padding: 16px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background: rgba(255,255,255,.025);
+    }
+
+    .method-icon {
+      width: 39px;
+      height: 39px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 11px;
+
+      background: var(--green-soft);
+
+      font-size: 18px;
+    }
+
+    .payment-method strong {
+      display: block;
+
+      font-size: 14px;
+    }
+
+    .payment-method span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* DELIVERY */
+
+    .delivery {
+      margin-top: 70px;
+
+      padding: 42px;
+
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      gap: 35px;
+
+      align-items: center;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.06),
+          rgba(255,255,255,.02)
+        );
+    }
+
+    .delivery h3 {
+      font-family: "Space Grotesk";
+
+      font-size: 32px;
+
+      letter-spacing: -.05em;
+    }
+
+    .delivery p {
+      max-width: 680px;
+
+      margin-top: 10px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    .delivery-icon {
+      width: 90px;
+      height: 90px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 25px;
+
+      background: var(--green);
+
+      color: #000;
+
+      font-size: 40px;
+    }
+
+    /* FLOW */
+
+    .flow {
+      margin-top: 55px;
+
+      display: grid;
+
+      grid-template-columns: repeat(5, 1fr);
+
+      gap: 10px;
+    }
+
+    .flow-step {
+      position: relative;
+
+      padding: 23px;
+
+      min-height: 190px;
+
+      border: 1px solid var(--line);
+      border-radius: 20px;
+
+      background: rgba(255,255,255,.025);
+    }
+
+    .flow-step-number {
+      color: #555;
+
+      font-family: "Space Grotesk";
+      font-size: 12px;
+    }
+
+    .flow-step-icon {
+      margin-top: 35px;
+
+      font-size: 25px;
+    }
+
+    .flow-step h3 {
+      margin-top: 12px;
+
+      font-size: 15px;
+    }
+
+    .flow-step p {
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding-bottom: 90px;
+    }
+
+    .cta {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 90px 30px;
+
+      text-align: center;
+
+      border: 1px solid rgba(200,255,90,.25);
+
+      border-radius: 35px;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(200,255,90,.15),
+          transparent 48%
+        ),
+        #0b0b0b;
+    }
+
+    .cta h2 {
+      margin-top: 15px;
+
+      font-family: "Space Grotesk";
+
+      font-size: clamp(50px, 7vw, 90px);
+
+      line-height: .92;
+      letter-spacing: -.075em;
+    }
+
+    .cta h2 span {
+      color: var(--green);
+    }
+
+    .cta p {
+      max-width: 580px;
+
+      margin: 24px auto 0;
+
+      color: var(--muted);
+
+      font-size: 16px;
+    }
+
+    .telegram {
+      margin-top: 35px;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 17px 25px;
+
+      border-radius: 16px;
+
+      background: var(--green);
+      color: #000;
+
+      font-weight: 800;
+
+      transition: .25s;
+    }
+
+    .telegram:hover {
+      transform: translateY(-5px) scale(1.02);
+
+      box-shadow:
+        0 20px 60px rgba(200,255,90,.18);
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 30px 0 45px;
+
+      border-top: 1px solid var(--line);
+
+      color: #666;
+
+      font-size: 12px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    /* ANIMATION */
+
+    .reveal {
+      opacity: 0;
+
+      transform: translateY(28px);
+
+      transition:
+        opacity .75s ease,
+        transform .75s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* TABLET */
+
+    @media (max-width: 950px) {
+
+      .hero-grid,
+      .payment {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        height: 500px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .delivery {
+        grid-template-columns: 1fr;
+      }
+
+      .delivery-icon {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 650px) {
+
+      .container {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      section {
+        padding: 85px 0;
+      }
+
+      .nav-wrap {
+        top: 9px;
+      }
+
+      nav {
+        width: calc(100% - 18px);
+        height: 59px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-cta {
+        padding: 10px 13px;
+        font-size: 11px;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      .logo-mark {
+        width: 30px;
+        height: 30px;
+      }
+
+      .hero {
+        padding-top: 125px;
+      }
+
+      h1 {
+        font-size: clamp(53px, 16vw, 76px);
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .hero-points {
+        gap: 18px;
+      }
+
+      .hero-card {
+        height: 440px;
+      }
+
+      .categories,
+      .ecosystem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category {
+        min-height: 210px;
+      }
+
+      .category h3 {
+        margin-top: 48px;
+      }
+
+      .eco-card {
+        min-height: 290px;
+        padding: 27px;
+      }
+
+      .payment-info {
+        padding: 30px 23px;
+      }
+
+      .payment-image {
+        min-height: 380px;
+      }
+
+      .delivery {
+        padding: 28px 23px;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step {
+        min-height: 150px;
+      }
+
+      .cta {
+        padding: 65px 20px;
+      }
+
+      .telegram {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <div class="nav-wrap">
+    <nav>
+
+      <a href="#" class="logo">
+        <span class="logo-mark">S</span>
+        SchwarzPay
+      </a>
+
+      <div class="nav-links">
+        <a href="#для-кого">Для кого</a>
+        <a href="#возможности">Возможности</a>
+        <a href="#оплата">Оплата</a>
+      </div>
+
+      <a
+        href="https://t.me/Duf7484"
+        target="_blank"
+        rel="noopener"
+        class="nav-cta"
+      >
+        Написать →
+      </a>
+
+    </nav>
+  </div>
+
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-grid">
+
+          <div class="reveal">
+
+            <div class="eyebrow">
+              <span class="dot"></span>
+              Сайты • Telegram • Оплата
+            </div>
+
+            <h1>
+              Продавай.<br>
+              <span>Будь онлайн.</span>
+            </h1>
+
+            <p class="hero-text">
+              SchwarzPay помогает показать твои товары и услуги
+              в интернете, создать собственный сайт, подключить
+              Telegram и сделать удобный путь от клиента до заказа.
+            </p>
+
+            <div class="buttons">
+
+              <a
+                href="https://t.me/Duf7484"
+                target="_blank"
+                rel="noopener"
+                class="button button-primary"
+              >
+                ✈️ Обсудить проект →
+              </a>
+
+              <a
+                href="#возможности"
+                class="button button-secondary"
+              >
+                Смотреть возможности
+              </a>
+
+            </div>
+
+            <div class="hero-points">
+
+              <div class="hero-point">
+                <strong>🌐</strong>
+                Сайт
+              </div>
+
+              <div class="hero-point">
+                <strong>✈️</strong>
+                Telegram
+              </div>
+
+              <div class="hero-point">
+                <strong>💳</strong>
+                Онлайн
+              </div>
+
+              <div class="hero-point">
+                <strong>💵</strong>
+                Наличные
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="hero-card reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85"
+              alt="Работа с современным сайтом"
+              loading="eager"
+            >
+
+            <div class="visual-caption">
+
+              <small>
+                SchwarzPay
+              </small>
+
+              <h2>
+                Твой товар или услуга —
+                в цифровом пространстве.
+              </h2>
+
+              <p>
+                Сайт + Telegram + удобный путь к заказу.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOR WHOM -->
+
+    <section id="для-кого">
+
+      <div class="container">
+
+        <div class="reveal">
+
+          <div class="section-label">
+            Для кого
+          </div>
+
+          <h2 class="section-title">
+            Есть что предложить?
+            Покажи это онлайн.
+          </h2>
+
+          <p class="section-text">
+            SchwarzPay подходит для разных товаров,
+            услуг и проектов — от локальных предложений
+            до работы с клиентами через интернет.
+          </p>
+
+        </div>
+
+
+        <div class="categories">
+
+          <article class="category reveal">
+            <div class="category-icon">🛋️</div>
+
+            <h3>Мебель</h3>
+
+            <p>
+              Каталог, фотографии, описание,
+              цены и связь с продавцом.
+            </p>
+          </article>
+
+
+          <article class="category reveal">
+            <div class="category-icon">📱</div>
+
+            <h3>Техника</h3>
+
+            <p>
+              Покажи товары и сделай
+              удобный путь для заказа.
+            </p>
+          </article>
+
+
+          <article class="category reveal">
+            <div class="category-icon">🚚</div>
+
+            <h3>Перевозки</h3>
+
+            <p>
+              Украина ↔ Германия,
+              маршруты, информация и заявки.
+            </p>
+          </article>
+
+
+          <article class="category reveal">
+            <div class="category-icon">🔧</div>
+
+            <h3>Услуги</h3>
+
+            <p>
+              Расскажи, что ты делаешь,
+              и дай клиенту простой способ связаться.
+            </p>
+          </article>
+
+
+          <article class="category reveal">
+            <div class="category-icon">📦</div>
+
+            <h3>Товары</h3>
+
+            <p>
+              Онлайн-витрина для того,
+              что ты продаёшь.
+            </p>
+          </article>
+
+
+          <article class="category reveal">
+            <div class="category-icon">🚀</div>
+
+            <h3>Свой проект</h3>
+
+            <p>
+              Если есть идея —
+              можно создать под неё отдельную цифровую систему.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ECOSYSTEM -->
+
+    <section
+      class="ecosystem"
+      id="возможности"
+    >
+
+      <div class="container">
+
+        <div class="reveal">
+
+          <div class="section-label">
+            Цифровая экосистема
+          </div>
+
+          <h2 class="section-title">
+            Больше, чем просто сайт.
+          </h2>
+
+          <p class="section-text">
+            Объедини сайт, Telegram и способы связи
+            в один понятный путь для твоих клиентов.
+          </p>
+
+        </div>
+
+
+        <div class="ecosystem-grid">
+
+          <article class="eco-card reveal">
+
+            <div class="eco-number">
+              01 / САЙТ
+            </div>
+
+            <h3>
+              Твоя собственная витрина.
+            </h3>
+
+            <p>
+              Показывай товары, услуги, фотографии,
+              описание, цены, контакты и важную информацию
+              в одном месте.
+            </p>
+
+            <div class="eco-tags">
+              <span class="tag">📱 Mobile</span>
+              <span class="tag">🖥️ PC</span>
+              <span class="tag">🌐 Online</span>
+            </div>
+
+          </article>
+
+
+          <article class="eco-card reveal">
+
+            <div class="eco-number">
+              02 / TELEGRAM
+            </div>
+
+            <h3>
+              Канал + бот.
+            </h3>
+
+            <p>
+              Подключай Telegram-канал для публикаций
+              и Telegram-бота для заявок, вопросов,
+              каталога или автоматизации.
+            </p>
+
+            <div class="eco-tags">
+              <span class="tag">✈️ Канал</span>
+              <span class="tag">🤖 Бот</span>
+              <span class="tag">⚡ Автоматизация</span>
+            </div>
+
+          </article>
+
+
+          <article class="eco-card reveal">
+
+            <div class="eco-number">
+              03 / ЗАКАЗЫ
+            </div>
+
+            <h3>
+              От просмотра до заявки.
+            </h3>
+
+            <p>
+              Клиент может посмотреть предложение,
+              связаться с тобой и перейти к оформлению
+              заказа через удобный для проекта сценарий.
+            </p>
+
+            <div class="eco-tags">
+              <span class="tag">🛍️ Товары</span>
+              <span class="tag">🔧 Услуги</span>
+              <span class="tag">📩 Заявки</span>
+            </div>
+
+          </article>
+
+
+          <article class="eco-card reveal">
+
+            <div class="eco-number">
+              04 / ONLINE
+            </div>
+
+            <h3>
+              Локально или через интернет.
+            </h3>
+
+            <p>
+              Можно работать с клиентами рядом
+              или принимать обращения от людей,
+              которые находятся в другом городе или стране.
+            </p>
+
+            <div class="eco-tags">
+              <span class="tag">📍 Локально</span>
+              <span class="tag">🌍 Онлайн</span>
+              <span class="tag">📦 Отправка</span>
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PAYMENT -->
+
+    <section id="оплата">
+
+      <div class="container">
+
+        <div class="reveal">
+
+          <div class="section-label">
+            Оплата
+          </div>
+
+          <h2 class="section-title">
+            НАЛИЧНЫЕ.
+            <br>
+            <span style="color:var(--green)">
+              ФИАТ + КРИПТА.
+            </span>
+          </h2>
+
+          <p class="section-text">
+            Для локальной продажи клиент может рассчитаться
+            наличными при личной встрече. Для онлайн-заказов
+            можно использовать доступные платёжные возможности
+            нашего провайдера.
+          </p>
+
+        </div>
+
+
+        <div class="payment reveal">
+
+          <div class="payment-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85"
+              alt="Онлайн оплата"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="payment-info">
+
+            <div class="section-label">
+              Два сценария
+            </div>
+
+            <h2>
+              Локально
+              <span>или онлайн.</span>
+            </h2>
+
+            <p>
+              Выбирай подходящий сценарий для своего товара
+              или услуги. SchwarzPay предоставляет цифровую
+              инфраструктуру, а конкретные условия обработки
+              платежей определяются нашим платёжным провайдером.
+            </p>
+
+
+            <div class="payment-methods">
+
+              <div class="payment-method">
+
+                <div class="method-icon">
+                  💵
+                </div>
+
+                <div>
+                  <strong>Наличные</strong>
+                  <span>
+                    При личной встрече с клиентом
+                  </span>
+                </div>
+
+              </div>
+
+
+              <div class="payment-method">
+
+                <div class="method-icon">
+                  💳
+                </div>
+
+                <div>
+                  <strong>Фиат онлайн</strong>
+                  <span>
+                    Через доступные возможности провайдера
+                  </span>
+                </div>
+
+              </div>
+
+
+              <div class="payment-method">
+
+                <div class="method-icon">
+                  ₿
+                </div>
+
+                <div>
+                  <strong>Крипта онлайн</strong>
+                  <span>
+                    Через доступные криптовалютные возможности
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DELIVERY NOTE -->
+
+        <div class="delivery reveal">
+
+          <div>
+
+            <h3>
+              📦 Продал — отправь.
+            </h3>
+
+            <p>
+              SchwarzPay не занимается доставкой.
+              Ты самостоятельно выбираешь подходящий способ
+              передачи или отправки товара клиенту —
+              например, почтой, курьером или при личной встрече.
+            </p>
+
+          </div>
+
+          <div class="delivery-icon">
+            📦
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FLOW -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="reveal">
+
+          <div class="section-label">
+            Как это выглядит
+          </div>
+
+          <h2 class="section-title">
+            От предложения
+            до результата.
+          </h2>
+
+        </div>
+
+
+        <div class="flow">
+
+          <div class="flow-step reveal">
+
+            <div class="flow-step-number">
+              01
+            </div>
+
+            <div class="flow-step-icon">
+              🌐
+            </div>
+
+            <h3>
+              Клиент находит
+            </h3>
+
+            <p>
+              Через сайт или Telegram.
+            </p>
+
+          </div>
+
+
+          <div class="flow-step reveal">
+
+            <div class="flow-step-number">
+              02
+            </div>
+
+            <div class="flow-step-icon">
+              🛍️
+            </div>
+
+            <h3>
+              Выбирает
+            </h3>
+
+            <p>
+              Товар или услугу.
+            </p>
+
+          </div>
+
+
+          <div class="flow-step reveal">
+
+            <div class="flow-step-number">
+              03
+            </div>
+
+            <div class="flow-step-icon">
+              💬
+            </div>
+
+            <h3>
+              Оформляет
+            </h3>
+
+            <p>
+              Через удобный сценарий.
+            </p>
+
+          </div>
+
+
+          <div class="flow-step reveal">
+
+            <div class="flow-step-number">
+              04
+            </div>
+
+            <div class="flow-step-icon">
+              💵
+            </div>
+
+            <h3>
+              Оплачивает
+            </h3>
+
+            <p>
+              Наличными или онлайн.
+            </p>
+
+          </div>
+
+
+          <div class="flow-step reveal">
+
+            <div class="flow-step-number">
+              05
+            </div>
+
+            <div class="flow-step-icon">
+              🚀
+            </div>
+
+            <h3>
+              Получает результат
+            </h3>
+
+            <p>
+              Товар или услугу.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta-section">
+
+      <div class="container">
+
+        <div class="cta reveal">
+
+          <div class="section-label">
+            SchwarzPay
+          </div>
+
+          <h2>
+            Готов выйти<br>
+            <span>онлайн?</span>
+          </h2>
+
+          <p>
+            Расскажи, что ты продаёшь или какую услугу
+            предлагаешь. Обсудим сайт, Telegram,
+            автоматизацию и подходящий сценарий оплаты.
+          </p>
+
+          <a
+            href="https://t.me/Duf7484"
+            target="_blank"
+            rel="noopener"
+            class="telegram"
+          >
+            ✈️ Написать @Duf7484 →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer">
+
+        <span>
+          © 2026 SchwarzPay
+        </span>
+
+        <span>
+          Сайты • Telegram • Цифровые решения
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+    /* Scroll animations */
+
+    const elements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      {
+        threshold: 0.1
+      }
+    );
+
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
+
+
+    /* Navbar on scroll */
+
+    const nav = document.querySelector("nav");
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        if (window.scrollY > 30) {
+
+          nav.style.background =
+            "rgba(5,5,5,.94)";
+
+          nav.style.borderColor =
+            "rgba(255,255,255,.16)";
+
+        } else {
+
+          nav.style.background =
+            "rgba(8,8,8,.76)";
+
+          nav.style.borderColor =
+            "rgba(255,255,255,.10)";
+
+        }
+
+      },
+      { passive: true }
+    );
+  </script>
+
+</body>
+</html>
