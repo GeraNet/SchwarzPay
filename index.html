@@ -4,768 +4,1575 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SchwarzPay — сайты, автоматизация и онлайн-оплата</title>
-
-  <meta name="description"
-        content="SchwarzPay — создание сайтов, Telegram-ботов, автоматизация и подключение онлайн-оплаты Fiat + Crypto.">
+  <title>SchwarzPay — Продавай. Будь онлайн.</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --bg: #070707;
-      --bg2: #0d0d0d;
-      --card: rgba(255,255,255,.055);
-      --card-hover: rgba(255,255,255,.085);
-      --text: #f5f5f5;
-      --muted: #969696;
-      --line: rgba(255,255,255,.1);
-      --gold: #d8b36a;
-      --gold-light: #f0d38f;
-      --green: #62d99b;
-      --red: #ff7777;
-      --radius: 24px;
-      --max: 1180px;
+      --bg:#050505;
+      --bg-soft:#090909;
+      --card:#0d0d0d;
+      --text:#fff;
+      --muted:#8d8d95;
+      --muted-2:#66666d;
+      --accent:#c8ff5a;
+      --accent-dark:#a8dc40;
+      --line:rgba(255,255,255,.09);
+      --line-accent:rgba(200,255,90,.28);
+      --radius:28px;
+      --container:1240px;
+      --shadow:0 30px 100px rgba(0,0,0,.5);
     }
 
     * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior:smooth;
     }
 
     body {
       background:
-        radial-gradient(circle at 50% -10%, rgba(216,179,106,.13), transparent 35%),
+        radial-gradient(
+          circle at 75% 8%,
+          rgba(200,255,90,.06),
+          transparent 24%
+        ),
         var(--bg);
-      color: var(--text);
-      font-family: Inter, Arial, sans-serif;
-      overflow-x: hidden;
+      color:var(--text);
+      font-family:"Manrope",sans-serif;
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.035;
+      background-image:
+        linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);
+      background-size:70px 70px;
+      mask-image:linear-gradient(to bottom,black,transparent 80%);
+      z-index:9999;
     }
 
     a {
-      color: inherit;
-      text-decoration: none;
+      color:inherit;
+      text-decoration:none;
     }
 
     button {
-      font: inherit;
+      font-family:inherit;
     }
 
     .container {
-      width: min(var(--max), calc(100% - 40px));
-      margin: auto;
+      width:min(calc(100% - 40px),var(--container));
+      margin:auto;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 16px 0;
-      background: rgba(7,7,7,.72);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
+    /* NAV */
 
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      border-bottom:1px solid transparent;
+      transition:.3s ease;
     }
 
-    .logo {
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -.8px;
+    .nav.scrolled {
+      background:rgba(5,5,5,.75);
+      backdrop-filter:blur(18px);
+      border-color:var(--line);
     }
 
-    .logo span {
-      color: var(--gold);
+    .nav-inner {
+      height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
     }
 
-    nav {
-      display: flex;
-      gap: 28px;
-      color: #bdbdbd;
-      font-size: 14px;
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-family:"Space Grotesk";
+      font-weight:700;
+      font-size:20px;
+      letter-spacing:-1px;
     }
 
-    nav a {
-      transition: .25s;
+    .brand-mark {
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      background:var(--accent);
+      color:#050505;
+      display:grid;
+      place-items:center;
+      box-shadow:0 0 35px rgba(200,255,90,.2);
     }
 
-    nav a:hover {
-      color: white;
+    .brand-mark i {
+      width:19px;
     }
 
-    .nav-button {
-      padding: 11px 17px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      transition: .25s;
-      font-size: 14px;
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:28px;
     }
 
-    .nav-button:hover {
-      border-color: rgba(216,179,106,.55);
-      transform: translateY(-2px);
+    .nav-links a {
+      color:var(--muted);
+      font-size:13px;
+      transition:.25s;
     }
 
-    /* =========================
-       HERO
-    ========================= */
+    .nav-links a:hover {
+      color:white;
+    }
+
+    .nav-telegram {
+      padding:11px 17px;
+      border-radius:999px;
+      background:var(--accent);
+      color:#080808;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      font-size:13px;
+      transition:.25s;
+    }
+
+    .nav-telegram:hover {
+      transform:translateY(-2px);
+      box-shadow:0 12px 35px rgba(200,255,90,.22);
+    }
+
+    /* HERO */
 
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 150px 0 90px;
-      position: relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:145px 0 90px;
+      position:relative;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: rgba(216,179,106,.08);
-      filter: blur(100px);
-      border-radius: 50%;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(216,179,106,.25);
-      background: rgba(216,179,106,.07);
-      color: var(--gold-light);
-      padding: 9px 15px;
-      border-radius: 999px;
-      font-size: 13px;
-      margin-bottom: 25px;
-      animation: fadeUp .7s ease both;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px rgba(98,217,155,.8);
-    }
-
-    h1 {
-      font-size: clamp(46px, 8vw, 88px);
-      line-height: .96;
-      letter-spacing: -4px;
-      font-weight: 800;
-      animation: fadeUp .8s .08s ease both;
-    }
-
-    h1 span {
-      color: var(--gold);
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: 27px auto 0;
-      color: #aaa;
-      line-height: 1.7;
-      font-size: clamp(16px, 2vw, 19px);
-      animation: fadeUp .8s .16s ease both;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 35px;
-      animation: fadeUp .8s .24s ease both;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 0 24px;
-      border-radius: 15px;
-      border: 1px solid var(--line);
-      transition: .25s ease;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: #090909;
-      border-color: var(--gold);
-      box-shadow: 0 10px 35px rgba(216,179,106,.13);
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(216,179,106,.2);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,.04);
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,.08);
-      transform: translateY(-3px);
-    }
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    section {
-      padding: 100px 0;
-    }
-
-    .section-heading {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 55px;
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:70px;
     }
 
     .eyebrow {
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:9px 13px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:11px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      margin-bottom:25px;
     }
 
-    .section-heading h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      letter-spacing: -2px;
-      line-height: 1.05;
+    .status-dot {
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 15px var(--accent);
+      animation:pulse 2s infinite;
     }
 
-    .section-heading p {
-      color: var(--muted);
-      margin-top: 16px;
-      line-height: 1.65;
+    .hero h1 {
+      font-family:"Space Grotesk";
+      font-size:clamp(58px,8vw,112px);
+      line-height:.9;
+      letter-spacing:-6px;
+      max-width:760px;
     }
 
-    /* =========================
-       PAYMENT SWITCH
-    ========================= */
-
-    .switch-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 35px;
+    .hero h1 span {
+      color:var(--accent);
     }
 
-    .switch {
-      display: inline-flex;
-      padding: 5px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.035);
+    .hero-text {
+      max-width:570px;
+      margin-top:30px;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.8;
     }
 
-    .switch button {
-      border: 0;
-      color: #888;
-      background: transparent;
-      padding: 12px 20px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: .25s;
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:13px;
+      margin-top:38px;
     }
 
-    .switch button.active {
-      background: var(--gold);
-      color: #080808;
-      font-weight: 700;
+    .btn {
+      min-height:52px;
+      padding:0 21px;
+      border-radius:15px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-size:14px;
+      font-weight:800;
+      transition:.25s;
     }
 
-    .payment-panel {
-      display: none;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 22px;
+    .btn:hover {
+      transform:translateY(-3px);
     }
 
-    .payment-panel.active {
-      display: grid;
-      animation: fadeUp .4s ease both;
+    .btn-primary {
+      background:var(--accent);
+      color:#080808;
+      box-shadow:0 16px 45px rgba(200,255,90,.14);
     }
 
-    .payment-main,
-    .payment-side {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-      padding: 35px;
+    .btn-secondary {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.025);
     }
 
-    .payment-main h3,
-    .payment-side h3 {
-      font-size: 25px;
-      margin-bottom: 13px;
+    /* HERO VISUAL */
+
+    .hero-visual {
+      position:relative;
+      min-height:600px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .payment-main p,
-    .payment-side p {
-      color: var(--muted);
-      line-height: 1.65;
+    .hero-glow {
+      position:absolute;
+      width:430px;
+      height:430px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(200,255,90,.18),transparent 68%);
+      filter:blur(20px);
+      animation:floatGlow 7s ease-in-out infinite;
     }
 
-    .payment-features {
-      display: grid;
-      gap: 13px;
-      margin-top: 27px;
+    .main-panel {
+      width:100%;
+      max-width:510px;
+      min-height:470px;
+      padding:25px;
+      border:1px solid var(--line);
+      border-radius:34px;
+      background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+      backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transform:rotate(2deg);
     }
 
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #ddd;
+    .main-panel::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(130deg,transparent,rgba(200,255,90,.05),transparent);
+      transform:translateX(-100%);
+      animation:shine 6s infinite;
     }
 
-    .feature-icon {
-      width: 31px;
-      height: 31px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: rgba(216,179,106,.1);
-      color: var(--gold);
-      flex-shrink: 0;
+    .panel-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:35px;
+      position:relative;
+      z-index:1;
     }
 
-    .minus {
-      color: var(--red);
+    .panel-title {
+      font-family:"Space Grotesk";
+      font-weight:700;
+      font-size:16px;
     }
 
-    .plus {
-      color: var(--green);
+    .online-badge {
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:var(--accent);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
     }
 
-    /* =========================
-       SERVICES
-    ========================= */
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .online-badge span {
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 12px var(--accent);
     }
 
-    .card {
-      position: relative;
-      overflow: hidden;
-      min-width: 0;
-      padding: 30px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      transition: .3s ease;
+    .dashboard-box {
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      background:rgba(0,0,0,.25);
+      position:relative;
+      z-index:1;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -100%;
-      background: radial-gradient(circle, rgba(216,179,106,.12), transparent 40%);
-      opacity: 0;
-      transition: .3s;
-      pointer-events: none;
+    .dashboard-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 0;
+      border-bottom:1px solid var(--line);
     }
 
-    .card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(216,179,106,.25);
-      background: var(--card-hover);
+    .dashboard-row:last-child {
+      border-bottom:none;
     }
 
-    .card:hover::before {
-      opacity: 1;
+    .dashboard-product {
+      display:flex;
+      align-items:center;
+      gap:13px;
     }
 
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: rgba(216,179,106,.09);
-      border: 1px solid rgba(216,179,106,.15);
-      color: var(--gold);
-      font-size: 20px;
-      margin-bottom: 25px;
-      position: relative;
+    .product-icon {
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      background:rgba(200,255,90,.1);
+      display:grid;
+      place-items:center;
+      color:var(--accent);
     }
 
-    .card h3 {
-      font-size: 21px;
-      margin-bottom: 11px;
-      position: relative;
+    .product-name {
+      font-size:13px;
+      font-weight:700;
     }
 
-    .card p {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-      position: relative;
+    .product-status {
+      color:var(--muted);
+      font-size:10px;
+      margin-top:3px;
     }
 
-    .price {
-      margin-top: 28px;
-      position: relative;
-      min-width: 0;
+    .price-tag {
+      color:var(--accent);
+      font-weight:800;
     }
 
-    .price-label {
-      color: #777;
-      font-size: 12px;
-      margin-bottom: 5px;
+    .floating-card {
+      position:absolute;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(13,13,13,.82);
+      backdrop-filter:blur(20px);
+      border-radius:19px;
+      padding:15px 18px;
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
 
-    .price-value {
-      font-size: clamp(24px, 3vw, 32px);
-      line-height: 1.1;
-      font-weight: 800;
-      color: var(--gold-light);
-      max-width: 100%;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+    .floating-card.one {
+      left:-30px;
+      top:85px;
+      animation:floatingOne 5s ease-in-out infinite;
     }
 
-    .price-value.individual {
-      font-size: clamp(21px, 3vw, 29px);
+    .floating-card.two {
+      right:-20px;
+      bottom:65px;
+      animation:floatingTwo 6s ease-in-out infinite;
     }
 
-    /* =========================
-       SPECIAL PAYMENT CARD
-    ========================= */
-
-    .payment-price {
-      border-color: rgba(216,179,106,.35);
-      background:
-        radial-gradient(circle at 100% 0%, rgba(216,179,106,.12), transparent 40%),
-        var(--card);
+    .floating-icon {
+      width:39px;
+      height:39px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:var(--accent);
+      color:#050505;
     }
 
-    .payment-price .price-value {
-      font-size: 36px;
+    .floating-label {
+      font-size:10px;
+      color:var(--muted);
     }
 
-    .payment-list {
-      list-style: none;
-      display: grid;
-      gap: 11px;
-      margin-top: 23px;
-      color: #bbb;
-      font-size: 14px;
+    .floating-value {
+      margin-top:3px;
+      font-size:13px;
+      font-weight:800;
     }
 
-    .payment-list li::before {
-      content: "✓";
-      color: var(--green);
-      margin-right: 9px;
+    /* TRUST */
+
+    .trust-strip {
+      padding:25px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
-    /* =========================
-       STEPS
-    ========================= */
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+    .trust-grid {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
     }
 
-    .step {
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.03);
+    .trust-item {
+      padding:15px 30px;
+      border-right:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    .step-number {
-      font-size: 12px;
-      color: var(--gold);
-      letter-spacing: 2px;
-      font-weight: 700;
+    .trust-item:last-child {
+      border-right:none;
     }
 
-    .step h3 {
-      margin-top: 35px;
-      margin-bottom: 10px;
-      font-size: 18px;
+    .trust-item i {
+      width:19px;
+      color:var(--accent);
     }
 
-    .step p {
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
+    /* SECTIONS */
+
+    section {
+      padding:130px 0;
     }
 
-    /* =========================
-       TELEGRAM
-    ========================= */
-
-    .telegram-box {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 25px;
-      align-items: center;
-      padding: 42px;
-      border: 1px solid rgba(216,179,106,.22);
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 100% 50%, rgba(216,179,106,.1), transparent 35%),
-        rgba(255,255,255,.035);
+    .section-label {
+      color:var(--accent);
+      font-size:11px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:800;
+      margin-bottom:18px;
     }
 
-    .telegram-box h2 {
-      font-size: clamp(28px, 4vw, 42px);
-      letter-spacing: -1.5px;
+    .section-title {
+      font-family:"Space Grotesk";
+      font-size:clamp(40px,5vw,74px);
+      line-height:.98;
+      letter-spacing:-3px;
+      max-width:850px;
     }
 
-    .telegram-box p {
-      margin-top: 10px;
-      color: var(--muted);
-      line-height: 1.6;
+    .section-subtitle {
+      margin-top:23px;
+      max-width:650px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.8;
     }
 
-    /* =========================
-       FOOTER
-    ========================= */
+    /* BENTO */
+
+    .bento {
+      margin-top:60px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      grid-auto-rows:210px;
+      gap:14px;
+    }
+
+    .bento-card {
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+      padding:28px;
+      overflow:hidden;
+      transition:.35s;
+    }
+
+    .bento-card:hover {
+      transform:translateY(-6px);
+      border-color:var(--line-accent);
+      background:rgba(200,255,90,.035);
+    }
+
+    .bento-card.large {
+      grid-column:span 2;
+      grid-row:span 2;
+    }
+
+    .bento-card.wide {
+      grid-column:span 2;
+    }
+
+    .bento-icon {
+      width:48px;
+      height:48px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background:rgba(200,255,90,.1);
+      color:var(--accent);
+      margin-bottom:30px;
+    }
+
+    .bento-card h3 {
+      font-family:"Space Grotesk";
+      font-size:25px;
+      letter-spacing:-1px;
+    }
+
+    .bento-card p {
+      color:var(--muted);
+      margin-top:9px;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .bento-number {
+      position:absolute;
+      right:20px;
+      bottom:-22px;
+      font-family:"Space Grotesk";
+      font-size:150px;
+      font-weight:700;
+      color:rgba(255,255,255,.025);
+      line-height:1;
+    }
+
+    /* PAYMENT */
+
+    .payment-section {
+      background:linear-gradient(180deg,transparent,rgba(255,255,255,.015),transparent);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+
+    .payment-head {
+      text-align:center;
+    }
+
+    .payment-head .section-title {
+      margin:auto;
+    }
+
+    .payment-head .section-subtitle {
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .payment-toggle {
+      width:min(100%,570px);
+      margin:48px auto 55px;
+      padding:6px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(255,255,255,.025);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      position:relative;
+    }
+
+    .toggle-indicator {
+      position:absolute;
+      top:6px;
+      left:6px;
+      width:calc(50% - 6px);
+      height:calc(100% - 12px);
+      background:var(--accent);
+      border-radius:15px;
+      transition:.45s cubic-bezier(.2,.8,.2,1);
+      box-shadow:0 12px 35px rgba(200,255,90,.14);
+    }
+
+    .payment-toggle.schwarz .toggle-indicator {
+      transform:translateX(100%);
+    }
+
+    .toggle-btn {
+      position:relative;
+      z-index:2;
+      min-height:58px;
+      border:none;
+      background:transparent;
+      color:var(--muted);
+      border-radius:15px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:800;
+      transition:.3s;
+    }
+
+    .toggle-btn.active {
+      color:#050505;
+    }
+
+    .payment-content {
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:25px;
+    }
+
+    .payment-info,
+    .payment-flow {
+      min-height:520px;
+      border:1px solid var(--line);
+      border-radius:32px;
+      padding:40px;
+      background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    }
+
+    .payment-info {
+      position:relative;
+      overflow:hidden;
+    }
+
+    .payment-mode {
+      display:none;
+      animation:modeIn .45s ease forwards;
+    }
+
+    .payment-mode.active {
+      display:block;
+    }
+
+    .mode-top {
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-bottom:28px;
+    }
+
+    .mode-icon {
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:rgba(200,255,90,.1);
+      color:var(--accent);
+    }
+
+    .mode-top h3 {
+      font-family:"Space Grotesk";
+      font-size:29px;
+      letter-spacing:-1px;
+    }
+
+    .mode-description {
+      color:var(--muted);
+      line-height:1.75;
+      max-width:600px;
+      margin-bottom:32px;
+    }
+
+    .advantages-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:11px;
+    }
+
+    .advantage {
+      padding:15px;
+      border:1px solid var(--line);
+      border-radius:15px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      font-size:12px;
+      line-height:1.5;
+      background:rgba(255,255,255,.015);
+    }
+
+    .advantage i {
+      width:17px;
+      flex-shrink:0;
+      color:var(--accent);
+    }
+
+    .advantage.minus i {
+      color:#ff7070;
+    }
+
+    .payment-flow {
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .flow-bg {
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at center,rgba(200,255,90,.06),transparent 65%);
+    }
+
+    .flow {
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:13px;
+    }
+
+    .flow-node {
+      width:min(100%,310px);
+      min-height:72px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(5,5,5,.55);
+      display:flex;
+      align-items:center;
+      padding:15px;
+      gap:13px;
+    }
+
+    .flow-node.highlight {
+      border-color:rgba(200,255,90,.3);
+      background:rgba(200,255,90,.08);
+    }
+
+    .flow-node-icon {
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.06);
+    }
+
+    .flow-node.highlight .flow-node-icon {
+      background:var(--accent);
+      color:#050505;
+    }
+
+    .flow-node-title {
+      font-weight:800;
+      font-size:12px;
+    }
+
+    .flow-node-sub {
+      margin-top:3px;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .flow-line {
+      width:1px;
+      height:27px;
+      background:linear-gradient(var(--accent),transparent);
+      position:relative;
+    }
+
+    .flow-line::after {
+      content:"";
+      position:absolute;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      left:-3px;
+      animation:moveDot 1.8s infinite linear;
+    }
+
+    /* DELIVERY */
+
+    .delivery-grid {
+      margin-top:60px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .delivery-card {
+      padding:28px;
+      min-height:255px;
+      border:1px solid var(--line);
+      border-radius:25px;
+      background:rgba(255,255,255,.015);
+      transition:.3s;
+    }
+
+    .delivery-card:hover {
+      transform:translateY(-6px);
+      border-color:var(--line-accent);
+    }
+
+    .delivery-card i {
+      width:27px;
+      color:var(--accent);
+      margin-bottom:55px;
+    }
+
+    .delivery-card h3 {
+      font-family:"Space Grotesk";
+      font-size:20px;
+    }
+
+    .delivery-card p {
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.65;
+    }
+
+    /* TELEGRAM */
+
+    .telegram-system {
+      margin-top:60px;
+      border:1px solid var(--line);
+      border-radius:34px;
+      min-height:590px;
+      position:relative;
+      overflow:hidden;
+      padding:55px;
+      background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.008));
+    }
+
+    .system-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:50px;
+      height:100%;
+    }
+
+    .system-copy h3 {
+      font-family:"Space Grotesk";
+      font-size:clamp(36px,4vw,60px);
+      line-height:1;
+      letter-spacing:-3px;
+    }
+
+    .system-copy h3 span {
+      color:var(--accent);
+    }
+
+    .system-copy p {
+      color:var(--muted);
+      margin-top:25px;
+      line-height:1.8;
+      max-width:500px;
+    }
+
+    .system-list {
+      margin-top:30px;
+      display:grid;
+      gap:12px;
+    }
+
+    .system-list div {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#d8d8d8;
+      font-size:13px;
+    }
+
+    .system-list i {
+      width:17px;
+      color:var(--accent);
+    }
+
+    .system-diagram {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .system-node {
+      min-height:120px;
+      border:1px solid var(--line);
+      border-radius:23px;
+      background:rgba(5,5,5,.45);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-align:center;
+      transition:.3s;
+    }
+
+    .system-node:hover {
+      transform:scale(1.04);
+      border-color:var(--line-accent);
+    }
+
+    .system-node i {
+      width:28px;
+      color:var(--accent);
+    }
+
+    .system-node strong {
+      font-size:13px;
+    }
+
+    .system-node.final {
+      grid-column:span 2;
+      background:rgba(200,255,90,.08);
+      border-color:rgba(200,255,90,.22);
+    }
+
+    /* DASHBOARD */
+
+    .dashboard-section {
+      display:grid;
+      grid-template-columns:.8fr 1.2fr;
+      gap:70px;
+      align-items:center;
+    }
+
+    .dashboard-preview {
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:22px;
+      background:#090909;
+      box-shadow:var(--shadow);
+    }
+
+    .dash-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 7px 25px;
+    }
+
+    .dash-logo {
+      font-family:"Space Grotesk";
+      font-weight:700;
+    }
+
+    .dash-status {
+      color:var(--accent);
+      font-size:10px;
+      font-weight:800;
+    }
+
+    .dash-product {
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      margin-bottom:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:rgba(255,255,255,.02);
+    }
+
+    .dash-product-left {
+      display:flex;
+      align-items:center;
+      gap:13px;
+    }
+
+    .dash-product-left i {
+      width:20px;
+      color:var(--accent);
+    }
+
+    .dash-product strong {
+      font-size:13px;
+    }
+
+    .dash-product span {
+      display:block;
+      color:var(--muted);
+      font-size:10px;
+      margin-top:3px;
+    }
+
+    .dash-product-price {
+      color:var(--accent);
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .dash-add {
+      width:100%;
+      min-height:54px;
+      border:1px dashed rgba(200,255,90,.35);
+      border-radius:16px;
+      background:rgba(200,255,90,.04);
+      color:var(--accent);
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+    }
+
+    .dashboard-copy p {
+      margin-top:25px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    /* PRICING */
+
+    .pricing-grid {
+      margin-top:60px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .price-card {
+      min-height:470px;
+      padding:35px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:rgba(255,255,255,.018);
+      position:relative;
+      overflow:hidden;
+      transition:.35s;
+    }
+
+    .price-card:hover {
+      transform:translateY(-8px);
+    }
+
+    .price-card.featured {
+      border-color:rgba(200,255,90,.35);
+      background:linear-gradient(145deg,rgba(200,255,90,.1),rgba(255,255,255,.02));
+    }
+
+    .price-number {
+      color:rgba(255,255,255,.12);
+      font-family:"Space Grotesk";
+      font-size:12px;
+      letter-spacing:2px;
+    }
+
+    .price-card h3 {
+      margin-top:45px;
+      font-family:"Space Grotesk";
+      font-size:27px;
+      letter-spacing:-1px;
+    }
+
+    .big-price {
+      margin-top:18px;
+      font-family:"Space Grotesk";
+      font-size:clamp(42px,5vw,62px);
+      font-weight:700;
+      letter-spacing:-3px;
+      color:var(--accent);
+      overflow-wrap:anywhere;
+    }
+
+    .price-card p {
+      margin-top:18px;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:13px;
+    }
+
+    .price-note {
+      position:absolute;
+      left:35px;
+      right:35px;
+      bottom:32px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .price-note strong {
+      font-size:12px;
+    }
+
+    .price-note span {
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.55;
+    }
+
+    /* ABOUT */
+
+    .about-box {
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:clamp(30px,6vw,75px);
+      background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01));
+    }
+
+    .about-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:70px;
+    }
+
+    .about-box h2 {
+      font-family:"Space Grotesk";
+      font-size:clamp(38px,5vw,68px);
+      line-height:1;
+      letter-spacing:-3px;
+    }
+
+    .about-text {
+      color:var(--muted);
+      line-height:1.9;
+      font-size:15px;
+    }
+
+    .about-columns {
+      margin-top:55px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .about-list {
+      padding:25px;
+      border:1px solid var(--line);
+      border-radius:22px;
+    }
+
+    .about-list h3 {
+      font-size:13px;
+      color:var(--accent);
+      margin-bottom:20px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .about-list div {
+      padding:9px 0;
+      color:#d0d0d0;
+      font-size:12px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .about-list div:last-child {
+      border-bottom:none;
+    }
+
+    /* CTA */
+
+    .final-cta {
+      min-height:700px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .final-glow {
+      position:absolute;
+      width:700px;
+      height:700px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(200,255,90,.14),transparent 65%);
+      filter:blur(25px);
+      animation:floatGlow 8s ease-in-out infinite;
+    }
+
+    .final-content {
+      position:relative;
+      z-index:2;
+    }
+
+    .final-content h2 {
+      font-family:"Space Grotesk";
+      font-size:clamp(62px,10vw,150px);
+      line-height:.85;
+      letter-spacing:-7px;
+    }
+
+    .final-content h2 span {
+      color:var(--accent);
+    }
+
+    .final-content p {
+      color:var(--muted);
+      max-width:560px;
+      margin:30px auto;
+      line-height:1.8;
+    }
+
+    .telegram-big {
+      margin:auto;
+      width:fit-content;
+      padding:17px 25px;
+      border-radius:17px;
+      background:var(--accent);
+      color:#050505;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      transition:.3s;
+    }
+
+    .telegram-big:hover {
+      transform:translateY(-5px) scale(1.02);
+      box-shadow:0 25px 60px rgba(200,255,90,.2);
+    }
+
+    /* FOOTER */
 
     footer {
-      padding: 65px 0 30px;
-      border-top: 1px solid var(--line);
-      background: #050505;
+      border-top:1px solid var(--line);
+      padding:55px 0 30px;
     }
 
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      margin-bottom: 45px;
+    .footer-grid {
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:60px;
     }
 
-    .footer-brand {
-      max-width: 430px;
+    .footer-description {
+      color:var(--muted);
+      max-width:680px;
+      margin-top:20px;
+      font-size:12px;
+      line-height:1.8;
     }
 
-    .footer-brand .logo {
-      margin-bottom: 14px;
-      display: block;
+    .footer-note {
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.7;
     }
 
-    .footer-brand p {
-      color: #777;
-      line-height: 1.6;
-      font-size: 14px;
+    .footer-note strong {
+      color:white;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 22px;
-      color: #888;
-      font-size: 13px;
-      align-items: flex-start;
+    .footer-bottom {
+      margin-top:45px;
+      padding-top:25px;
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:var(--muted-2);
+      font-size:10px;
     }
 
-    .footer-links a:hover {
-      color: white;
-    }
-
-    .disclaimer {
-      border-top: 1px solid rgba(255,255,255,.06);
-      padding-top: 25px;
-      color: #666;
-      font-size: 11px;
-      line-height: 1.65;
-      max-width: 900px;
-    }
-
-    .copyright {
-      margin-top: 25px;
-      color: #4e4e4e;
-      font-size: 11px;
-    }
-
-    /* =========================
-       ANIMATIONS
-    ========================= */
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    /* REVEAL */
 
     .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-      transition: .7s ease;
+      opacity:0;
+      transform:translateY(35px);
+      transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);
     }
 
     .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity:1;
+      transform:translateY(0);
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    /* ANIMATIONS */
 
-    @media (max-width: 850px) {
+    @keyframes pulse {
+      0%,100% {opacity:1;transform:scale(1)}
+      50% {opacity:.5;transform:scale(.7)}
+    }
 
-      .container {
-        width: min(var(--max), calc(100% - 28px));
-      }
+    @keyframes floatGlow {
+      0%,100% {transform:translate(0,0) scale(1)}
+      50% {transform:translate(20px,-20px) scale(1.08)}
+    }
 
-      header {
-        padding: 12px 0;
-      }
+    @keyframes floatingOne {
+      0%,100% {transform:translateY(0) rotate(-2deg)}
+      50% {transform:translateY(-15px) rotate(1deg)}
+    }
 
-      nav {
-        display: none;
-      }
+    @keyframes floatingTwo {
+      0%,100% {transform:translateY(0) rotate(2deg)}
+      50% {transform:translateY(15px) rotate(-1deg)}
+    }
 
-      .nav-button {
-        padding: 9px 13px;
-        font-size: 12px;
+    @keyframes shine {
+      0%,65% {transform:translateX(-130%)}
+      100% {transform:translateX(130%)}
+    }
+
+    @keyframes moveDot {
+      0% {top:-4px;opacity:0}
+      30% {opacity:1}
+      100% {top:24px;opacity:0}
+    }
+
+    @keyframes modeIn {
+      from {opacity:0;transform:translateY(15px)}
+      to {opacity:1;transform:translateY(0)}
+    }
+
+    /* MOBILE */
+
+    @media (max-width:1000px) {
+
+      .hero-grid,
+      .payment-content,
+      .dashboard-section,
+      .about-grid,
+      .system-grid {
+        grid-template-columns:1fr;
       }
 
       .hero {
-        min-height: auto;
-        padding: 140px 0 75px;
+        padding-top:125px;
       }
 
-      h1 {
-        letter-spacing: -2.5px;
+      .hero-visual {
+        min-height:520px;
       }
 
-      .hero-buttons {
-        flex-direction: column;
+      .bento {
+        grid-template-columns:repeat(2,1fr);
       }
 
-      .btn {
-        width: 100%;
+      .delivery-grid {
+        grid-template-columns:repeat(2,1fr);
       }
 
-      section {
-        padding: 75px 0;
+      .pricing-grid {
+        grid-template-columns:1fr;
       }
 
-      .payment-panel.active {
-        grid-template-columns: 1fr;
-      }
-
-      .services {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .telegram-box {
-        grid-template-columns: 1fr;
-        padding: 30px;
-      }
-
-      .telegram-box .btn {
-        width: 100%;
-      }
-
-      .footer-top {
-        flex-direction: column;
-      }
-
-      .footer-links {
-        flex-wrap: wrap;
+      .footer-grid {
+        grid-template-columns:1fr;
       }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width:700px) {
 
-      .badge {
-        font-size: 11px;
+      .container {
+        width:min(calc(100% - 28px),var(--container));
       }
 
-      .hero p {
-        font-size: 15px;
+      section {
+        padding:85px 0;
       }
 
-      .payment-main,
-      .payment-side {
-        padding: 25px;
+      .nav-inner {
+        height:68px;
       }
 
-      .switch {
-        width: 100%;
+      .nav-links {
+        display:none;
       }
 
-      .switch button {
-        flex: 1;
-        padding: 11px 8px;
-        font-size: 12px;
+      .brand {
+        font-size:18px;
       }
 
-      .steps {
-        grid-template-columns: 1fr;
+      .hero {
+        min-height:auto;
+        padding:115px 0 70px;
       }
 
-      .card {
-        padding: 25px;
+      .hero h1 {
+        font-size:clamp(54px,17vw,82px);
+        letter-spacing:-4px;
       }
 
-      .price-value.individual {
-        font-size: 23px;
+      .hero-text {
+        font-size:15px;
+        line-height:1.7;
       }
 
-      .footer-links {
-        gap: 15px;
+      .hero-actions {
+        flex-direction:column;
+      }
+
+      .hero-actions .btn {
+        width:100%;
+      }
+
+      .hero-visual {
+        min-height:430px;
+        margin-top:25px;
+      }
+
+      .hero-glow {
+        width:280px;
+        height:280px;
+      }
+
+      .main-panel {
+        min-height:390px;
+        padding:18px;
+        border-radius:25px;
+        transform:none;
+      }
+
+      .floating-card.one {
+        left:-5px;
+        top:25px;
+      }
+
+      .floating-card.two {
+        right:-5px;
+        bottom:20px;
+      }
+
+      .trust-grid {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .trust-item {
+        padding:15px 10px;
+        font-size:10px;
+      }
+
+      .trust-item:nth-child(2) {
+        border-right:none;
+      }
+
+      .trust-item:nth-child(3),
+      .trust-item:nth-child(4) {
+        border-top:1px solid var(--line);
+      }
+
+      .bento {
+        grid-template-columns:1fr;
+        grid-auto-rows:auto;
+      }
+
+      .bento-card,
+      .bento-card.large,
+      .bento-card.wide {
+        grid-column:span 1;
+        grid-row:span 1;
+        min-height:220px;
+      }
+
+      .advantages-grid {
+        grid-template-columns:1fr;
+      }
+
+      .payment-toggle {
+        margin-top:35px;
+        margin-bottom:30px;
+      }
+
+      .payment-info,
+      .payment-flow {
+        min-height:auto;
+        padding:25px;
+        border-radius:25px;
+      }
+
+      .mode-top h3 {
+        font-size:25px;
+      }
+
+      .delivery-grid {
+        grid-template-columns:1fr;
+      }
+
+      .delivery-card {
+        min-height:210px;
+      }
+
+      .delivery-card i {
+        margin-bottom:35px;
+      }
+
+      .telegram-system {
+        padding:25px;
+        min-height:auto;
+        border-radius:25px;
+      }
+
+      .system-diagram {
+        margin-top:35px;
+      }
+
+      .dashboard-section {
+        gap:35px;
+      }
+
+      .about-columns {
+        grid-template-columns:1fr;
+      }
+
+      .price-card {
+        min-height:440px;
+        padding:28px;
+      }
+
+      .price-card h3 {
+        margin-top:35px;
+      }
+
+      .price-note {
+        left:28px;
+        right:28px;
+      }
+
+      .final-cta {
+        min-height:600px;
+      }
+
+      .final-content h2 {
+        letter-spacing:-5px;
+      }
+
+      .footer-bottom {
+        flex-direction:column;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
       }
     }
   </style>
@@ -773,75 +1580,198 @@
 
 <body>
 
-  <!-- HEADER -->
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-  <header>
-    <div class="container nav">
+<header class="nav" id="nav">
 
-      <a href="#" class="logo">
-        Schwarz<span>Pay</span>
-      </a>
+  <div class="container nav-inner">
 
-      <nav>
-        <a href="#services">Услуги</a>
-        <a href="#payments">Оплата</a>
-        <a href="#how">Как это работает</a>
-      </nav>
+    <a href="#" class="brand">
 
-      <a
-        class="nav-button"
-        href="https://t.me/Duf7484"
-        target="_blank"
-        rel="noopener"
-      >
-        Написать в Telegram
-      </a>
+      <div class="brand-mark">
+        <i data-lucide="zap"></i>
+      </div>
+
+      SchwarzPay
+
+    </a>
+
+    <nav class="nav-links">
+
+      <a href="#services">Возможности</a>
+      <a href="#payments">Оплата</a>
+      <a href="#telegram">Telegram</a>
+      <a href="#pricing">Цены</a>
+
+    </nav>
+
+    <a
+      href="https://t.me/Duf7484"
+      target="_blank"
+      class="nav-telegram"
+    >
+      <i data-lucide="send"></i>
+      Написать нам
+    </a>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<main>
+
+<section class="hero">
+
+  <div class="container hero-grid">
+
+    <div class="hero-copy reveal">
+
+      <div class="eyebrow">
+        <span class="status-dot"></span>
+        DIGITAL • PAYMENT • AUTOMATION
+      </div>
+
+      <h1>
+        Продавай.<br>
+        Будь <span>онлайн.</span>
+      </h1>
+
+      <p class="hero-text">
+        Создаём сайты, Telegram-ботов и системы оплаты
+        для товаров, услуг, перевозок и онлайн-проектов.
+        Подключаем удобные способы получения оплаты
+        и помогаем автоматизировать продажи.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          href="https://t.me/Duf7484"
+          target="_blank"
+          class="btn btn-primary"
+        >
+          <i data-lucide="send"></i>
+          Обсудить проект
+        </a>
+
+        <a
+          href="#services"
+          class="btn btn-secondary"
+        >
+          <i data-lucide="arrow-down"></i>
+          Посмотреть возможности
+        </a>
+
+      </div>
 
     </div>
-  </header>
 
 
-  <!-- HERO -->
+    <div class="hero-visual reveal">
 
-  <main>
+      <div class="hero-glow"></div>
 
-    <section class="hero">
+      <div class="main-panel">
 
-      <div class="container">
+        <div class="panel-top">
 
-        <div class="hero-content">
-
-          <div class="badge">
-            <span class="badge-dot"></span>
-            SchwarzPay — цифровая инфраструктура
+          <div class="panel-title">
+            SchwarzPay
           </div>
 
-          <h1>
-            Продавай.<br>
-            Принимай.<br>
-            <span>Автоматизируй.</span>
-          </h1>
+          <div class="online-badge">
+            <span></span>
+            ONLINE
+          </div>
 
-          <p>
-            Создаём сайты, Telegram-ботов и цифровые решения
-            для тех, кто продаёт товары или предоставляет услуги —
-            онлайн и офлайн.
-          </p>
+        </div>
 
-          <div class="hero-buttons">
+        <div class="dashboard-box">
 
-            <a
-              href="https://t.me/Duf7484"
-              target="_blank"
-              rel="noopener"
-              class="btn btn-primary"
-            >
-              Обсудить проект
-            </a>
+          <div class="dashboard-row">
 
-            <a href="#services" class="btn btn-secondary">
-              Посмотреть услуги
-            </a>
+            <div class="dashboard-product">
+
+              <div class="product-icon">
+                <i data-lucide="shopping-bag"></i>
+              </div>
+
+              <div>
+                <div class="product-name">
+                  Товар
+                </div>
+
+                <div class="product-status">
+                  Готов к продаже
+                </div>
+              </div>
+
+            </div>
+
+            <div class="price-tag">
+              49 €
+            </div>
+
+          </div>
+
+
+          <div class="dashboard-row">
+
+            <div class="dashboard-product">
+
+              <div class="product-icon">
+                <i data-lucide="bot"></i>
+              </div>
+
+              <div>
+                <div class="product-name">
+                  Telegram-бот
+                </div>
+
+                <div class="product-status">
+                  Автоматизация
+                </div>
+              </div>
+
+            </div>
+
+            <div class="price-tag">
+              ONLINE
+            </div>
+
+          </div>
+
+
+          <div class="dashboard-row">
+
+            <div class="dashboard-product">
+
+              <div class="product-icon">
+                <i data-lucide="wallet"></i>
+              </div>
+
+              <div>
+                <div class="product-name">
+                  Оплата
+                </div>
+
+                <div class="product-status">
+                  Fiat + Crypto
+                </div>
+              </div>
+
+            </div>
+
+            <div class="price-tag">
+              READY
+            </div>
 
           </div>
 
@@ -849,272 +1779,352 @@
 
       </div>
 
-    </section>
 
+      <div class="floating-card one">
 
-    <!-- SERVICES -->
-
-    <section id="services">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-          <div class="eyebrow">Что мы делаем</div>
-
-          <h2>
-            Всё необходимое<br>
-            в одном месте
-          </h2>
-
-          <p>
-            От простой страницы до полноценной системы
-            с сайтом, Telegram и автоматизацией.
-          </p>
+        <div class="floating-icon">
+          <i data-lucide="banknote"></i>
         </div>
 
+        <div>
+          <div class="floating-label">
+            Наличные
+          </div>
 
-        <div class="services">
-
-          <article class="card reveal">
-
-            <div class="card-icon">⌁</div>
-
-            <h3>Создание сайта</h3>
-
-            <p>
-              Современный адаптивный сайт под товар,
-              услугу, проект или личное дело.
-            </p>
-
-            <div class="price">
-              <div class="price-label">Стоимость</div>
-              <div class="price-value individual">
-                Индивидуально
-              </div>
-            </div>
-
-          </article>
-
-
-          <article class="card reveal">
-
-            <div class="card-icon">◎</div>
-
-            <h3>Telegram-бот</h3>
-
-            <p>
-              Боты для заказов, заявок, уведомлений,
-              автоматизации и общения с клиентами.
-            </p>
-
-            <div class="price">
-              <div class="price-label">Стоимость</div>
-              <div class="price-value individual">
-                Индивидуально
-              </div>
-            </div>
-
-          </article>
-
-
-          <article class="card payment-price reveal">
-
-            <div class="card-icon">₿</div>
-
-            <h3>Онлайн-оплата</h3>
-
-            <p>
-              Подключение онлайн-оплаты Fiat + Crypto
-              через нашего провайдера.
-            </p>
-
-            <ul class="payment-list">
-              <li>Fiat → Crypto</li>
-              <li>USDC-выплаты</li>
-              <li>Payment Links</li>
-              <li>Интеграция с сайтом</li>
-            </ul>
-
-            <div class="price">
-              <div class="price-label">Единоразовое подключение</div>
-              <div class="price-value">
-                49 €
-              </div>
-            </div>
-
-          </article>
-
-
-          <article class="card reveal">
-
-            <div class="card-icon">↻</div>
-
-            <h3>Обслуживание</h3>
-
-            <p>
-              Помощь с изменениями сайта, обновлениями,
-              акциями и дополнительными настройками.
-            </p>
-
-            <div class="price">
-              <div class="price-label">Ориентировочно</div>
-              <div class="price-value">
-                30–60 €
-              </div>
-            </div>
-
-          </article>
-
-
-          <article class="card reveal">
-
-            <div class="card-icon">↗</div>
-
-            <h3>Telegram-интеграция</h3>
-
-            <p>
-              Связываем сайт, Telegram-ботов и каналы
-              в единую систему.
-            </p>
-
-            <div class="price">
-              <div class="price-label">Стоимость</div>
-              <div class="price-value individual">
-                Индивидуально
-              </div>
-            </div>
-
-          </article>
-
-
-          <article class="card reveal">
-
-            <div class="card-icon">+</div>
-
-            <h3>Автоматизация</h3>
-
-            <p>
-              Убираем ручную работу и создаём удобный
-              процесс обработки заказов и заявок.
-            </p>
-
-            <div class="price">
-              <div class="price-label">Стоимость</div>
-              <div class="price-value individual">
-                Индивидуально
-              </div>
-            </div>
-
-          </article>
-
+          <div class="floating-value">
+            Локально
+          </div>
         </div>
 
       </div>
 
-    </section>
 
+      <div class="floating-card two">
 
-    <!-- PAYMENT -->
-
-    <section id="payments">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <div class="eyebrow">Оплата</div>
-
-          <h2>
-            Наличные или<br>
-            SchwarzPay?
-          </h2>
-
-          <p>
-            Выбирай подходящий формат получения оплаты
-            в зависимости от того, как ты работаешь с клиентами.
-          </p>
-
+        <div class="floating-icon">
+          <i data-lucide="coins"></i>
         </div>
 
-
-        <div class="switch-wrap">
-
-          <div class="switch">
-
-            <button
-              class="active"
-              data-panel="cash"
-            >
-              Наличные
-            </button>
-
-            <button
-              data-panel="schwarz"
-            >
-              SchwarzPay
-            </button>
-
+        <div>
+          <div class="floating-label">
+            Online
           </div>
 
+          <div class="floating-value">
+            Fiat + Crypto
+          </div>
         </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TRUST
+========================= -->
+
+<div class="trust-strip">
+
+  <div class="container trust-grid">
+
+    <div class="trust-item">
+      <i data-lucide="globe-2"></i>
+      Сайт под ключ
+    </div>
+
+    <div class="trust-item">
+      <i data-lucide="bot"></i>
+      Telegram-боты
+    </div>
+
+    <div class="trust-item">
+      <i data-lucide="wallet"></i>
+      Fiat + Crypto
+    </div>
+
+    <div class="trust-item">
+      <i data-lucide="zap"></i>
+      Автоматизация
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section id="services">
+
+  <div class="container">
+
+    <div class="section-label reveal">
+      01 / Возможности
+    </div>
+
+    <h2 class="section-title reveal">
+      Всё необходимое,
+      чтобы выйти в онлайн.
+    </h2>
+
+    <p class="section-subtitle reveal">
+      Неважно, продаёшь ты мебель, технику, оказываешь услуги,
+      занимаешься перевозками Украина — Германия или работаешь
+      полностью онлайн. Соберём цифровую систему под твою задачу.
+    </p>
+
+
+    <div class="bento">
+
+      <div class="bento-card large reveal">
+
+        <div class="bento-icon">
+          <i data-lucide="layout-dashboard"></i>
+        </div>
+
+        <h3>
+          Современный сайт
+        </h3>
+
+        <p>
+          Каталог товаров, услуги, цены, заявки,
+          контакты и удобная мобильная версия.
+          Всё в одном месте.
+        </p>
+
+        <div class="bento-number">
+          01
+        </div>
+
+      </div>
+
+
+      <div class="bento-card reveal">
+
+        <div class="bento-icon">
+          <i data-lucide="bot"></i>
+        </div>
+
+        <h3>
+          Telegram
+        </h3>
+
+        <p>
+          Боты для заказов, заявок,
+          уведомлений и автоматизации.
+        </p>
+
+        <div class="bento-number">
+          02
+        </div>
+
+      </div>
+
+
+      <div class="bento-card reveal">
+
+        <div class="bento-icon">
+          <i data-lucide="credit-card"></i>
+        </div>
+
+        <h3>
+          Оплата
+        </h3>
+
+        <p>
+          Подключение онлайн-оплаты
+          через нашего партнёра.
+        </p>
+
+        <div class="bento-number">
+          03
+        </div>
+
+      </div>
+
+
+      <div class="bento-card wide reveal">
+
+        <div class="bento-icon">
+          <i data-lucide="radio"></i>
+        </div>
+
+        <h3>
+          Telegram-каналы
+        </h3>
+
+        <p>
+          Интеграция каналов, публикаций,
+          ботов и автоматических уведомлений
+          для развития проекта.
+        </p>
+
+        <div class="bento-number">
+          04
+        </div>
+
+      </div>
+
+
+      <div class="bento-card reveal">
+
+        <div class="bento-icon">
+          <i data-lucide="settings-2"></i>
+        </div>
+
+        <h3>
+          Автоматизация
+        </h3>
+
+        <p>
+          Убираем лишние ручные действия
+          из ежедневной работы.
+        </p>
+
+        <div class="bento-number">
+          05
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PAYMENT SWITCHER
+========================= -->
+
+<section class="payment-section" id="payments">
+
+  <div class="container">
+
+    <div class="payment-head">
+
+      <div class="section-label reveal">
+        02 / Получение оплаты
+      </div>
+
+      <h2 class="section-title reveal">
+        Выбирай способ,
+        который подходит тебе.
+      </h2>
+
+      <p class="section-subtitle reveal">
+        Получай деньги локально или принимай оплату онлайн.
+        Можно использовать разные варианты в зависимости
+        от товара, клиента и ситуации.
+      </p>
+
+    </div>
+
+
+    <div class="payment-toggle reveal" id="paymentToggle">
+
+      <div class="toggle-indicator"></div>
+
+      <button
+        class="toggle-btn active"
+        data-mode="cash"
+      >
+        <i data-lucide="banknote"></i>
+        Наличка
+      </button>
+
+      <button
+        class="toggle-btn"
+        data-mode="schwarz"
+      >
+        <i data-lucide="zap"></i>
+        SchwarzPay
+      </button>
+
+    </div>
+
+
+    <div class="payment-content">
+
+      <div class="payment-info">
 
 
         <!-- CASH -->
 
-        <div class="payment-panel active" id="cash">
+        <div
+          class="payment-mode active"
+          id="cashMode"
+        >
 
-          <div class="payment-main">
+          <div class="mode-top">
 
-            <h3>Наличные</h3>
-
-            <p>
-              Простой вариант для локальных продаж,
-              встреч и передачи товара лично.
-            </p>
-
-            <div class="payment-features">
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Оплата непосредственно при встрече
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Подходит для локальных продаж
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Не требует онлайн-интеграции
-              </div>
-
+            <div class="mode-icon">
+              <i data-lucide="banknote"></i>
             </div>
+
+            <h3>
+              Наличка
+            </h3>
 
           </div>
 
+          <p class="mode-description">
+            Подходит для локальных продаж и услуг,
+            когда клиент и продавец находятся рядом.
+            Получение наличных обычно требует личной
+            встречи или заранее согласованной передачи.
+          </p>
 
-          <div class="payment-side">
+          <div class="advantages-grid">
 
-            <h3>Есть и минусы</h3>
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Простая локальная оплата
+              </span>
+            </div>
 
-            <div class="payment-features">
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Не нужен онлайн-чекаут
+              </span>
+            </div>
 
-              <div class="feature">
-                <span class="feature-icon minus">−</span>
-                Нужна личная встреча
-              </div>
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Удобно для локальных заказов
+              </span>
+            </div>
 
-              <div class="feature">
-                <span class="feature-icon minus">−</span>
-                Сложнее работать с клиентами из других городов
-              </div>
+            <div class="advantage minus">
+              <i data-lucide="minus"></i>
+              <span>
+                Обычно нужна встреча
+              </span>
+            </div>
 
-              <div class="feature">
-                <span class="feature-icon minus">−</span>
-                Нельзя полностью автоматизировать оплату
-              </div>
+            <div class="advantage minus">
+              <i data-lucide="minus"></i>
+              <span>
+                Не подходит для полностью онлайн-продаж
+              </span>
+            </div>
 
+            <div class="advantage minus">
+              <i data-lucide="minus"></i>
+              <span>
+                Передача товара требует отдельной организации
+              </span>
             </div>
 
           </div>
@@ -1122,73 +2132,74 @@
         </div>
 
 
-        <!-- SCHWARZ -->
+        <!-- SCHWARZPAY -->
 
-        <div class="payment-panel" id="schwarz">
+        <div
+          class="payment-mode"
+          id="schwarzMode"
+        >
 
-          <div class="payment-main">
+          <div class="mode-top">
 
-            <h3>SchwarzPay</h3>
+            <div class="mode-icon">
+              <i data-lucide="zap"></i>
+            </div>
 
-            <p>
-              Онлайн-оплата позволяет принимать платежи
-              от клиентов, даже если вы не встречаетесь лично.
-            </p>
+            <h3>
+              SchwarzPay
+            </h3>
 
-            <div class="payment-features">
+          </div>
 
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
+          <p class="mode-description">
+            Онлайн-оплата через нашего партнёра.
+            Один аккаунт у партнёра — и можно настроить
+            получение Fiat + Crypto онлайн прямо
+            через цифровую систему проекта.
+          </p>
+
+          <div class="advantages-grid">
+
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
                 Fiat + Crypto онлайн
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Payment Links
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                USDC-выплаты
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Возможность принимать оплату дистанционно
-              </div>
-
+              </span>
             </div>
 
-          </div>
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Один аккаунт у партнёра
+              </span>
+            </div>
 
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Без KYC в рамках заявленных условий партнёра
+              </span>
+            </div>
 
-          <div class="payment-side">
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Не обязательно встречаться с клиентом
+              </span>
+            </div>
 
-            <h3>Больше возможностей</h3>
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Можно принимать оплату онлайн
+              </span>
+            </div>
 
-            <p>
-              Можно продавать товары с доставкой,
-              принимать оплату за онлайн-услуги и
-              связывать оплату с сайтом или Telegram.
-            </p>
-
-            <div class="payment-features">
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Продажа товаров по почте
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Онлайн-услуги
-              </div>
-
-              <div class="feature">
-                <span class="feature-icon plus">+</span>
-                Telegram-боты
-              </div>
-
+            <div class="advantage plus">
+              <i data-lucide="plus"></i>
+              <span>
+                Подключение к сайту и автоматизации
+              </span>
             </div>
 
           </div>
@@ -1197,224 +2208,935 @@
 
       </div>
 
-    </section>
 
+      <!-- FLOW -->
 
-    <!-- HOW -->
+      <div class="payment-flow">
 
-    <section id="how">
+        <div class="flow-bg"></div>
 
-      <div class="container">
+        <div class="flow">
 
-        <div class="section-heading reveal">
+          <div class="flow-node">
 
-          <div class="eyebrow">Процесс</div>
+            <div class="flow-node-icon">
+              <i data-lucide="user-round"></i>
+            </div>
 
-          <h2>
-            От идеи<br>
-            до запуска
-          </h2>
+            <div>
 
-          <p>
-            Без лишней сложности. Обсуждаем задачу,
-            создаём решение и запускаем его.
-          </p>
+              <div class="flow-node-title">
+                Клиент
+              </div>
 
-        </div>
+              <div class="flow-node-sub">
+                Выбирает товар или услугу
+              </div>
 
-
-        <div class="steps">
-
-          <div class="step reveal">
-            <div class="step-number">01</div>
-            <h3>Заявка</h3>
-            <p>
-              Вы пишете нам в Telegram и рассказываете,
-              что хотите создать.
-            </p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-number">02</div>
-            <h3>Концепция</h3>
-            <p>
-              Определяем структуру, дизайн, функции
-              и необходимые интеграции.
-            </p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-number">03</div>
-            <h3>Создание</h3>
-            <p>
-              Разрабатываем сайт, бота или автоматизацию
-              под вашу задачу.
-            </p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-number">04</div>
-            <h3>Запуск</h3>
-            <p>
-              Проверяем результат и передаём
-              готовое решение.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- TELEGRAM CTA -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="telegram-box reveal">
-
-          <div>
-
-            <h2>
-              Есть идея?
-              Давайте обсудим.
-            </h2>
-
-            <p>
-              Напишите нам в Telegram.
-              Расскажите, что продаёте или какую услугу
-              хотите автоматизировать.
-            </p>
+            </div>
 
           </div>
 
-          <a
-            href="https://t.me/Duf7484"
-            target="_blank"
-            rel="noopener"
-            class="btn btn-primary"
-          >
-            @Duf7484
-          </a>
+          <div class="flow-line"></div>
+
+          <div class="flow-node">
+
+            <div class="flow-node-icon">
+              <i data-lucide="credit-card"></i>
+            </div>
+
+            <div>
+
+              <div class="flow-node-title">
+                Способ оплаты
+              </div>
+
+              <div class="flow-node-sub">
+                Наличные или онлайн
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="flow-line"></div>
+
+          <div class="flow-node highlight">
+
+            <div class="flow-node-icon">
+              <i data-lucide="wallet"></i>
+            </div>
+
+            <div>
+
+              <div class="flow-node-title">
+                Получение оплаты
+              </div>
+
+              <div class="flow-node-sub">
+                Fiat + Crypto / наличные
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <div class="container">
-
-      <div class="footer-top">
-
-        <div class="footer-brand">
-
-          <a href="#" class="logo">
-            Schwarz<span>Pay</span>
-          </a>
-
-          <p>
-            Создание сайтов, Telegram-решений,
-            автоматизация и подключение онлайн-оплаты
-            под ваши задачи.
-          </p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-          <a href="#services">Услуги</a>
-          <a href="#payments">Оплата</a>
-          <a href="#how">Как это работает</a>
-
-          <a
-            href="https://t.me/Duf7484"
-            target="_blank"
-            rel="noopener"
-          >
-            Telegram
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <!-- DISCLAIMER ONLY IN FOOTER -->
-
-      <div class="disclaimer">
-
-        <strong>SchwarzPay — посредник, а не платёжный провайдер.</strong>
-        Мы помогаем с созданием, настройкой и автоматизацией
-        сайтов, Telegram-ботов и подключением онлайн-оплаты
-        через нашего анонимного провайдера.
-        Мы не обрабатываем платежи напрямую.
-
-      </div>
-
-
-      <div class="copyright">
-        © 2026 SchwarzPay. Все права защищены.
       </div>
 
     </div>
 
-  </footer>
+  </div>
+
+</section>
 
 
-  <script>
+<!-- =========================
+     DELIVERY
+========================= -->
 
-    /* =========================
-       PAYMENT SWITCH
-    ========================= */
+<section>
 
-    const switchButtons = document.querySelectorAll(".switch button");
-    const panels = document.querySelectorAll(".payment-panel");
+  <div class="container">
 
-    switchButtons.forEach(button => {
+    <div class="section-label reveal">
+      03 / Продажи
+    </div>
 
-      button.addEventListener("click", () => {
+    <h2 class="section-title reveal">
+      Получай оплату.
+      Дальше решаешь ты.
+    </h2>
 
-        const target = button.dataset.panel;
+    <p class="section-subtitle reveal">
+      Товар можно передать лично, отправить почтой
+      или организовать доставку другим удобным способом.
+      Для онлайн-услуг встреча вообще не требуется.
+    </p>
 
-        switchButtons.forEach(btn => {
-          btn.classList.remove("active");
-        });
 
-        button.classList.add("active");
+    <div class="delivery-grid">
 
-        panels.forEach(panel => {
-          panel.classList.remove("active");
-        });
+      <div class="delivery-card reveal">
 
-        document
-          .getElementById(target)
-          .classList.add("active");
+        <i data-lucide="package"></i>
 
+        <h3>
+          Отправка почтой
+        </h3>
+
+        <p>
+          Получил онлайн-оплату — подготовил товар
+          и отправил клиенту удобным способом.
+        </p>
+
+      </div>
+
+
+      <div class="delivery-card reveal">
+
+        <i data-lucide="truck"></i>
+
+        <h3>
+          Доставка
+        </h3>
+
+        <p>
+          Можно доставить самостоятельно
+          или договориться с отдельным человеком
+          о доставке.
+        </p>
+
+      </div>
+
+
+      <div class="delivery-card reveal">
+
+        <i data-lucide="handshake"></i>
+
+        <h3>
+          Личная встреча
+        </h3>
+
+        <p>
+          Подходит для локальных заказов,
+          когда товар удобнее передать из рук в руки.
+        </p>
+
+      </div>
+
+
+      <div class="delivery-card reveal">
+
+        <i data-lucide="monitor"></i>
+
+        <h3>
+          Онлайн-услуги
+        </h3>
+
+        <p>
+          Дизайн, консультации, цифровые продукты
+          и другие услуги можно предоставлять полностью онлайн.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TELEGRAM
+========================= -->
+
+<section id="telegram">
+
+  <div class="container">
+
+    <div class="section-label reveal">
+      04 / Telegram
+    </div>
+
+    <h2 class="section-title reveal">
+      Telegram становится
+      частью твоего проекта.
+    </h2>
+
+
+    <div class="telegram-system reveal">
+
+      <div class="system-grid">
+
+        <div class="system-copy">
+
+          <h3>
+            Сайт + бот + канал =
+            <span>система.</span>
+          </h3>
+
+          <p>
+            Собираем всё в одну связку:
+            сайт показывает товар или услуги,
+            бот принимает заявки,
+            канал помогает привлекать аудиторию,
+            а автоматизация связывает процессы между собой.
+          </p>
+
+          <div class="system-list">
+
+            <div>
+              <i data-lucide="check"></i>
+              Каталог товаров
+            </div>
+
+            <div>
+              <i data-lucide="check"></i>
+              Приём заявок
+            </div>
+
+            <div>
+              <i data-lucide="check"></i>
+              Уведомления
+            </div>
+
+            <div>
+              <i data-lucide="check"></i>
+              Автоматические действия
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="system-diagram">
+
+          <div class="system-node">
+
+            <i data-lucide="globe"></i>
+
+            <strong>
+              Сайт
+            </strong>
+
+          </div>
+
+          <div class="system-node">
+
+            <i data-lucide="bot"></i>
+
+            <strong>
+              Telegram-бот
+            </strong>
+
+          </div>
+
+          <div class="system-node">
+
+            <i data-lucide="radio"></i>
+
+            <strong>
+              Канал
+            </strong>
+
+          </div>
+
+          <div class="system-node">
+
+            <i data-lucide="wallet"></i>
+
+            <strong>
+              Оплата
+            </strong>
+
+          </div>
+
+          <div class="system-node final">
+
+            <i data-lucide="workflow"></i>
+
+            <strong>
+              Единая автоматизированная система
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section>
+
+  <div class="container dashboard-section">
+
+    <div class="dashboard-copy reveal">
+
+      <div class="section-label">
+        05 / Управление
+      </div>
+
+      <h2 class="section-title">
+        Товары и цены
+        остаются под твоим контролем.
+      </h2>
+
+      <p>
+        После создания системы ты сможешь самостоятельно
+        добавлять товары, менять цены и обновлять информацию.
+        Не нужно каждый раз обращаться к нам для обычных изменений.
+      </p>
+
+    </div>
+
+
+    <div class="dashboard-preview reveal">
+
+      <div class="dash-header">
+
+        <div class="dash-logo">
+          SchwarzPay
+        </div>
+
+        <div class="dash-status">
+          ● ACTIVE
+        </div>
+
+      </div>
+
+
+      <div class="dash-product">
+
+        <div class="dash-product-left">
+
+          <i data-lucide="armchair"></i>
+
+          <div>
+            <strong>
+              Мебель
+            </strong>
+
+            <span>
+              В наличии
+            </span>
+          </div>
+
+        </div>
+
+        <div class="dash-product-price">
+          249 €
+        </div>
+
+      </div>
+
+
+      <div class="dash-product">
+
+        <div class="dash-product-left">
+
+          <i data-lucide="smartphone"></i>
+
+          <div>
+            <strong>
+              Техника
+            </strong>
+
+            <span>
+              В наличии
+            </span>
+          </div>
+
+        </div>
+
+        <div class="dash-product-price">
+          399 €
+        </div>
+
+      </div>
+
+
+      <div class="dash-product">
+
+        <div class="dash-product-left">
+
+          <i data-lucide="wrench"></i>
+
+          <div>
+            <strong>
+              Услуга
+            </strong>
+
+            <span>
+              Онлайн
+            </span>
+          </div>
+
+        </div>
+
+        <div class="dash-product-price">
+          80 €
+        </div>
+
+      </div>
+
+
+      <div class="dash-add">
+
+        <i data-lucide="plus"></i>
+
+        Добавить товар
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PRICING
+========================= -->
+
+<section id="pricing">
+
+  <div class="container">
+
+    <div class="section-label reveal">
+      06 / Стоимость
+    </div>
+
+    <h2 class="section-title reveal">
+      Простая модель.
+      Без лишнего.
+    </h2>
+
+    <p class="section-subtitle reveal">
+      Сайт и Telegram-бот рассчитываются индивидуально.
+      Подключение онлайн-оплаты имеет фиксированную стоимость.
+    </p>
+
+
+    <div class="pricing-grid">
+
+
+      <div class="price-card reveal">
+
+        <div class="price-number">
+          01 / WEBSITE
+        </div>
+
+        <h3>
+          Сайт
+        </h3>
+
+        <div class="big-price">
+          Инд.
+        </div>
+
+        <p>
+          Современный сайт под товары,
+          услуги, каталог, перевозки или проект.
+          Оптимизация под телефон, планшет и ПК.
+        </p>
+
+        <div class="price-note">
+
+          <strong>
+            Цена — индивидуально
+          </strong>
+
+          <span>
+            Зависит от количества страниц,
+            функциональности и сложности проекта.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="price-card featured reveal">
+
+        <div class="price-number">
+          02 / TELEGRAM
+        </div>
+
+        <h3>
+          Telegram-бот
+        </h3>
+
+        <div class="big-price">
+          Инд.
+        </div>
+
+        <p>
+          Бот для заказов, заявок, каталога,
+          уведомлений и автоматизации общения
+          с клиентами.
+        </p>
+
+        <div class="price-note">
+
+          <strong>
+            Цена — индивидуально
+          </strong>
+
+          <span>
+            Стоимость зависит от функций
+            и логики бота.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="price-card reveal">
+
+        <div class="price-number">
+          03 / PAYMENT
+        </div>
+
+        <h3>
+          Онлайн-оплата
+        </h3>
+
+        <div class="big-price">
+          49 €
+        </div>
+
+        <p>
+          Единоразовая настройка онлайн-оплаты
+          через нашего партнёра и подключение
+          к цифровой системе проекта.
+        </p>
+
+        <div class="price-note">
+
+          <strong>
+            Единоразовое подключение
+          </strong>
+
+          <span>
+            Fiat + Crypto онлайн.
+            Дополнительное обслуживание обсуждается отдельно.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="price-card reveal">
+
+        <div class="price-number">
+          04 / SERVICE
+        </div>
+
+        <h3>
+          Обслуживание
+        </h3>
+
+        <div class="big-price">
+          30–60 €
+        </div>
+
+        <p>
+          Поддержка и изменения сайта или системы,
+          например обновление акций, блоков,
+          товаров и другой информации.
+        </p>
+
+        <div class="price-note">
+
+          <strong>
+            Примерная стоимость
+          </strong>
+
+          <span>
+            Итог зависит от количества и сложности изменений.
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="about-box reveal">
+
+      <div class="about-grid">
+
+        <div>
+
+          <div class="section-label">
+            07 / SchwarzPay
+          </div>
+
+          <h2>
+            Не просто сайт.
+            Цифровая система.
+          </h2>
+
+        </div>
+
+
+        <div class="about-text">
+
+          <p>
+            SchwarzPay создан как посреднический сервис
+            для тех, кто хочет перевести продажи и услуги
+            в онлайн.
+          </p>
+
+          <br>
+
+          <p>
+            Мы можем помочь собрать сайт, Telegram-бота,
+            подключить онлайн-оплату через нашего партнёра
+            и связать всё в единую систему.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="about-columns">
+
+        <div class="about-list">
+
+          <h3>
+            Для кого
+          </h3>
+
+          <div>
+            Продажа мебели
+          </div>
+
+          <div>
+            Техника и электроника
+          </div>
+
+          <div>
+            Услуги
+          </div>
+
+          <div>
+            Перевозки Украина — Германия
+          </div>
+
+          <div>
+            Онлайн-услуги
+          </div>
+
+        </div>
+
+
+        <div class="about-list">
+
+          <h3>
+            Что можно сделать
+          </h3>
+
+          <div>
+            Сайт
+          </div>
+
+          <div>
+            Telegram-бот
+          </div>
+
+          <div>
+            Telegram-канал
+          </div>
+
+          <div>
+            Онлайн-оплата
+          </div>
+
+          <div>
+            Автоматизация
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="final-cta">
+
+  <div class="final-glow"></div>
+
+  <div class="final-content reveal">
+
+    <div class="section-label">
+      SchwarzPay
+    </div>
+
+    <h2>
+      Продавай.<br>
+      Будь <span>онлайн.</span>
+    </h2>
+
+    <p>
+      Расскажи, что ты продаёшь или какую услугу
+      предоставляешь — обсудим, какую систему
+      можно собрать именно под тебя.
+    </p>
+
+    <a
+      href="https://t.me/Duf7484"
+      target="_blank"
+      class="telegram-big"
+    >
+      <i data-lucide="send"></i>
+      @Duf7484
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <a href="#" class="brand">
+
+          <div class="brand-mark">
+            <i data-lucide="zap"></i>
+          </div>
+
+          SchwarzPay
+
+        </a>
+
+        <p class="footer-description">
+          Сайты, Telegram-боты, автоматизация
+          и подключение онлайн-оплаты для цифровых проектов.
+        </p>
+
+      </div>
+
+
+      <div class="footer-note">
+
+        <strong>
+          Важно
+        </strong>
+
+        <br><br>
+
+        SchwarzPay — посредник, а не платёжный провайдер.
+        Мы помогаем создать сайт, настроить онлайн-оплату
+        и автоматизировать цифровые процессы.
+
+        <br><br>
+
+        Условия и требования используемого платёжного
+        партнёра применяются отдельно.
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 SchwarzPay
+      </span>
+
+      <span>
+        Telegram: @Duf7484
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+  /* =========================
+     ICONS
+  ========================= */
+
+  lucide.createIcons();
+
+
+  /* =========================
+     NAV SCROLL
+  ========================= */
+
+  const nav = document.getElementById("nav");
+
+  window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 30) {
+      nav.classList.add("scrolled");
+    } else {
+      nav.classList.remove("scrolled");
+    }
+
+  }, { passive:true });
+
+
+  /* =========================
+     PAYMENT SWITCHER
+  ========================= */
+
+  const paymentToggle =
+    document.getElementById("paymentToggle");
+
+  const toggleButtons =
+    document.querySelectorAll(".toggle-btn");
+
+  const cashMode =
+    document.getElementById("cashMode");
+
+  const schwarzMode =
+    document.getElementById("schwarzMode");
+
+
+  toggleButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const mode = button.dataset.mode;
+
+      toggleButtons.forEach(btn => {
+        btn.classList.remove("active");
       });
+
+      button.classList.add("active");
+
+
+      if (mode === "schwarz") {
+
+        paymentToggle.classList.add("schwarz");
+
+        cashMode.classList.remove("active");
+        schwarzMode.classList.add("active");
+
+      } else {
+
+        paymentToggle.classList.remove("schwarz");
+
+        schwarzMode.classList.remove("active");
+        cashMode.classList.add("active");
+
+      }
 
     });
 
+  });
 
-    /* =========================
-       SCROLL REVEAL
-    ========================= */
 
-    const revealElements =
-      document.querySelectorAll(".reveal");
+  /* =========================
+     SCROLL REVEAL
+  ========================= */
 
-    const observer = new IntersectionObserver(
+  const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+  const revealObserver =
+    new IntersectionObserver(
+
       entries => {
 
         entries.forEach(entry => {
@@ -1423,40 +3145,92 @@
 
             entry.target.classList.add("visible");
 
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
 
           }
 
         });
 
       },
+
       {
-        threshold: 0.12
+        threshold:.12,
+        rootMargin:"0px 0px -40px 0px"
       }
+
     );
 
-    revealElements.forEach(element => {
-      observer.observe(element);
+
+  revealElements.forEach(element => {
+    revealObserver.observe(element);
+  });
+
+
+  /* =========================
+     SMOOTH ANCHOR
+  ========================= */
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const target =
+        document.querySelector(link.getAttribute("href"));
+
+      if (!target) return;
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    });
+
+  });
+
+
+  /* =========================
+     TILT EFFECT — DESKTOP
+  ========================= */
+
+  const panel =
+    document.querySelector(".main-panel");
+
+
+  if (window.matchMedia("(pointer:fine)").matches) {
+
+    panel.addEventListener("mousemove", event => {
+
+      const rect =
+        panel.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) / rect.width - .5;
+
+      const y =
+        (event.clientY - rect.top) / rect.height - .5;
+
+      panel.style.transform =
+        `perspective(900px)
+         rotateX(${y * -4}deg)
+         rotateY(${x * 4}deg)
+         rotateZ(1deg)`;
+
     });
 
 
-    /* =========================
-       HEADER SHADOW
-    ========================= */
+    panel.addEventListener("mouseleave", () => {
 
-    const header = document.querySelector("header");
-
-    window.addEventListener("scroll", () => {
-
-      if (window.scrollY > 20) {
-        header.style.background = "rgba(7,7,7,.88)";
-      } else {
-        header.style.background = "rgba(7,7,7,.72)";
-      }
+      panel.style.transform =
+        "perspective(900px) rotateZ(2deg)";
 
     });
 
-  </script>
+  }
+
+</script>
 
 </body>
 </html>
