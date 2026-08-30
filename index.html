@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>SchwarzPay — Продавай. Будь онлайн.</title>
 
   <meta
     name="description"
-    content="SchwarzPay — сайты, Telegram, боты и онлайн-оплата для товаров и услуг."
-  >
+    content="SchwarzPay помогает создавать сайты, Telegram-ботов и автоматизировать цифровые процессы."
+  />
 
-  <meta name="theme-color" content="#050505">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
-  >
+  />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-
     :root {
       --bg: #050505;
-      --surface: #0b0b0b;
-      --surface-2: #101010;
+      --bg-soft: #0a0a0a;
+      --card: #0d0d0d;
+      --card-hover: #121212;
 
       --text: #ffffff;
-      --muted: #99999f;
+      --muted: #8d8d95;
+      --muted-2: #66666d;
 
-      --line: rgba(255,255,255,.10);
+      --accent: #c8ff5a;
+      --accent-dark: #a8dc40;
 
-      --green: #c8ff5a;
-      --green-soft: rgba(200,255,90,.10);
-
-      --max: 1180px;
+      --line: rgba(255, 255, 255, 0.09);
+      --line-accent: rgba(200, 255, 90, 0.28);
 
       --radius: 28px;
-    }
+      --radius-small: 18px;
 
+      --container: 1240px;
+
+      --shadow:
+        0 30px 100px rgba(0, 0, 0, 0.5);
+    }
 
     * {
       box-sizing: border-box;
@@ -48,23 +55,25 @@
       padding: 0;
     }
 
-
     html {
       scroll-behavior: smooth;
     }
 
-
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(
+          circle at 75% 8%,
+          rgba(200, 255, 90, 0.06),
+          transparent 24%
+        ),
+        var(--bg);
+
       color: var(--text);
 
       font-family: "Manrope", sans-serif;
 
-      line-height: 1.6;
-
       overflow-x: hidden;
     }
-
 
     body::before {
       content: "";
@@ -75,16 +84,16 @@
 
       pointer-events: none;
 
-      z-index: -2;
+      opacity: 0.035;
 
-      background:
+      background-image:
         linear-gradient(
-          rgba(255,255,255,.025) 1px,
+          rgba(255,255,255,.25) 1px,
           transparent 1px
         ),
         linear-gradient(
           90deg,
-          rgba(255,255,255,.025) 1px,
+          rgba(255,255,255,.25) 1px,
           transparent 1px
         );
 
@@ -94,186 +103,164 @@
         linear-gradient(
           to bottom,
           black,
-          transparent 85%
+          transparent 80%
         );
     }
-
-
-    body::after {
-      content: "";
-
-      position: fixed;
-
-      width: 650px;
-      height: 650px;
-
-      right: -300px;
-      top: -300px;
-
-      border-radius: 50%;
-
-      background: rgba(200,255,90,.07);
-
-      filter: blur(110px);
-
-      pointer-events: none;
-
-      z-index: -1;
-    }
-
 
     a {
       color: inherit;
       text-decoration: none;
     }
 
-
     button {
-      font: inherit;
+      font-family: inherit;
     }
 
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
     .container {
       width: min(
         calc(100% - 40px),
-        var(--max)
+        var(--container)
       );
 
-      margin: auto;
+      margin: 0 auto;
     }
-
-
-    section {
-      padding: 120px 0;
-    }
-
 
     /* =========================
        NAVIGATION
     ========================= */
 
-    .nav-wrap {
+    .nav {
       position: fixed;
 
-      z-index: 1000;
-
-      top: 14px;
+      top: 0;
+      left: 0;
 
       width: 100%;
 
-      pointer-events: none;
+      z-index: 1000;
+
+      border-bottom:
+        1px solid transparent;
+
+      transition:
+        background .3s ease,
+        backdrop-filter .3s ease,
+        border .3s ease;
     }
 
+    .nav.scrolled {
+      background: rgba(5,5,5,.72);
 
-    nav {
-      width: min(
-        calc(100% - 24px),
-        1080px
-      );
+      backdrop-filter:
+        blur(18px);
 
-      height: 64px;
+      border-bottom:
+        1px solid var(--line);
+    }
 
-      margin: auto;
-
-      padding: 0 10px 0 18px;
+    .nav-inner {
+      height: 78px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
-      border: 1px solid var(--line);
-
-      border-radius: 18px;
-
-      background: rgba(8,8,8,.78);
-
-      backdrop-filter: blur(22px);
-
-      pointer-events: auto;
-
-      transition: .3s ease;
+      gap: 20px;
     }
 
-
-    .logo {
+    .brand {
       display: flex;
-
       align-items: center;
+      gap: 11px;
 
-      gap: 10px;
-
-      font-family: "Space Grotesk";
-
-      font-size: 19px;
+      font-family:
+        "Space Grotesk",
+        sans-serif;
 
       font-weight: 700;
+
+      font-size: 20px;
+
+      letter-spacing: -1px;
     }
 
-
-    .logo-mark {
+    .brand-mark {
       width: 34px;
       height: 34px;
 
-      display: grid;
-
-      place-items: center;
-
       border-radius: 10px;
 
-      background: var(--green);
+      background: var(--accent);
 
-      color: #000;
+      color: #050505;
 
-      font-weight: 900;
+      display: grid;
+      place-items: center;
+
+      box-shadow:
+        0 0 35px rgba(200,255,90,.2);
     }
 
+    .brand-mark i {
+      width: 19px;
+    }
 
     .nav-links {
       display: flex;
-
+      align-items: center;
       gap: 28px;
+    }
 
+    .nav-links a {
       color: var(--muted);
 
       font-size: 13px;
+
+      transition: color .25s ease;
     }
-
-
-    .nav-links a {
-      transition: .2s ease;
-    }
-
 
     .nav-links a:hover {
-      color: #fff;
+      color: var(--text);
     }
 
+    .nav-telegram {
+      padding: 11px 17px;
 
-    .nav-cta {
-      padding: 11px 16px;
+      border-radius: 999px;
 
-      border-radius: 12px;
+      background: var(--accent);
 
-      background: #fff;
+      color: #080808;
 
-      color: #000;
-
-      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
 
       font-weight: 800;
 
-      transition: .2s ease;
+      font-size: 13px;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
     }
 
-
-    .nav-cta:hover {
-      background: var(--green);
-
+    .nav-telegram:hover {
       transform: translateY(-2px);
+
+      box-shadow:
+        0 12px 35px
+        rgba(200,255,90,.22);
     }
 
+    .nav-telegram i {
+      width: 16px;
+    }
 
     /* =========================
        HERO
@@ -283,84 +270,89 @@
       min-height: 100vh;
 
       display: flex;
-
       align-items: center;
 
-      padding-top: 150px;
-    }
+      padding:
+        145px 0
+        90px;
 
+      position: relative;
+    }
 
     .hero-grid {
       display: grid;
 
-      grid-template-columns: 1fr .9fr;
+      grid-template-columns:
+        1.05fr .95fr;
+
+      align-items: center;
 
       gap: 70px;
-
-      align-items: center;
     }
 
-
     .eyebrow {
-      width: fit-content;
-
-      display: flex;
-
+      display: inline-flex;
       align-items: center;
-
       gap: 9px;
 
-      padding: 8px 13px;
+      padding:
+        9px 13px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
 
       border-radius: 999px;
 
-      background: rgba(255,255,255,.035);
-
       color: var(--muted);
 
-      font-size: 12px;
+      font-size: 11px;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 25px;
     }
 
-
-    .dot {
+    .status-dot {
       width: 7px;
       height: 7px;
 
       border-radius: 50%;
 
-      background: var(--green);
+      background: var(--accent);
 
       box-shadow:
-        0 0 15px var(--green);
+        0 0 15px
+        var(--accent);
+
+      animation:
+        pulse 2s infinite;
     }
 
+    .hero h1 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
 
-    h1 {
-      margin-top: 27px;
+      font-size:
+        clamp(58px, 8vw, 112px);
 
-      font-family: "Space Grotesk";
+      line-height: .9;
 
-      font-size: clamp(
-        58px,
-        7vw,
-        96px
-      );
+      letter-spacing:
+        -6px;
 
-      line-height: .91;
-
-      letter-spacing: -.075em;
+      max-width: 760px;
     }
 
-
-    h1 span {
-      color: var(--green);
+    .hero h1 span {
+      color: var(--accent);
     }
-
 
     .hero-text {
-      max-width: 620px;
+      max-width: 570px;
 
       margin-top: 30px;
 
@@ -371,125 +363,136 @@
       line-height: 1.8;
     }
 
-
-    .buttons {
-      margin-top: 36px;
-
+    .hero-actions {
       display: flex;
-
-      gap: 11px;
-
       flex-wrap: wrap;
+
+      gap: 13px;
+
+      margin-top: 38px;
     }
 
+    .btn {
+      min-height: 52px;
 
-    .button {
-      min-height: 55px;
-
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 0 22px;
+      padding:
+        0 21px;
 
       border-radius: 15px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
 
       font-size: 14px;
 
       font-weight: 800;
 
-      transition: .25s ease;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
     }
 
-
-    .button:hover {
-      transform: translateY(-4px);
+    .btn:hover {
+      transform: translateY(-3px);
     }
 
+    .btn-primary {
+      background: var(--accent);
 
-    .button-primary {
-      background: var(--green);
-
-      color: #000;
+      color: #080808;
 
       box-shadow:
-        0 15px 45px
-        rgba(200,255,90,.12);
+        0 16px 45px
+        rgba(200,255,90,.14);
     }
 
+    .btn-secondary {
+      border:
+        1px solid var(--line);
 
-    .button-secondary {
-      border: 1px solid var(--line);
+      background:
+        rgba(255,255,255,.025);
 
-      background: rgba(255,255,255,.035);
+      color: var(--text);
     }
 
-
-    .hero-points {
-      margin-top: 42px;
-
-      display: flex;
-
-      gap: 24px;
-
-      flex-wrap: wrap;
+    .btn i {
+      width: 18px;
     }
 
+    /* HERO VISUAL */
 
-    .hero-point {
-      color: var(--muted);
-
-      font-size: 12px;
-    }
-
-
-    .hero-point strong {
-      display: block;
-
-      color: #fff;
-
-      font-family: "Space Grotesk";
-
-      font-size: 21px;
-    }
-
-
-    /* =========================
-       HERO VISUAL
-    ========================= */
-
-    .hero-card {
+    .hero-visual {
       position: relative;
 
-      height: 610px;
+      min-height: 600px;
 
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      border: 1px solid var(--line);
+    .hero-glow {
+      position: absolute;
+
+      width: 430px;
+      height: 430px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(200,255,90,.18),
+          transparent 68%
+        );
+
+      filter: blur(20px);
+
+      animation:
+        floatGlow 7s
+        ease-in-out infinite;
+    }
+
+    .main-panel {
+      width: 100%;
+      max-width: 510px;
+
+      min-height: 470px;
+
+      padding: 25px;
+
+      border:
+        1px solid var(--line);
 
       border-radius: 34px;
 
-      background: #111;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.06),
+          rgba(255,255,255,.015)
+        );
+
+      backdrop-filter:
+        blur(20px);
+
+      box-shadow:
+        var(--shadow);
+
+      position: relative;
+
+      overflow: hidden;
+
+      transform:
+        rotate(2deg);
     }
 
-
-    .hero-card img {
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      opacity: .66;
-
-      filter:
-        grayscale(20%)
-        contrast(1.08);
-    }
-
-
-    .hero-card::after {
+    .main-panel::before {
       content: "";
 
       position: absolute;
@@ -498,520 +501,1215 @@
 
       background:
         linear-gradient(
-          to bottom,
-          transparent 25%,
-          rgba(0,0,0,.94)
+          130deg,
+          transparent,
+          rgba(200,255,90,.05),
+          transparent
         );
+
+      transform:
+        translateX(-100%);
+
+      animation:
+        shine 6s infinite;
     }
 
+    .panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    .visual-caption {
-      position: absolute;
+      margin-bottom: 35px;
 
-      z-index: 2;
-
-      left: 28px;
-      right: 28px;
-
-      bottom: 28px;
+      position: relative;
+      z-index: 1;
     }
 
+    .panel-title {
+      font-family:
+        "Space Grotesk";
 
-    .visual-caption small {
-      color: var(--green);
-
-      font-size: 11px;
-
-      font-weight: 800;
-
-      letter-spacing: .13em;
-
-      text-transform: uppercase;
-    }
-
-
-    .visual-caption h2 {
-      margin-top: 9px;
-
-      font-family: "Space Grotesk";
-
-      font-size: 31px;
-
-      line-height: 1.05;
-
-      letter-spacing: -.05em;
-    }
-
-
-    .visual-caption p {
-      margin-top: 10px;
-
-      color: #aaa;
-
-      font-size: 13px;
-    }
-
-
-    /* =========================
-       GENERAL SECTIONS
-    ========================= */
-
-    .section-label {
-      color: var(--green);
-
-      font-size: 11px;
-
-      font-weight: 800;
-
-      letter-spacing: .15em;
-
-      text-transform: uppercase;
-    }
-
-
-    .section-title {
-      max-width: 800px;
-
-      margin-top: 16px;
-
-      font-family: "Space Grotesk";
-
-      font-size: clamp(
-        43px,
-        5vw,
-        70px
-      );
-
-      line-height: .98;
-
-      letter-spacing: -.065em;
-    }
-
-
-    .section-text {
-      max-width: 650px;
-
-      margin-top: 22px;
-
-      color: var(--muted);
+      font-weight: 700;
 
       font-size: 16px;
     }
 
+    .online-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      color: var(--accent);
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+    }
+
+    .online-badge span {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--accent);
+
+      box-shadow:
+        0 0 12px var(--accent);
+    }
+
+    .dashboard-box {
+      border:
+        1px solid var(--line);
+
+      border-radius: 22px;
+
+      padding: 22px;
+
+      background:
+        rgba(0,0,0,.25);
+
+      position: relative;
+      z-index: 1;
+    }
+
+    .dashboard-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 15px 0;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .dashboard-row:last-child {
+      border-bottom: none;
+    }
+
+    .dashboard-product {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .product-icon {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 13px;
+
+      background:
+        rgba(200,255,90,.1);
+
+      display: grid;
+      place-items: center;
+
+      color: var(--accent);
+    }
+
+    .product-icon i {
+      width: 19px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .product-status {
+      color: var(--muted);
+
+      font-size: 10px;
+
+      margin-top: 3px;
+    }
+
+    .price-tag {
+      color: var(--accent);
+
+      font-weight: 800;
+    }
+
+    .floating-card {
+      position: absolute;
+
+      border:
+        1px solid
+        rgba(255,255,255,.12);
+
+      background:
+        rgba(13,13,13,.82);
+
+      backdrop-filter:
+        blur(20px);
+
+      border-radius: 19px;
+
+      padding: 15px 18px;
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .floating-card.one {
+      left: -30px;
+      top: 85px;
+
+      animation:
+        floatingOne 5s
+        ease-in-out infinite;
+    }
+
+    .floating-card.two {
+      right: -20px;
+      bottom: 65px;
+
+      animation:
+        floatingTwo 6s
+        ease-in-out infinite;
+    }
+
+    .floating-icon {
+      width: 39px;
+      height: 39px;
+
+      border-radius: 12px;
+
+      display: grid;
+      place-items: center;
+
+      background:
+        var(--accent);
+
+      color: #050505;
+    }
+
+    .floating-icon i {
+      width: 19px;
+    }
+
+    .floating-label {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .floating-value {
+      margin-top: 3px;
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
 
     /* =========================
-       CATEGORIES
+       LOGO STRIP
     ========================= */
 
-    .categories {
-      margin-top: 58px;
+    .trust-strip {
+      padding: 25px 0;
+
+      border-top:
+        1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .trust-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+    }
+
+    .trust-item {
+      padding: 15px 30px;
+
+      border-right:
+        1px solid var(--line);
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .trust-item:last-child {
+      border-right: none;
+    }
+
+    .trust-item i {
+      width: 19px;
+
+      color: var(--accent);
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      padding: 130px 0;
+    }
+
+    .section-label {
+      color: var(--accent);
+
+      font-size: 11px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      font-weight: 800;
+
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size:
+        clamp(40px, 5vw, 74px);
+
+      line-height: .98;
+
+      letter-spacing:
+        -3px;
+
+      max-width: 850px;
+    }
+
+    .section-subtitle {
+      margin-top: 23px;
+
+      max-width: 650px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+
+      line-height: 1.8;
+    }
+
+    /* =========================
+       BENTO
+    ========================= */
+
+    .bento {
+      margin-top: 60px;
 
       display: grid;
 
       grid-template-columns:
-        repeat(3, 1fr);
+        repeat(4, 1fr);
 
-      gap: 15px;
+      grid-auto-rows: 210px;
+
+      gap: 14px;
     }
 
+    .bento-card {
+      position: relative;
 
-    .category {
-      min-height: 250px;
-
-      padding: 28px;
-
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       border-radius: var(--radius);
 
       background:
-        rgba(255,255,255,.035);
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.008)
+        );
 
-      transition: .3s ease;
+      padding: 28px;
+
+      overflow: hidden;
+
+      transition:
+        transform .35s ease,
+        border .35s ease,
+        background .35s ease;
     }
 
-
-    .category:hover {
-      transform: translateY(-7px);
+    .bento-card:hover {
+      transform:
+        translateY(-6px);
 
       border-color:
-        rgba(200,255,90,.3);
+        var(--line-accent);
 
       background:
-        rgba(200,255,90,.045);
+        rgba(200,255,90,.035);
     }
 
-
-    .category-icon {
-      font-size: 31px;
+    .bento-card.large {
+      grid-column: span 2;
+      grid-row: span 2;
     }
 
-
-    .category h3 {
-      margin-top: 65px;
-
-      font-family: "Space Grotesk";
-
-      font-size: 23px;
-
-      letter-spacing: -.035em;
+    .bento-card.wide {
+      grid-column: span 2;
     }
 
+    .bento-icon {
+      width: 48px;
+      height: 48px;
 
-    .category p {
-      margin-top: 8px;
+      border-radius: 15px;
 
+      display: grid;
+      place-items: center;
+
+      background:
+        rgba(200,255,90,.1);
+
+      color: var(--accent);
+
+      margin-bottom: 30px;
+    }
+
+    .bento-icon i {
+      width: 22px;
+    }
+
+    .bento-card h3 {
+      font-family:
+        "Space Grotesk";
+
+      font-size: 25px;
+
+      letter-spacing: -1px;
+    }
+
+    .bento-card p {
       color: var(--muted);
 
+      margin-top: 9px;
+
       font-size: 13px;
+
+      line-height: 1.6;
     }
 
+    .bento-number {
+      position: absolute;
+
+      right: 20px;
+      bottom: -22px;
+
+      font-family:
+        "Space Grotesk";
+
+      font-size: 150px;
+
+      font-weight: 700;
+
+      color:
+        rgba(255,255,255,.025);
+
+      line-height: 1;
+    }
 
     /* =========================
-       ECOSYSTEM
+       PAYMENT SWITCHER
     ========================= */
 
-    .ecosystem {
-      background: var(--surface);
+    .payment-section {
+      background:
+        linear-gradient(
+          180deg,
+          transparent,
+          rgba(255,255,255,.015),
+          transparent
+        );
 
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid var(--line);
 
-      border-bottom: 1px solid var(--line);
+      border-bottom:
+        1px solid var(--line);
     }
 
+    .payment-head {
+      text-align: center;
+    }
 
-    .ecosystem-grid {
-      margin-top: 60px;
+    .payment-head .section-title {
+      margin: 0 auto;
+    }
+
+    .payment-head .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .payment-toggle {
+      width: min(100%, 570px);
+
+      margin: 48px auto 55px;
+
+      padding: 6px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.025);
 
       display: grid;
 
       grid-template-columns:
         1fr 1fr;
 
-      gap: 18px;
+      position: relative;
     }
 
+    .toggle-indicator {
+      position: absolute;
 
-    .eco-card {
-      min-height: 330px;
+      top: 6px;
+      left: 6px;
 
-      padding: 35px;
+      width:
+        calc(50% - 6px);
 
-      border: 1px solid var(--line);
-
-      border-radius: var(--radius);
+      height:
+        calc(100% - 12px);
 
       background:
-        rgba(255,255,255,.025);
+        var(--accent);
+
+      border-radius: 15px;
+
+      transition:
+        transform .45s
+        cubic-bezier(.2,.8,.2,1);
+
+      box-shadow:
+        0 12px 35px
+        rgba(200,255,90,.14);
     }
 
-
-    .eco-number {
-      color: #555;
-
-      font-family: "Space Grotesk";
-
-      font-size: 13px;
+    .payment-toggle.schwarz .toggle-indicator {
+      transform: translateX(100%);
     }
 
+    .toggle-btn {
+      position: relative;
+      z-index: 2;
 
-    .eco-card h3 {
-      margin-top: 48px;
+      min-height: 58px;
 
-      font-family: "Space Grotesk";
+      border: none;
 
-      font-size: 31px;
-
-      letter-spacing: -.05em;
-    }
-
-
-    .eco-card p {
-      max-width: 480px;
-
-      margin-top: 13px;
+      background: transparent;
 
       color: var(--muted);
 
-      font-size: 14px;
+      border-radius: 15px;
 
-      line-height: 1.7;
-    }
-
-
-    .eco-tags {
-      margin-top: 25px;
+      cursor: pointer;
 
       display: flex;
+      align-items: center;
+      justify-content: center;
 
-      gap: 8px;
+      gap: 10px;
 
-      flex-wrap: wrap;
+      font-weight: 800;
+
+      transition:
+        color .3s ease;
     }
 
-
-    .tag {
-      padding: 9px 12px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 999px;
-
-      background:
-        rgba(255,255,255,.035);
-
-      font-size: 12px;
+    .toggle-btn.active {
+      color: #050505;
     }
 
+    .toggle-btn i {
+      width: 19px;
+    }
 
-    /* =========================
-       PAYMENT
-    ========================= */
-
-    .payment {
-      margin-top: 60px;
-
+    .payment-content {
       display: grid;
 
       grid-template-columns:
-        .9fr 1.1fr;
+        1.1fr .9fr;
 
-      gap: 18px;
+      gap: 25px;
+
+      align-items: stretch;
     }
 
+    .payment-info,
+    .payment-flow {
+      min-height: 520px;
 
-    .payment-image {
-      min-height: 560px;
+      border:
+        1px solid var(--line);
 
+      border-radius: 32px;
+
+      padding: 40px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.04),
+          rgba(255,255,255,.01)
+        );
+    }
+
+    .payment-info {
       position: relative;
 
       overflow: hidden;
-
-      border-radius: var(--radius);
-
-      border: 1px solid var(--line);
     }
 
-
-    .payment-image img {
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      filter:
-        grayscale(20%)
-        contrast(1.08);
-    }
-
-
-    .payment-image::after {
+    .payment-info::after {
       content: "";
 
       position: absolute;
 
-      inset: 0;
+      width: 300px;
+      height: 300px;
+
+      border-radius: 50%;
+
+      right: -150px;
+      top: -150px;
 
       background:
-        linear-gradient(
-          to top,
-          rgba(0,0,0,.85),
-          transparent 60%
-        );
+        rgba(200,255,90,.05);
+
+      filter: blur(20px);
     }
 
+    .payment-mode {
+      display: none;
 
-    .payment-info {
-      padding: 50px;
+      animation:
+        modeIn .45s ease forwards;
+    }
 
-      border: 1px solid var(--line);
+    .payment-mode.active {
+      display: block;
+    }
 
-      border-radius: var(--radius);
+    .mode-top {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      margin-bottom: 28px;
+    }
+
+    .mode-icon {
+      width: 58px;
+      height: 58px;
+
+      border-radius: 18px;
+
+      display: grid;
+      place-items: center;
+
+      background:
+        rgba(200,255,90,.1);
+
+      color: var(--accent);
+    }
+
+    .mode-icon i {
+      width: 27px;
+    }
+
+    .mode-top h3 {
+      font-family:
+        "Space Grotesk";
+
+      font-size: 29px;
+
+      letter-spacing: -1px;
+    }
+
+    .mode-description {
+      color: var(--muted);
+
+      line-height: 1.75;
+
+      max-width: 600px;
+
+      margin-bottom: 32px;
+    }
+
+    .advantages-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+    }
+
+    .advantage {
+      padding: 15px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      display: flex;
+      gap: 10px;
+
+      align-items: flex-start;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+
+      background:
+        rgba(255,255,255,.015);
+    }
+
+    .advantage i {
+      width: 17px;
+
+      flex-shrink: 0;
+
+      color: var(--accent);
+    }
+
+    .advantage.minus i {
+      color: #ff7070;
+    }
+
+    .advantage.plus i {
+      color: var(--accent);
+    }
+
+    .payment-flow {
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    .flow-bg {
+      position: absolute;
+
+      inset: 0;
+
+      opacity: .6;
 
       background:
         radial-gradient(
-          circle at 100% 0%,
-          rgba(200,255,90,.11),
-          transparent 40%
-        ),
-        var(--surface-2);
+          circle at center,
+          rgba(200,255,90,.06),
+          transparent 65%
+        );
     }
 
+    .flow {
+      position: relative;
+      z-index: 2;
 
-    .payment-info h2 {
-      margin-top: 20px;
-
-      font-family: "Space Grotesk";
-
-      font-size: clamp(
-        44px,
-        5vw,
-        70px
-      );
-
-      line-height: .95;
-
-      letter-spacing: -.07em;
-    }
-
-
-    .payment-info h2 span {
-      color: var(--green);
-    }
-
-
-    .payment-info > p {
-      margin-top: 24px;
-
-      color: var(--muted);
-
-      font-size: 16px;
-
-      line-height: 1.75;
-    }
-
-
-    .payment-methods {
-      margin-top: 35px;
-
-      display: grid;
-
-      gap: 10px;
-    }
-
-
-    .payment-method {
       display: flex;
+      flex-direction: column;
 
       align-items: center;
 
       gap: 13px;
+    }
 
-      padding: 16px;
+    .flow-node {
+      width: min(100%, 310px);
 
-      border: 1px solid var(--line);
+      min-height: 72px;
 
-      border-radius: 16px;
+      border:
+        1px solid var(--line);
+
+      border-radius: 18px;
 
       background:
-        rgba(255,255,255,.025);
+        rgba(5,5,5,.55);
+
+      display: flex;
+      align-items: center;
+
+      padding: 15px;
+
+      gap: 13px;
     }
 
+    .flow-node.highlight {
+      border-color:
+        rgba(200,255,90,.3);
 
-    .method-icon {
-      width: 39px;
-      height: 39px;
+      background:
+        rgba(200,255,90,.08);
+    }
 
-      flex: 0 0 auto;
+    .flow-node-icon {
+      width: 40px;
+      height: 40px;
+
+      border-radius: 12px;
 
       display: grid;
-
       place-items: center;
 
-      border-radius: 11px;
-
-      background: var(--green-soft);
-
-      font-size: 18px;
+      background:
+        rgba(255,255,255,.06);
     }
 
+    .flow-node.highlight .flow-node-icon {
+      background:
+        var(--accent);
 
-    .payment-method strong {
-      display: block;
-
-      font-size: 14px;
+      color: #050505;
     }
 
+    .flow-node-icon i {
+      width: 18px;
+    }
 
-    .payment-method span {
-      display: block;
+    .flow-node-title {
+      font-weight: 800;
+
+      font-size: 12px;
+    }
+
+    .flow-node-sub {
+      margin-top: 3px;
 
       color: var(--muted);
 
-      font-size: 11px;
+      font-size: 10px;
     }
 
+    .flow-line {
+      width: 1px;
+      height: 27px;
+
+      background:
+        linear-gradient(
+          var(--accent),
+          transparent
+        );
+
+      position: relative;
+    }
+
+    .flow-line::after {
+      content: "";
+
+      position: absolute;
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--accent);
+
+      left: -3px;
+
+      animation:
+        moveDot 1.8s
+        infinite linear;
+    }
 
     /* =========================
        DELIVERY
     ========================= */
 
-    .delivery {
-      margin-top: 18px;
-
-      padding: 42px;
+    .delivery-grid {
+      margin-top: 60px;
 
       display: grid;
 
-      grid-template-columns: 1fr auto;
+      grid-template-columns:
+        repeat(4, 1fr);
 
-      gap: 35px;
+      gap: 14px;
+    }
 
-      align-items: center;
+    .delivery-card {
+      padding: 28px;
 
-      border: 1px solid var(--line);
+      min-height: 255px;
 
-      border-radius: var(--radius);
+      border:
+        1px solid var(--line);
+
+      border-radius: 25px;
 
       background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.06),
-          rgba(255,255,255,.02)
-        );
+        rgba(255,255,255,.015);
+
+      transition:
+        transform .3s ease,
+        border .3s ease;
     }
 
+    .delivery-card:hover {
+      transform:
+        translateY(-6px);
 
-    .delivery h3 {
-      font-family: "Space Grotesk";
-
-      font-size: 32px;
-
-      letter-spacing: -.05em;
+      border-color:
+        var(--line-accent);
     }
 
+    .delivery-card i {
+      width: 27px;
 
-    .delivery p {
-      max-width: 680px;
+      color: var(--accent);
 
+      margin-bottom: 55px;
+    }
+
+    .delivery-card h3 {
+      font-family:
+        "Space Grotesk";
+
+      font-size: 20px;
+    }
+
+    .delivery-card p {
       margin-top: 10px;
 
       color: var(--muted);
 
-      font-size: 14px;
+      font-size: 12px;
+
+      line-height: 1.65;
     }
 
+    /* =========================
+       TELEGRAM SYSTEM
+    ========================= */
 
-    .delivery-icon {
-      width: 90px;
-      height: 90px;
+    .telegram-system {
+      margin-top: 60px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 34px;
+
+      min-height: 590px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 55px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.04),
+          rgba(255,255,255,.008)
+        );
+    }
+
+    .system-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      align-items: center;
+
+      gap: 50px;
+
+      height: 100%;
+    }
+
+    .system-copy h3 {
+      font-family:
+        "Space Grotesk";
+
+      font-size:
+        clamp(36px, 4vw, 60px);
+
+      line-height: 1;
+
+      letter-spacing: -3px;
+    }
+
+    .system-copy h3 span {
+      color: var(--accent);
+    }
+
+    .system-copy p {
+      color: var(--muted);
+
+      margin-top: 25px;
+
+      line-height: 1.8;
+
+      max-width: 500px;
+    }
+
+    .system-list {
+      margin-top: 30px;
 
       display: grid;
 
-      place-items: center;
-
-      border-radius: 25px;
-
-      background: var(--green);
-
-      color: #000;
-
-      font-size: 40px;
+      gap: 12px;
     }
 
+    .system-list div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: #d8d8d8;
+
+      font-size: 13px;
+    }
+
+    .system-list i {
+      width: 17px;
+
+      color: var(--accent);
+    }
+
+    .system-diagram {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 16px;
+
+      position: relative;
+    }
+
+    .system-node {
+      min-height: 120px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 23px;
+
+      background:
+        rgba(5,5,5,.45);
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+
+      text-align: center;
+
+      transition:
+        transform .3s ease,
+        border .3s ease;
+    }
+
+    .system-node:hover {
+      transform:
+        scale(1.04);
+
+      border-color:
+        var(--line-accent);
+    }
+
+    .system-node i {
+      width: 28px;
+
+      color: var(--accent);
+    }
+
+    .system-node strong {
+      font-size: 13px;
+    }
+
+    .system-node.final {
+      grid-column: span 2;
+
+      background:
+        rgba(200,255,90,.08);
+
+      border-color:
+        rgba(200,255,90,.22);
+    }
+
+    /* =========================
+       DASHBOARD
+    ========================= */
+
+    .dashboard-section {
+      display: grid;
+
+      grid-template-columns:
+        .8fr 1.2fr;
+
+      gap: 70px;
+
+      align-items: center;
+    }
+
+    .dashboard-preview {
+      border:
+        1px solid var(--line);
+
+      border-radius: 30px;
+
+      padding: 22px;
+
+      background:
+        #090909;
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 10px 7px 25px;
+    }
+
+    .dash-logo {
+      font-family:
+        "Space Grotesk";
+
+      font-weight: 700;
+    }
+
+    .dash-status {
+      color: var(--accent);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+    .dash-product {
+      padding: 20px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 20px;
+
+      margin-bottom: 12px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      background:
+        rgba(255,255,255,.02);
+    }
+
+    .dash-product-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .dash-product-left i {
+      width: 20px;
+
+      color: var(--accent);
+    }
+
+    .dash-product strong {
+      font-size: 13px;
+    }
+
+    .dash-product span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      margin-top: 3px;
+    }
+
+    .dash-product-price {
+      color: var(--accent);
+
+      font-weight: 800;
+
+      font-size: 14px;
+    }
+
+    .dash-add {
+      width: 100%;
+
+      min-height: 54px;
+
+      border:
+        1px dashed
+        rgba(200,255,90,.35);
+
+      border-radius: 16px;
+
+      background:
+        rgba(200,255,90,.04);
+
+      color: var(--accent);
+
+      font-weight: 800;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+    }
+
+    .dashboard-copy p {
+      margin-top: 25px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+    }
 
     /* =========================
        PRICING
     ========================= */
-
-    .pricing {
-      background: var(--surface);
-
-      border-top: 1px solid var(--line);
-
-      border-bottom: 1px solid var(--line);
-    }
-
 
     .pricing-grid {
       margin-top: 60px;
@@ -1024,1788 +1722,1017 @@
       gap: 16px;
     }
 
-
     .price-card {
+      min-height: 470px;
+
+      padding: 35px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 30px;
+
+      background:
+        rgba(255,255,255,.018);
+
       position: relative;
 
-      min-height: 390px;
+      overflow: hidden;
 
-      padding: 30px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 26px;
-
-      background:
-        rgba(255,255,255,.025);
-
-      transition: .3s ease;
+      transition:
+        transform .35s ease,
+        border .35s ease;
     }
-
 
     .price-card:hover {
-      transform: translateY(-7px);
-
-      border-color:
-        rgba(200,255,90,.3);
+      transform:
+        translateY(-8px);
     }
-
 
     .price-card.featured {
-      background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(200,255,90,.13),
-          transparent 45%
-        ),
-        rgba(255,255,255,.035);
-
       border-color:
-        rgba(200,255,90,.28);
+        rgba(200,255,90,.35);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(200,255,90,.1),
+          rgba(255,255,255,.02)
+        );
     }
 
+    .price-card.featured::before {
+      content: "";
+
+      position: absolute;
+
+      width: 260px;
+      height: 260px;
+
+      background:
+        rgba(200,255,90,.09);
+
+      filter: blur(70px);
+
+      top: -130px;
+      right: -100px;
+    }
 
     .price-number {
-      color: #555;
+      color:
+        rgba(255,255,255,.12);
 
-      font-family: "Space Grotesk";
+      font-family:
+        "Space Grotesk";
 
       font-size: 12px;
-    }
 
+      letter-spacing: 2px;
+    }
 
     .price-card h3 {
-      margin-top: 48px;
+      margin-top: 45px;
 
-      font-family: "Space Grotesk";
-
-      font-size: 25px;
-
-      letter-spacing: -.04em;
-    }
-
-
-    .individual-price {
-      margin-top: 18px;
-
-      color: var(--green);
-
-      font-family: "Space Grotesk";
+      font-family:
+        "Space Grotesk";
 
       font-size: 27px;
 
-      font-weight: 700;
+      letter-spacing: -1px;
     }
-
 
     .big-price {
       margin-top: 18px;
 
-      color: var(--green);
+      font-family:
+        "Space Grotesk";
 
-      font-family: "Space Grotesk";
-
-      font-size: 52px;
+      font-size: 62px;
 
       font-weight: 700;
 
-      letter-spacing: -.06em;
+      letter-spacing: -3px;
+
+      color: var(--accent);
     }
 
-
     .price-card p {
-      margin-top: 16px;
+      margin-top: 18px;
 
       color: var(--muted);
 
+      line-height: 1.75;
+
       font-size: 13px;
-
-      line-height: 1.7;
     }
-
 
     .price-note {
       position: absolute;
 
-      left: 30px;
-      right: 30px;
-      bottom: 30px;
+      left: 35px;
+      right: 35px;
+      bottom: 32px;
 
-      padding-top: 17px;
+      padding-top: 18px;
 
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid var(--line);
 
-      color: #bbb;
+      display: flex;
+      flex-direction: column;
 
-      font-size: 11px;
+      gap: 7px;
     }
 
+    .price-note strong {
+      font-size: 12px;
 
-    .popular {
-      position: absolute;
-
-      top: 22px;
-      right: 22px;
-
-      padding: 7px 10px;
-
-      border-radius: 999px;
-
-      background: var(--green);
-
-      color: #000;
-
-      font-size: 8px;
-
-      font-weight: 900;
-
-      letter-spacing: .08em;
+      color: var(--text);
     }
 
+    .price-note span {
+      color: var(--muted);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
 
     /* =========================
-       MANAGEMENT
+       ABOUT
     ========================= */
 
-    .management-section {
-      background: var(--bg);
+    .about-box {
+      border:
+        1px solid var(--line);
+
+      border-radius: 34px;
+
+      padding:
+        clamp(30px, 6vw, 75px);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.01)
+        );
     }
 
-
-    .management-card {
+    .about-grid {
       display: grid;
 
       grid-template-columns:
         1fr 1fr;
 
-      gap: 25px;
-
-      padding: 55px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 32px;
-
-      background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(200,255,90,.09),
-          transparent 35%
-        ),
-        #090909;
+      gap: 70px;
     }
 
+    .about-box h2 {
+      font-family:
+        "Space Grotesk";
 
-    .management-content h2 {
-      max-width: 650px;
+      font-size:
+        clamp(38px, 5vw, 68px);
 
-      margin-top: 18px;
+      line-height: 1;
 
-      font-family: "Space Grotesk";
-
-      font-size: clamp(
-        43px,
-        5vw,
-        68px
-      );
-
-      line-height: .96;
-
-      letter-spacing: -.07em;
+      letter-spacing: -3px;
     }
 
-
-    .management-content h2 span {
-      color: var(--green);
-    }
-
-
-    .management-content p {
-      max-width: 600px;
-
-      margin-top: 22px;
-
+    .about-text {
       color: var(--muted);
+
+      line-height: 1.9;
 
       font-size: 15px;
-
-      line-height: 1.75;
     }
 
-
-    .management-list {
-      margin-top: 30px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 10px;
-    }
-
-
-    .management-item {
-      padding: 13px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 14px;
-
-      background:
-        rgba(255,255,255,.025);
-
-      color: #ddd;
-
-      font-size: 12px;
-    }
-
-
-    .check {
-      margin-right: 7px;
-
-      color: var(--green);
-
-      font-weight: 900;
-    }
-
-
-    /* DASHBOARD */
-
-    .management-visual {
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-    }
-
-
-    .dashboard {
-      width: 100%;
-
-      padding: 24px;
-
-      border: 1px solid
-        rgba(255,255,255,.12);
-
-      border-radius: 24px;
-
-      background: #111;
-
-      box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.35);
-    }
-
-
-    .dashboard-top {
-      display: flex;
-
-      justify-content: space-between;
-
-      gap: 15px;
-
-      align-items: flex-start;
-    }
-
-
-    .dashboard-top small {
-      color: #666;
-
-      font-size: 9px;
-
-      font-weight: 800;
-
-      letter-spacing: .12em;
-    }
-
-
-    .dashboard-top h3 {
-      margin-top: 5px;
-
-      font-family: "Space Grotesk";
-
-      font-size: 18px;
-    }
-
-
-    .online-status {
-      display: flex;
-
-      align-items: center;
-
-      gap: 6px;
-
-      padding: 6px 9px;
-
-      border-radius: 999px;
-
-      background:
-        rgba(200,255,90,.08);
-
-      color: var(--green);
-
-      font-size: 9px;
-    }
-
-
-    .online-status span {
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-    }
-
-
-    .product-preview {
-      margin-top: 30px;
-
-      padding: 15px;
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 13px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 17px;
-
-      background:
-        rgba(255,255,255,.025);
-    }
-
-
-    .product-image {
-      width: 55px;
-      height: 55px;
-
-      display: grid;
-
-      place-items: center;
-
-      flex: 0 0 auto;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #222,
-          #161616
-        );
-
-      font-size: 25px;
-    }
-
-
-    .product-info {
-      flex: 1;
-    }
-
-
-    .product-info strong {
-      display: block;
-
-      font-size: 13px;
-    }
-
-
-    .product-info span {
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-
-    .product-price {
-      color: var(--green);
-
-      font-family: "Space Grotesk";
-
-      font-size: 20px;
-
-      font-weight: 700;
-    }
-
-
-    .dashboard-actions {
-      margin-top: 13px;
-
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-
-      gap: 9px;
-    }
-
-
-    .dashboard-actions button {
-      min-height: 44px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 12px;
-
-      background:
-        rgba(255,255,255,.04);
-
-      color: #fff;
-
-      cursor: default;
-
-      font-size: 10px;
-
-      font-weight: 700;
-    }
-
-
-    .dashboard-actions button:first-child {
-      background: var(--green);
-
-      color: #000;
-
-      border-color: var(--green);
-    }
-
-
-    .dashboard-footer {
-      margin-top: 18px;
-
-      padding-top: 16px;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      border-top: 1px solid var(--line);
-
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-
-    .dashboard-footer strong {
-      color: #fff;
-    }
-
-
-    /* SUPPORT */
-
-    .support-strip {
-      margin-top: 18px;
-
-      padding: 34px 40px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 30px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 24px;
-
-      background:
-        rgba(255,255,255,.025);
-    }
-
-
-    .support-label {
-      color: #666;
-
-      font-size: 9px;
-
-      font-weight: 900;
-
-      letter-spacing: .14em;
-    }
-
-
-    .support-strip h3 {
-      margin-top: 8px;
-
-      font-family: "Space Grotesk";
-
-      font-size: 28px;
-
-      letter-spacing: -.05em;
-    }
-
-
-    .support-strip h3 span {
-      color: var(--green);
-    }
-
-
-    .support-strip p {
-      margin-top: 8px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-    }
-
-
-    .support-price {
-      flex: 0 0 auto;
-
-      text-align: right;
-    }
-
-
-    .support-price span {
-      display: block;
-
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-
-    .support-price strong {
-      display: block;
-
-      margin-top: 2px;
-
-      color: var(--green);
-
-      font-family: "Space Grotesk";
-
-      font-size: 38px;
-
-      letter-spacing: -.06em;
-    }
-
-
-    /* =========================
-       FLOW
-    ========================= */
-
-    .flow {
+    .about-columns {
       margin-top: 55px;
 
       display: grid;
 
       grid-template-columns:
-        repeat(5, 1fr);
+        1fr 1fr;
 
-      gap: 10px;
+      gap: 16px;
     }
 
+    .about-list {
+      padding: 25px;
 
-    .flow-step {
-      padding: 23px;
+      border:
+        1px solid var(--line);
 
-      min-height: 190px;
-
-      border: 1px solid var(--line);
-
-      border-radius: 20px;
-
-      background:
-        rgba(255,255,255,.025);
+      border-radius: 22px;
     }
 
+    .about-list h3 {
+      font-size: 13px;
 
-    .flow-step-number {
-      color: #555;
+      color: var(--accent);
 
-      font-family: "Space Grotesk";
+      margin-bottom: 20px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .about-list div {
+      padding: 9px 0;
+
+      color: #d0d0d0;
 
       font-size: 12px;
+
+      border-bottom:
+        1px solid var(--line);
     }
 
-
-    .flow-step-icon {
-      margin-top: 35px;
-
-      font-size: 25px;
+    .about-list div:last-child {
+      border-bottom: none;
     }
-
-
-    .flow-step h3 {
-      margin-top: 12px;
-
-      font-size: 15px;
-    }
-
-
-    .flow-step p {
-      margin-top: 5px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
 
     /* =========================
        CTA
     ========================= */
 
-    .cta-section {
-      padding-bottom: 90px;
-    }
+    .final-cta {
+      min-height: 700px;
 
-
-    .cta {
-      position: relative;
-
-      overflow: hidden;
-
-      padding: 90px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       text-align: center;
 
-      border: 1px solid
-        rgba(200,255,90,.25);
+      position: relative;
 
-      border-radius: 35px;
+      overflow: hidden;
+    }
+
+    .final-glow {
+      position: absolute;
+
+      width: 700px;
+      height: 700px;
+
+      border-radius: 50%;
 
       background:
         radial-gradient(
-          circle at 50% 0%,
-          rgba(200,255,90,.15),
-          transparent 48%
-        ),
-        #0b0b0b;
+          circle,
+          rgba(200,255,90,.14),
+          transparent 65%
+        );
+
+      filter: blur(25px);
+
+      animation:
+        floatGlow 8s
+        ease-in-out infinite;
     }
 
-
-    .cta h2 {
-      margin-top: 15px;
-
-      font-family: "Space Grotesk";
-
-      font-size: clamp(
-        50px,
-        7vw,
-        90px
-      );
-
-      line-height: .92;
-
-      letter-spacing: -.075em;
+    .final-content {
+      position: relative;
+      z-index: 2;
     }
 
+    .final-content h2 {
+      font-family:
+        "Space Grotesk";
 
-    .cta h2 span {
-      color: var(--green);
+      font-size:
+        clamp(62px, 10vw, 150px);
+
+      line-height: .85;
+
+      letter-spacing: -7px;
     }
 
+    .final-content h2 span {
+      color: var(--accent);
+    }
 
-    .cta p {
-      max-width: 580px;
-
-      margin: 24px auto 0;
-
+    .final-content p {
       color: var(--muted);
 
-      font-size: 16px;
+      max-width: 560px;
+
+      margin: 30px auto;
+
+      line-height: 1.8;
     }
 
+    .telegram-big {
+      margin: 0 auto;
 
-    .telegram {
-      margin-top: 35px;
+      width: fit-content;
 
-      display: inline-flex;
+      padding:
+        17px 25px;
 
-      align-items: center;
+      border-radius: 17px;
 
-      justify-content: center;
+      background: var(--accent);
 
-      gap: 10px;
-
-      padding: 17px 25px;
-
-      border-radius: 16px;
-
-      background: var(--green);
-
-      color: #000;
+      color: #050505;
 
       font-weight: 800;
 
-      transition: .25s ease;
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease;
     }
 
-
-    .telegram:hover {
+    .telegram-big:hover {
       transform:
         translateY(-5px)
         scale(1.02);
 
       box-shadow:
-        0 20px 60px
-        rgba(200,255,90,.18);
+        0 25px 60px
+        rgba(200,255,90,.2);
     }
-
 
     /* =========================
        FOOTER
     ========================= */
 
     footer {
-      padding: 30px 0 45px;
+      border-top:
+        1px solid var(--line);
 
-      border-top: 1px solid var(--line);
-
-      color: #666;
-
-      font-size: 12px;
+      padding: 55px 0 30px;
     }
 
+    .footer-grid {
+      display: grid;
 
-    .footer {
+      grid-template-columns:
+        1.2fr .8fr;
+
+      gap: 60px;
+    }
+
+    .footer-description {
+      color: var(--muted);
+
+      max-width: 680px;
+
+      margin-top: 20px;
+
+      font-size: 12px;
+
+      line-height: 1.8;
+    }
+
+    .footer-note {
+      padding: 22px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 18px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      line-height: 1.7;
+    }
+
+    .footer-bottom {
+      margin-top: 45px;
+
+      padding-top: 25px;
+
+      border-top:
+        1px solid var(--line);
+
       display: flex;
-
       justify-content: space-between;
 
       gap: 20px;
+
+      color: var(--muted-2);
+
+      font-size: 10px;
     }
 
-
     /* =========================
-       REVEAL ANIMATION
+       REVEAL
     ========================= */
 
     .reveal {
       opacity: 0;
 
-      transform: translateY(28px);
+      transform:
+        translateY(35px);
 
       transition:
-        opacity .75s ease,
-        transform .75s ease;
+        opacity .8s ease,
+        transform .8s
+        cubic-bezier(.2,.8,.2,1);
     }
 
-
-    .reveal.show {
+    .reveal.visible {
       opacity: 1;
 
-      transform: translateY(0);
+      transform:
+        translateY(0);
     }
-
 
     /* =========================
-       TABLET
+       ANIMATIONS
     ========================= */
 
-    @media (max-width: 950px) {
-
-      .hero-grid,
-      .payment,
-      .management-card {
-        grid-template-columns: 1fr;
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
       }
 
-
-      .hero-card {
-        height: 500px;
-      }
-
-
-      .categories {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-
-      .pricing-grid {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-
-      .pricing-grid
-      .price-card:last-child {
-        grid-column: 1 / -1;
-      }
-
-
-      .flow {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-
-      .delivery {
-        grid-template-columns: 1fr;
-      }
-
-
-      .management-card {
-        padding: 40px;
-      }
-
-
-      .support-strip {
-        align-items: flex-start;
+      50% {
+        opacity: .5;
+        transform: scale(.7);
       }
     }
 
+    @keyframes floatGlow {
+      0%, 100% {
+        transform:
+          translate(0,0)
+          scale(1);
+      }
+
+      50% {
+        transform:
+          translate(20px,-20px)
+          scale(1.08);
+      }
+    }
+
+    @keyframes floatingOne {
+      0%,100% {
+        transform:
+          translateY(0)
+          rotate(-2deg);
+      }
+
+      50% {
+        transform:
+          translateY(-15px)
+          rotate(1deg);
+      }
+    }
+
+    @keyframes floatingTwo {
+      0%,100% {
+        transform:
+          translateY(0)
+          rotate(2deg);
+      }
+
+      50% {
+        transform:
+          translateY(15px)
+          rotate(-1deg);
+      }
+    }
+
+    @keyframes shine {
+      0%, 65% {
+        transform:
+          translateX(-130%);
+      }
+
+      100% {
+        transform:
+          translateX(130%);
+      }
+    }
+
+    @keyframes moveDot {
+      0% {
+        top: -4px;
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      100% {
+        top: 24px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes modeIn {
+      from {
+        opacity: 0;
+        transform:
+          translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform:
+          translateY(0);
+      }
+    }
 
     /* =========================
        MOBILE
     ========================= */
 
-    @media (max-width: 650px) {
+    @media (max-width: 1000px) {
+
+      .hero-grid,
+      .payment-content,
+      .dashboard-section,
+      .about-grid,
+      .system-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .hero-visual {
+        min-height: 500px;
+      }
+
+      .trust-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .trust-item:nth-child(2) {
+        border-right: none;
+      }
+
+      .trust-item {
+        border-bottom:
+          1px solid var(--line);
+      }
+
+      .trust-item:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+
+      .bento {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        min-height: 400px;
+      }
+
+      .delivery-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+    }
+
+    @media (max-width: 700px) {
 
       .container {
         width:
-          min(
-            calc(100% - 28px),
-            var(--max)
-          );
+          min(calc(100% - 28px), var(--container));
       }
 
-
-      section {
-        padding: 85px 0;
+      .nav-inner {
+        height: 68px;
       }
-
-
-      .nav-wrap {
-        top: 9px;
-      }
-
-
-      nav {
-        width:
-          calc(100% - 18px);
-
-        height: 59px;
-      }
-
 
       .nav-links {
         display: none;
       }
 
-
-      .nav-cta {
-        padding: 10px 13px;
-
+      .nav-telegram {
+        padding: 9px 12px;
         font-size: 11px;
       }
 
-
-      .logo {
+      .brand {
         font-size: 17px;
       }
 
-
-      .logo-mark {
-        width: 30px;
-        height: 30px;
+      .brand-mark {
+        width: 31px;
+        height: 31px;
       }
-
 
       .hero {
-        padding-top: 125px;
+        min-height: auto;
+
+        padding:
+          120px 0
+          65px;
       }
 
-
-      h1 {
-        font-size:
-          clamp(
-            53px,
-            16vw,
-            76px
-          );
+      .hero h1 {
+        letter-spacing: -4px;
       }
-
 
       .hero-text {
-        font-size: 15px;
+        font-size: 14px;
       }
 
-
-      .buttons {
+      .hero-actions {
         flex-direction: column;
       }
 
-
-      .button {
+      .hero-actions .btn {
         width: 100%;
       }
 
+      .hero-visual {
+        min-height: 410px;
 
-      .hero-points {
-        gap: 18px;
+        margin-top: 20px;
       }
 
+      .main-panel {
+        min-height: 390px;
 
-      .hero-card {
-        height: 440px;
-      }
-
-
-      .categories,
-      .ecosystem-grid,
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-
-      .pricing-grid
-      .price-card:last-child {
-        grid-column: auto;
-      }
-
-
-      .category {
-        min-height: 210px;
-      }
-
-
-      .category h3 {
-        margin-top: 48px;
-      }
-
-
-      .eco-card {
-        min-height: 290px;
-
-        padding: 27px;
-      }
-
-
-      .payment-info {
-        padding: 30px 23px;
-      }
-
-
-      .payment-image {
-        min-height: 380px;
-      }
-
-
-      .delivery {
-        padding: 28px 23px;
-      }
-
-
-      .delivery-icon {
-        width: 70px;
-        height: 70px;
-
-        font-size: 30px;
-      }
-
-
-      .flow {
-        grid-template-columns: 1fr;
-      }
-
-
-      .flow-step {
-        min-height: 150px;
-      }
-
-
-      .management-card {
-        padding: 30px 22px;
-
-        border-radius: 25px;
-      }
-
-
-      .management-list {
-        grid-template-columns: 1fr;
-      }
-
-
-      .dashboard {
         padding: 18px;
+
+        transform: rotate(0);
       }
 
+      .floating-card.one {
+        left: -5px;
+        top: 45px;
+      }
 
-      .support-strip {
+      .floating-card.two {
+        right: -4px;
+        bottom: 25px;
+      }
+
+      .floating-card {
+        padding: 12px;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item {
+        border-right: none !important;
+      }
+
+      .trust-item:nth-last-child(-n+2) {
+        border-bottom:
+          1px solid var(--line);
+      }
+
+      .trust-item:last-child {
+        border-bottom: none;
+      }
+
+      section {
+        padding: 85px 0;
+      }
+
+      .section-title {
+        letter-spacing: -2px;
+      }
+
+      .bento {
+        grid-template-columns: 1fr;
+
+        grid-auto-rows: auto;
+      }
+
+      .bento-card,
+      .bento-card.large,
+      .bento-card.wide {
+        grid-column: span 1;
+        grid-row: span 1;
+
+        min-height: 220px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-info,
+      .payment-flow {
+        min-height: auto;
+
+        padding: 25px;
+      }
+
+      .payment-toggle {
+        margin-top: 35px;
+
+        border-radius: 17px;
+      }
+
+      .toggle-btn {
+        font-size: 11px;
+      }
+
+      .toggle-btn i {
+        width: 16px;
+      }
+
+      .delivery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .delivery-card {
+        min-height: 220px;
+      }
+
+      .delivery-card i {
+        margin-bottom: 35px;
+      }
+
+      .telegram-system {
+        padding: 28px;
+
+        min-height: auto;
+      }
+
+      .system-diagram {
+        margin-top: 20px;
+      }
+
+      .dashboard-section {
+        gap: 45px;
+      }
+
+      .about-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
         flex-direction: column;
-
-        padding: 28px 22px;
-
-        align-items: stretch;
       }
 
-
-      .support-price {
-        text-align: left;
+      .final-cta {
+        min-height: 570px;
       }
 
-
-      .cta {
-        padding: 65px 20px;
+      .final-content h2 {
+        letter-spacing: -4px;
       }
 
-
-      .telegram {
-        width: 100%;
-      }
-
-
-      .footer {
-        flex-direction: column;
-      }
     }
 
   </style>
 </head>
 
-
 <body>
 
+  <!-- NAVIGATION -->
 
-  <!-- =========================
-       NAV
-  ========================= -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
 
-  <div class="nav-wrap">
+      <a href="#top" class="brand">
 
-    <nav>
-
-      <a href="#" class="logo">
-
-        <span class="logo-mark">
-          S
-        </span>
+        <div class="brand-mark">
+          <i data-lucide="zap"></i>
+        </div>
 
         SchwarzPay
 
       </a>
 
-
       <div class="nav-links">
-
-        <a href="#для-кого">
-          Для кого
-        </a>
-
-        <a href="#возможности">
-          Возможности
-        </a>
-
-        <a href="#оплата">
-          Оплата
-        </a>
-
-        <a href="#цены">
-          Цены
-        </a>
-
+        <a href="#solutions">Возможности</a>
+        <a href="#payment">Оплата</a>
+        <a href="#telegram">Telegram</a>
+        <a href="#prices">Цены</a>
       </div>
 
-
       <a
+        class="nav-telegram"
         href="https://t.me/Duf7484"
         target="_blank"
-        rel="noopener"
-        class="nav-cta"
       >
-        Написать →
+        <i data-lucide="send"></i>
+        Написать
       </a>
 
-    </nav>
-
-  </div>
-
+    </div>
+  </nav>
 
 
-  <main>
+  <!-- HERO -->
 
-
-    <!-- =========================
-         HERO
-    ========================= -->
+  <main id="top">
 
     <section class="hero">
 
-      <div class="container">
+      <div class="container hero-grid">
 
-        <div class="hero-grid">
+        <div class="hero-copy">
 
-
-          <div class="reveal">
-
-            <div class="eyebrow">
-
-              <span class="dot"></span>
-
-              Сайты • Telegram • Оплата
-
-            </div>
-
-
-            <h1>
-
-              Продавай.<br>
-
-              <span>
-                Будь онлайн.
-              </span>
-
-            </h1>
-
-
-            <p class="hero-text">
-
-              SchwarzPay помогает показать твои товары
-              и услуги в интернете, создать собственный сайт,
-              подключить Telegram и сделать удобный путь
-              от клиента до заказа.
-
-            </p>
-
-
-            <div class="buttons">
-
-              <a
-                href="https://t.me/Duf7484"
-                target="_blank"
-                rel="noopener"
-                class="button button-primary"
-              >
-                Обсудить проект →
-              </a>
-
-
-              <a
-                href="#возможности"
-                class="button button-secondary"
-              >
-                Смотреть возможности
-              </a>
-
-            </div>
-
-
-            <div class="hero-points">
-
-              <div class="hero-point">
-
-                <strong>
-                  🌐
-                </strong>
-
-                Сайт
-
-              </div>
-
-
-              <div class="hero-point">
-
-                <strong>
-                  ✈️
-                </strong>
-
-                Telegram
-
-              </div>
-
-
-              <div class="hero-point">
-
-                <strong>
-                  💳
-                </strong>
-
-                Онлайн
-
-              </div>
-
-
-              <div class="hero-point">
-
-                <strong>
-                  💵
-                </strong>
-
-                Наличные
-
-              </div>
-
-            </div>
-
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            Digital tools for selling
           </div>
 
+          <h1>
+            Продавай.<br>
+            <span>Будь онлайн.</span>
+          </h1>
 
+          <p class="hero-text">
+            SchwarzPay помогает создать современный сайт,
+            подключить Telegram и автоматизировать цифровые
+            процессы для товаров и услуг.
+          </p>
 
-          <div class="hero-card reveal">
+          <div class="hero-actions">
 
-            <img
-              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85"
-              alt="Современный цифровой проект"
-              loading="eager"
+            <a
+              href="https://t.me/Duf7484"
+              target="_blank"
+              class="btn btn-primary"
             >
-
-
-            <div class="visual-caption">
-
-              <small>
-                SCHWARZPAY
-              </small>
-
-
-              <h2>
-                Твой товар или услуга —
-                в цифровом пространстве.
-              </h2>
-
-
-              <p>
-                Сайт + Telegram + удобный путь к заказу.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         ДЛЯ КОГО
-    ========================= -->
-
-    <section id="для-кого">
-
-      <div class="container">
-
-
-        <div class="reveal">
-
-          <div class="section-label">
-            Для кого
-          </div>
-
-
-          <h2 class="section-title">
-            Есть что предложить?
-            Покажи это онлайн.
-          </h2>
-
-
-          <p class="section-text">
-            SchwarzPay подходит для разных товаров,
-            услуг и проектов — от локальных предложений
-            до работы с клиентами через интернет.
-          </p>
-
-        </div>
-
-
-
-        <div class="categories">
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              🛋️
-            </div>
-
-            <h3>
-              Мебель
-            </h3>
-
-            <p>
-              Каталог, фотографии, описание,
-              цены и связь с продавцом.
-            </p>
-
-          </article>
-
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              📱
-            </div>
-
-            <h3>
-              Техника
-            </h3>
-
-            <p>
-              Покажи товары и сделай
-              удобный путь для заказа.
-            </p>
-
-          </article>
-
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              🚚
-            </div>
-
-            <h3>
-              Перевозки
-            </h3>
-
-            <p>
-              Украина ↔ Германия,
-              маршруты, информация и заявки.
-            </p>
-
-          </article>
-
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              🔧
-            </div>
-
-            <h3>
-              Услуги
-            </h3>
-
-            <p>
-              Расскажи, что ты делаешь,
-              и дай клиенту простой способ связаться.
-            </p>
-
-          </article>
-
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              📦
-            </div>
-
-            <h3>
-              Товары
-            </h3>
-
-            <p>
-              Онлайн-витрина для того,
-              что ты продаёшь.
-            </p>
-
-          </article>
-
-
-
-          <article class="category reveal">
-
-            <div class="category-icon">
-              🚀
-            </div>
-
-            <h3>
-              Свой проект
-            </h3>
-
-            <p>
-              Если есть идея —
-              можно создать под неё отдельную
-              цифровую систему.
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         ВОЗМОЖНОСТИ
-    ========================= -->
-
-    <section
-      class="ecosystem"
-      id="возможности"
-    >
-
-      <div class="container">
-
-
-        <div class="reveal">
-
-          <div class="section-label">
-            Цифровая экосистема
-          </div>
-
-
-          <h2 class="section-title">
-            Больше, чем просто сайт.
-          </h2>
-
-
-          <p class="section-text">
-            Объедини сайт, Telegram и способы связи
-            в один понятный путь для твоих клиентов.
-          </p>
-
-        </div>
-
-
-
-        <div class="ecosystem-grid">
-
-
-          <article class="eco-card reveal">
-
-            <div class="eco-number">
-              01 / САЙТ
-            </div>
-
-
-            <h3>
-              Твоя собственная витрина.
-            </h3>
-
-
-            <p>
-              Показывай товары, услуги, фотографии,
-              описание, цены, контакты и важную информацию
-              в одном месте.
-            </p>
-
-
-            <div class="eco-tags">
-
-              <span class="tag">
-                📱 Mobile
-              </span>
-
-              <span class="tag">
-                🖥️ PC
-              </span>
-
-              <span class="tag">
-                🌐 Online
-              </span>
-
-            </div>
-
-          </article>
-
-
-
-          <article class="eco-card reveal">
-
-            <div class="eco-number">
-              02 / TELEGRAM
-            </div>
-
-
-            <h3>
-              Канал + бот.
-            </h3>
-
-
-            <p>
-              Подключай Telegram-канал для публикаций
-              и Telegram-бота для заявок, вопросов,
-              каталога или автоматизации.
-            </p>
-
-
-            <div class="eco-tags">
-
-              <span class="tag">
-                ✈️ Канал
-              </span>
-
-              <span class="tag">
-                🤖 Бот
-              </span>
-
-              <span class="tag">
-                ⚡ Автоматизация
-              </span>
-
-            </div>
-
-          </article>
-
-
-
-          <article class="eco-card reveal">
-
-            <div class="eco-number">
-              03 / ЗАКАЗЫ
-            </div>
-
-
-            <h3>
-              От просмотра до заявки.
-            </h3>
-
-
-            <p>
-              Клиент может посмотреть предложение,
-              связаться с тобой и перейти к оформлению
-              заказа через удобный для проекта сценарий.
-            </p>
-
-
-            <div class="eco-tags">
-
-              <span class="tag">
-                🛍️ Товары
-              </span>
-
-              <span class="tag">
-                🔧 Услуги
-              </span>
-
-              <span class="tag">
-                📩 Заявки
-              </span>
-
-            </div>
-
-          </article>
-
-
-
-          <article class="eco-card reveal">
-
-            <div class="eco-number">
-              04 / ONLINE
-            </div>
-
-
-            <h3>
-              Локально или через интернет.
-            </h3>
-
-
-            <p>
-              Можно работать с клиентами рядом
-              или принимать обращения от людей,
-              которые находятся в другом городе или стране.
-            </p>
-
-
-            <div class="eco-tags">
-
-              <span class="tag">
-                📍 Локально
-              </span>
-
-              <span class="tag">
-                🌍 Онлайн
-              </span>
-
-              <span class="tag">
-                📦 Отправка
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         ОПЛАТА
-    ========================= -->
-
-    <section id="оплата">
-
-      <div class="container">
-
-
-        <div class="reveal">
-
-          <div class="section-label">
-            Оплата
-          </div>
-
-
-          <h2 class="section-title">
-
-            НАЛИЧНЫЕ.
-
-            <br>
-
-            <span style="color:var(--green)">
-              ФИАТ + КРИПТА.
-            </span>
-
-          </h2>
-
-
-          <p class="section-text">
-            Для локальной продажи клиент может рассчитаться
-            наличными при личной встрече. Для онлайн-заказов
-            можно использовать доступные платёжные возможности
-            нашего провайдера.
-          </p>
-
-        </div>
-
-
-
-        <div class="payment reveal">
-
-
-          <div class="payment-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85"
-              alt="Онлайн оплата"
-              loading="lazy"
+              <i data-lucide="send"></i>
+              Написать в Telegram
+            </a>
+
+            <a
+              href="#payment"
+              class="btn btn-secondary"
             >
-
-          </div>
-
-
-
-          <div class="payment-info">
-
-            <div class="section-label">
-              Два сценария
-            </div>
-
-
-            <h2>
-              Локально
-              <span>или онлайн.</span>
-            </h2>
-
-
-            <p>
-              Выбирай подходящий сценарий для своего товара
-              или услуги. SchwarzPay предоставляет цифровую
-              инфраструктуру, а конкретные условия обработки
-              платежей определяются нашим платёжным провайдером.
-            </p>
-
-
-
-            <div class="payment-methods">
-
-
-              <div class="payment-method">
-
-                <div class="method-icon">
-                  💵
-                </div>
-
-                <div>
-
-                  <strong>
-                    Наличные
-                  </strong>
-
-                  <span>
-                    При личной встрече с клиентом
-                  </span>
-
-                </div>
-
-              </div>
-
-
-
-              <div class="payment-method">
-
-                <div class="method-icon">
-                  💳
-                </div>
-
-                <div>
-
-                  <strong>
-                    Фиат онлайн
-                  </strong>
-
-                  <span>
-                    Через доступные возможности провайдера
-                  </span>
-
-                </div>
-
-              </div>
-
-
-
-              <div class="payment-method">
-
-                <div class="method-icon">
-                  ₿
-                </div>
-
-                <div>
-
-                  <strong>
-                    Крипта онлайн
-                  </strong>
-
-                  <span>
-                    Через доступные криптовалютные возможности
-                  </span>
-
-                </div>
-
-              </div>
-
-
-            </div>
+              Посмотреть возможности
+              <i data-lucide="arrow-down"></i>
+            </a>
 
           </div>
 
         </div>
 
 
+        <div class="hero-visual">
 
-        <div class="delivery reveal">
+          <div class="hero-glow"></div>
 
-          <div>
+          <div class="main-panel">
 
-            <h3>
-              📦 Продал — отправь.
-            </h3>
+            <div class="panel-top">
 
+              <div class="panel-title">
+                SchwarzPay Dashboard
+              </div>
 
-            <p>
-              SchwarzPay не занимается доставкой.
-              Ты самостоятельно выбираешь подходящий способ
-              передачи или отправки товара клиенту —
-              например, почтой, курьером или при личной встрече.
-            </p>
+              <div class="online-badge">
+                <span></span>
+                ONLINE
+              </div>
+
+            </div>
+
+            <div class="dashboard-box">
+
+              <div class="dashboard-row">
+
+                <div class="dashboard-product">
+
+                  <div class="product-icon">
+                    <i data-lucide="package"></i>
+                  </div>
+
+                  <div>
+                    <div class="product-name">
+                      Новый товар
+                    </div>
+
+                    <div class="product-status">
+                      Доступен онлайн
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="price-tag">
+                  350 €
+                </div>
+
+              </div>
+
+              <div class="dashboard-row">
+
+                <div class="dashboard-product">
+
+                  <div class="product-icon">
+                    <i data-lucide="message-circle"></i>
+                  </div>
+
+                  <div>
+                    <div class="product-name">
+                      Новая заявка
+                    </div>
+
+                    <div class="product-status">
+                      Telegram
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="price-tag">
+                  NEW
+                </div>
+
+              </div>
+
+              <div class="dashboard-row">
+
+                <div class="dashboard-product">
+
+                  <div class="product-icon">
+                    <i data-lucide="settings-2"></i>
+                  </div>
+
+                  <div>
+                    <div class="product-name">
+                      Автоматизация
+                    </div>
+
+                    <div class="product-status">
+                      Настроено
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="price-tag">
+                  ACTIVE
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
 
-          <div class="delivery-icon">
-            📦
+          <div class="floating-card one">
+
+            <div class="floating-icon">
+              <i data-lucide="shopping-bag"></i>
+            </div>
+
+            <div>
+              <div class="floating-label">
+                ЗАКАЗ
+              </div>
+
+              <div class="floating-value">
+                Новая заявка
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="floating-card two">
+
+            <div class="floating-icon">
+              <i data-lucide="globe"></i>
+            </div>
+
+            <div>
+              <div class="floating-label">
+                СТАТУС
+              </div>
+
+              <div class="floating-value">
+                Работаешь онлайн
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -2815,186 +2742,127 @@
     </section>
 
 
+    <!-- TRUST STRIP -->
 
-    <!-- =========================
-         ЦЕНЫ
-    ========================= -->
+    <div class="trust-strip">
 
-    <section
-      class="pricing"
-      id="цены"
-    >
+      <div class="container trust-grid">
+
+        <div class="trust-item">
+          <i data-lucide="monitor-smartphone"></i>
+          Современный сайт
+        </div>
+
+        <div class="trust-item">
+          <i data-lucide="send"></i>
+          Telegram-интеграция
+        </div>
+
+        <div class="trust-item">
+          <i data-lucide="bot"></i>
+          Автоматизация
+        </div>
+
+        <div class="trust-item">
+          <i data-lucide="workflow"></i>
+          Цифровые процессы
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- SOLUTIONS -->
+
+    <section id="solutions">
 
       <div class="container">
 
-
-        <div class="reveal">
-
-          <div class="section-label">
-            Цены
-          </div>
-
-
-          <h2 class="section-title">
-            Понятно.
-            <br>
-            <span style="color:var(--green)">
-              Индивидуально.
-            </span>
-          </h2>
-
-
-          <p class="section-text">
-            Каждый проект отличается, поэтому стоимость
-            создания сайта или Telegram-бота рассчитывается
-            индивидуально.
-          </p>
-
+        <div class="section-label">
+          Возможности
         </div>
 
+        <h2 class="section-title">
+          Всё, чтобы перевести
+          продажи и услуги
+          <span style="color:var(--accent)">в онлайн.</span>
+        </h2>
+
+        <p class="section-subtitle">
+          Подходит для продажи товаров, услуг,
+          техники, мебели, локальных заказов
+          и других направлений.
+        </p>
 
 
-        <div class="pricing-grid">
+        <div class="bento">
 
+          <article class="bento-card large reveal">
 
-          <article class="price-card reveal">
+            <div class="bento-icon">
+              <i data-lucide="shopping-cart"></i>
+            </div>
 
-            <div class="price-number">
+            <h3>Товары</h3>
+
+            <p>
+              Каталог, цены, фотографии,
+              заявки и удобный способ связи
+              с клиентами.
+            </p>
+
+            <div class="bento-number">
               01
             </div>
 
-
-            <h3>
-              🌐 Создание сайта
-            </h3>
+          </article>
 
 
-            <div class="individual-price">
-              Индивидуально
+          <article class="bento-card reveal">
+
+            <div class="bento-icon">
+              <i data-lucide="briefcase-business"></i>
             </div>
 
+            <h3>Услуги</h3>
 
             <p>
-              Стоимость зависит от сложности проекта,
-              количества страниц, функций и дизайна.
+              Покажи, что ты предлагаешь.
             </p>
-
-
-            <div class="price-note">
-              Обсуждаем проект перед началом работы.
-            </div>
 
           </article>
 
 
+          <article class="bento-card reveal">
 
-          <article class="price-card reveal">
-
-            <div class="price-number">
-              02
+            <div class="bento-icon">
+              <i data-lucide="truck"></i>
             </div>
 
-
-            <h3>
-              🤖 Telegram-бот
-            </h3>
-
-
-            <div class="individual-price">
-              Индивидуально
-            </div>
-
+            <h3>Перевозки</h3>
 
             <p>
-              Стоимость зависит от функций,
-              автоматизации и сложности работы бота.
+              Приём заявок и связь онлайн.
             </p>
-
-
-            <div class="price-note">
-              Каждый бот создаётся под конкретную задачу.
-            </div>
 
           </article>
 
 
+          <article class="bento-card wide reveal">
 
-          <article class="price-card featured reveal">
-
-            <div class="popular">
-              ОНЛАЙН-ОПЛАТА
+            <div class="bento-icon">
+              <i data-lucide="smartphone"></i>
             </div>
 
-
-            <div class="price-number">
-              03
-            </div>
-
-
-            <h3>
-              ⚡ Подключение оплаты
-            </h3>
-
-
-            <div class="big-price">
-              49 €
-            </div>
-
+            <h3>Telegram + сайт</h3>
 
             <p>
-              Единоразовая настройка и подключение
-              доступного платёжного решения через
-              нашего провайдера.
+              Объедини канал, бота,
+              заявки и сайт в одну систему.
             </p>
-
-
-            <div class="price-note">
-              Фиат + крипта онлайн.
-            </div>
 
           </article>
-
-        </div>
-
-
-
-        <!-- SUPPORT -->
-
-        <div class="support-strip reveal">
-
-          <div>
-
-            <div class="support-label">
-              ПОДДЕРЖКА
-            </div>
-
-
-            <h3>
-              Нужно что-то изменить?
-              <span>Мы поможем.</span>
-            </h3>
-
-
-            <p>
-              Новая акция, изменение дизайна,
-              новый раздел, функция или другая доработка.
-            </p>
-
-          </div>
-
-
-          <div class="support-price">
-
-            <span>
-              Изменения и поддержка
-            </span>
-
-
-            <strong>
-              от 30 €
-            </strong>
-
-          </div>
 
         </div>
 
@@ -3003,85 +2871,188 @@
     </section>
 
 
-
-    <!-- =========================
-         УПРАВЛЕНИЕ
-    ========================= -->
+    <!-- PAYMENT -->
 
     <section
-      class="management-section"
-      id="управление"
+      id="payment"
+      class="payment-section"
     >
 
       <div class="container">
 
+        <div class="payment-head">
 
-        <div class="management-card reveal">
+          <div class="section-label">
+            Способ работы
+          </div>
+
+          <h2 class="section-title">
+            Как ты хочешь
+            получать оплату?
+          </h2>
+
+          <p class="section-subtitle">
+            Наличные отлично подходят для локальных продаж.
+            Онлайн-инструменты позволяют работать с клиентами
+            без необходимости встречаться только ради оплаты.
+          </p>
+
+        </div>
 
 
-          <div class="management-content">
+        <div
+          class="payment-toggle"
+          id="paymentToggle"
+        >
 
-            <div class="section-label">
-              После запуска
+          <div class="toggle-indicator"></div>
+
+          <button
+            class="toggle-btn active"
+            data-mode="cash"
+          >
+            <i data-lucide="banknote"></i>
+            НАЛИЧНЫЕ
+          </button>
+
+          <button
+            class="toggle-btn"
+            data-mode="schwarz"
+          >
+            <i data-lucide="zap"></i>
+            SCHWARZPAY
+          </button>
+
+        </div>
+
+
+        <div class="payment-content">
+
+
+          <!-- LEFT -->
+
+          <div class="payment-info">
+
+            <!-- CASH -->
+
+            <div
+              class="payment-mode active"
+              id="cashMode"
+            >
+
+              <div class="mode-top">
+
+                <div class="mode-icon">
+                  <i data-lucide="banknote"></i>
+                </div>
+
+                <h3>
+                  Получай лично.
+                </h3>
+
+              </div>
+
+              <p class="mode-description">
+                Наличные — простой вариант для локальных
+                продаж, когда клиент и продавец могут
+                договориться о встрече.
+              </p>
+
+              <div class="advantages-grid">
+
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Деньги передаются лично
+                </div>
+
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Просто для локальной продажи
+                </div>
+
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Не нужна онлайн-настройка
+                </div>
+
+                <div class="advantage minus">
+                  <i data-lucide="x"></i>
+                  Нужно организовать встречу
+                </div>
+
+                <div class="advantage minus">
+                  <i data-lucide="x"></i>
+                  Нужно согласовать место и время
+                </div>
+
+                <div class="advantage minus">
+                  <i data-lucide="x"></i>
+                  Не всегда удобно для дальних клиентов
+                </div>
+
+              </div>
+
             </div>
 
 
-            <h2>
-              Товары и цены —
-              <span>под твоим контролем.</span>
-            </h2>
+            <!-- SCHWARZ -->
 
+            <div
+              class="payment-mode"
+              id="schwarzMode"
+            >
 
-            <p>
-              После завершения разработки и финальной проверки
-              ты получаешь доступ к управлению основным
-              содержимым своего сайта.
-            </p>
+              <div class="mode-top">
 
+                <div class="mode-icon">
+                  <i data-lucide="zap"></i>
+                </div>
 
-            <p>
-              Не нужно каждый раз обращаться к нам,
-              чтобы изменить цену или добавить новый товар.
-            </p>
+                <h3>
+                  Будь онлайн.
+                </h3>
 
-
-
-            <div class="management-list">
-
-
-              <div class="management-item">
-                <span class="check">✓</span>
-                Добавляй новые товары
               </div>
 
+              <p class="mode-description">
+                Помогаем настроить цифровой путь для заказов
+                и подключить подходящее стороннее решение,
+                чтобы клиенту не нужно было встречаться с тобой
+                только ради передачи оплаты.
+              </p>
 
-              <div class="management-item">
-                <span class="check">✓</span>
-                Изменяй цены
-              </div>
+              <div class="advantages-grid">
 
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Не нужно встречаться только ради оплаты
+                </div>
 
-              <div class="management-item">
-                <span class="check">✓</span>
-                Обновляй описания
-              </div>
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Работа с клиентами дистанционно
+                </div>
 
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Фиат + крипта через стороннее решение
+                </div>
 
-              <div class="management-item">
-                <span class="check">✓</span>
-                Добавляй фотографии
-              </div>
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Сайт и Telegram в одной системе
+                </div>
 
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Автоматизация заявок и процессов
+                </div>
 
-              <div class="management-item">
-                <span class="check">✓</span>
-                Удаляй неактуальные товары
-              </div>
+                <div class="advantage plus">
+                  <i data-lucide="check"></i>
+                  Ты сам выбираешь способ передачи товара
+                </div>
 
-
-              <div class="management-item">
-                <span class="check">✓</span>
-                Обновляй информацию
               </div>
 
             </div>
@@ -3089,95 +3060,139 @@
           </div>
 
 
+          <!-- RIGHT FLOW -->
 
-          <!-- MOCKUP -->
+          <div class="payment-flow">
 
-          <div class="management-visual">
+            <div class="flow-bg"></div>
 
-            <div class="dashboard">
+            <div
+              class="flow"
+              id="flowCash"
+            >
 
+              <div class="flow-node">
 
-              <div class="dashboard-top">
+                <div class="flow-node-icon">
+                  <i data-lucide="user"></i>
+                </div>
 
                 <div>
+                  <div class="flow-node-title">
+                    КЛИЕНТ
+                  </div>
 
-                  <small>
-                    МОЙ МАГАЗИН
-                  </small>
-
-
-                  <h3>
-                    Управление товарами
-                  </h3>
-
-                </div>
-
-
-                <div class="online-status">
-
-                  <span></span>
-
-                  Онлайн
-
+                  <div class="flow-node-sub">
+                    Договариваетесь
+                  </div>
                 </div>
 
               </div>
 
+              <div class="flow-line"></div>
 
+              <div class="flow-node highlight">
 
-              <div class="product-preview">
-
-                <div class="product-image">
-                  📦
+                <div class="flow-node-icon">
+                  <i data-lucide="handshake"></i>
                 </div>
 
+                <div>
+                  <div class="flow-node-title">
+                    ВСТРЕЧА
+                  </div>
 
-                <div class="product-info">
-
-                  <strong>
-                    Новый товар
-                  </strong>
-
-                  <span>
-                    Добавлено сейчас
-                  </span>
-
-                </div>
-
-
-                <div class="product-price">
-                  99 €
+                  <div class="flow-node-sub">
+                    Личная передача
+                  </div>
                 </div>
 
               </div>
 
+              <div class="flow-line"></div>
 
+              <div class="flow-node">
 
-              <div class="dashboard-actions">
+                <div class="flow-node-icon">
+                  <i data-lucide="banknote"></i>
+                </div>
 
-                <button>
-                  + Добавить товар
-                </button>
+                <div>
+                  <div class="flow-node-title">
+                    НАЛИЧНЫЕ
+                  </div>
 
-
-                <button>
-                  ✎ Изменить цену
-                </button>
+                  <div class="flow-node-sub">
+                    Оплата лично
+                  </div>
+                </div>
 
               </div>
 
+            </div>
 
 
-              <div class="dashboard-footer">
+            <div
+              class="flow"
+              id="flowSchwarz"
+              style="display:none"
+            >
 
-                <span>
-                  Товаров
-                </span>
+              <div class="flow-node">
 
+                <div class="flow-node-icon">
+                  <i data-lucide="user"></i>
+                </div>
 
-                <strong>
-                  24
-                </strong>
+                <div>
+                  <div class="flow-node-title">
+                    КЛИЕНТ
+                  </div>
+
+                  <div class="flow-node-sub">
+                    Оформляет заказ
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="flow-line"></div>
+
+              <div class="flow-node highlight">
+
+                <div class="flow-node-icon">
+                  <i data-lucide="workflow"></i>
+                </div>
+
+                <div>
+                  <div class="flow-node-title">
+                    DIGITAL FLOW
+                  </div>
+
+                  <div class="flow-node-sub">
+                    Сайт + Telegram
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="flow-line"></div>
+
+              <div class="flow-node">
+
+                <div class="flow-node-icon">
+                  <i data-lucide="check-circle"></i>
+                </div>
+
+                <div>
+                  <div class="flow-node-title">
+                    ЗАКАЗ
+                  </div>
+
+                  <div class="flow-node-sub">
+                    Дальше решаешь ты
+                  </div>
+                </div>
 
               </div>
 
@@ -3192,155 +3207,185 @@
     </section>
 
 
-
-    <!-- =========================
-         HOW IT WORKS
-    ========================= -->
+    <!-- DELIVERY -->
 
     <section>
 
       <div class="container">
 
+        <div class="section-label">
+          После заказа
+        </div>
 
-        <div class="reveal">
+        <h2 class="section-title">
+          Оплата получена.<br>
+          <span style="color:var(--accent)">
+            Что дальше — решаешь ты.
+          </span>
+        </h2>
 
-          <div class="section-label">
-            Как это работает
-          </div>
+        <p class="section-subtitle">
+          Выбирай удобный способ передать товар
+          или выполнить заказ.
+        </p>
 
 
-          <h2 class="section-title">
-            От предложения
-            до результата.
-          </h2>
+        <div class="delivery-grid">
+
+          <article class="delivery-card reveal">
+            <i data-lucide="handshake"></i>
+
+            <h3>
+              Передать лично
+            </h3>
+
+            <p>
+              Встреться с клиентом
+              и передай товар напрямую.
+            </p>
+          </article>
+
+
+          <article class="delivery-card reveal">
+            <i data-lucide="car"></i>
+
+            <h3>
+              Отвезти самому
+            </h3>
+
+            <p>
+              Сам выбираешь время
+              и способ доставки.
+            </p>
+          </article>
+
+
+          <article class="delivery-card reveal">
+            <i data-lucide="package"></i>
+
+            <h3>
+              Отправить почтой
+            </h3>
+
+            <p>
+              Упакуй товар и выбери
+              подходящий способ отправки.
+            </p>
+          </article>
+
+
+          <article class="delivery-card reveal">
+            <i data-lucide="truck"></i>
+
+            <h3>
+              Организовать доставку
+            </h3>
+
+            <p>
+              При необходимости можно отдельно
+              договориться с человеком,
+              готовым доставить товар.
+            </p>
+          </article>
 
         </div>
 
+      </div>
+
+    </section>
 
 
-        <div class="flow">
+    <!-- TELEGRAM -->
+
+    <section id="telegram">
+
+      <div class="container">
+
+        <div class="section-label">
+          Интеграция
+        </div>
+
+        <h2 class="section-title">
+          Сайт × Telegram ×
+          <span style="color:var(--accent)">
+            автоматизация.
+          </span>
+        </h2>
 
 
-          <div class="flow-step reveal">
+        <div class="telegram-system">
 
-            <div class="flow-step-number">
-              01
+          <div class="system-grid">
+
+            <div class="system-copy">
+
+              <h3>
+                Твоя система<br>
+                <span>работает вместе.</span>
+              </h3>
+
+              <p>
+                Не обязательно ограничиваться одним сайтом.
+                Можно объединить сайт, Telegram-канал,
+                бота и обработку заявок в единый
+                цифровой процесс.
+              </p>
+
+              <div class="system-list">
+
+                <div>
+                  <i data-lucide="check"></i>
+                  Telegram-каналы
+                </div>
+
+                <div>
+                  <i data-lucide="check"></i>
+                  Боты для заявок
+                </div>
+
+                <div>
+                  <i data-lucide="check"></i>
+                  Каталог товаров
+                </div>
+
+                <div>
+                  <i data-lucide="check"></i>
+                  Автоматические сообщения
+                </div>
+
+              </div>
+
             </div>
 
 
-            <div class="flow-step-icon">
-              🌐
+            <div class="system-diagram">
+
+              <div class="system-node">
+                <i data-lucide="monitor"></i>
+                <strong>WEBSITE</strong>
+              </div>
+
+              <div class="system-node">
+                <i data-lucide="send"></i>
+                <strong>TELEGRAM</strong>
+              </div>
+
+              <div class="system-node">
+                <i data-lucide="bot"></i>
+                <strong>BOT</strong>
+              </div>
+
+              <div class="system-node">
+                <i data-lucide="settings"></i>
+                <strong>AUTOMATION</strong>
+              </div>
+
+              <div class="system-node final">
+                <i data-lucide="shopping-bag"></i>
+                <strong>ЗАКАЗЫ И ЗАЯВКИ</strong>
+              </div>
+
             </div>
-
-
-            <h3>
-              Клиент находит
-            </h3>
-
-
-            <p>
-              Через сайт или Telegram.
-            </p>
-
-          </div>
-
-
-
-          <div class="flow-step reveal">
-
-            <div class="flow-step-number">
-              02
-            </div>
-
-
-            <div class="flow-step-icon">
-              🛍️
-            </div>
-
-
-            <h3>
-              Выбирает
-            </h3>
-
-
-            <p>
-              Товар или услугу.
-            </p>
-
-          </div>
-
-
-
-          <div class="flow-step reveal">
-
-            <div class="flow-step-number">
-              03
-            </div>
-
-
-            <div class="flow-step-icon">
-              💬
-            </div>
-
-
-            <h3>
-              Оформляет
-            </h3>
-
-
-            <p>
-              Через удобный сценарий.
-            </p>
-
-          </div>
-
-
-
-          <div class="flow-step reveal">
-
-            <div class="flow-step-number">
-              04
-            </div>
-
-
-            <div class="flow-step-icon">
-              💵
-            </div>
-
-
-            <h3>
-              Оплачивает
-            </h3>
-
-
-            <p>
-              Наличными или онлайн.
-            </p>
-
-          </div>
-
-
-
-          <div class="flow-step reveal">
-
-            <div class="flow-step-number">
-              05
-            </div>
-
-
-            <div class="flow-step-icon">
-              🚀
-            </div>
-
-
-            <h3>
-              Получает результат
-            </h3>
-
-
-            <p>
-              Товар или услугу.
-            </p>
 
           </div>
 
@@ -3351,47 +3396,343 @@
     </section>
 
 
+    <!-- DASHBOARD -->
 
-    <!-- =========================
-         CTA
-    ========================= -->
+    <section>
 
-    <section class="cta-section">
+      <div class="container dashboard-section">
 
-      <div class="container">
-
-
-        <div class="cta reveal">
+        <div class="dashboard-copy">
 
           <div class="section-label">
-            SchwarzPay
+            Управление
+          </div>
+
+          <h2 class="section-title">
+            Меняй товары<br>
+            <span style="color:var(--accent)">
+              и цены сам.
+            </span>
+          </h2>
+
+          <p>
+            После настройки системы можно сделать удобное
+            управление каталогом, чтобы добавлять товары
+            или менять цены без необходимости каждый раз
+            переделывать весь сайт.
+          </p>
+
+        </div>
+
+
+        <div class="dashboard-preview reveal">
+
+          <div class="dash-header">
+
+            <div class="dash-logo">
+              SchwarzPay Dashboard
+            </div>
+
+            <div class="dash-status">
+              ● ONLINE
+            </div>
+
           </div>
 
 
-          <h2>
-            Готов выйти
-            <br>
-            <span>онлайн?</span>
-          </h2>
+          <div class="dash-product">
+
+            <div class="dash-product-left">
+              <i data-lucide="smartphone"></i>
+
+              <div>
+                <strong>Техника</strong>
+                <span>Доступно</span>
+              </div>
+            </div>
+
+            <div class="dash-product-price">
+              350 €
+            </div>
+
+          </div>
 
 
-          <p>
-            Расскажи, что ты продаёшь или какую услугу
-            предлагаешь. Обсудим сайт, Telegram,
-            автоматизацию и подходящий сценарий оплаты.
-          </p>
+          <div class="dash-product">
+
+            <div class="dash-product-left">
+              <i data-lucide="armchair"></i>
+
+              <div>
+                <strong>Мебель</strong>
+                <span>Доступно</span>
+              </div>
+            </div>
+
+            <div class="dash-product-price">
+              120 €
+            </div>
+
+          </div>
 
 
-          <a
-            href="https://t.me/Duf7484"
-            target="_blank"
-            rel="noopener"
-            class="telegram"
-          >
-            ✈️ Написать @Duf7484 →
-          </a>
+          <div class="dash-add">
+            <i data-lucide="plus"></i>
+            Добавить товар
+          </div>
 
         </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRICES -->
+
+    <section id="prices">
+
+      <div class="container">
+
+        <div class="section-label">
+          Стоимость
+        </div>
+
+        <h2 class="section-title">
+          Простая идея.<br>
+          <span style="color:var(--accent)">
+            Индивидуальное решение.
+          </span>
+        </h2>
+
+        <p class="section-subtitle">
+          Стоимость сайта и автоматизации зависит
+          от задач и нужного функционала.
+        </p>
+
+
+        <div class="pricing-grid">
+
+          <article class="price-card reveal">
+
+            <div class="price-number">
+              01
+            </div>
+
+            <h3>
+              Создание сайта
+            </h3>
+
+            <div class="big-price">
+              Индивидуально
+            </div>
+
+            <p>
+              Стоимость зависит от дизайна,
+              количества страниц, функционала
+              и сложности проекта.
+            </p>
+
+            <div class="price-note">
+
+              <strong>
+                Современный дизайн
+              </strong>
+
+              <span>
+                Цена обсуждается перед началом работы
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <article class="price-card reveal">
+
+            <div class="price-number">
+              02
+            </div>
+
+            <h3>
+              Боты и автоматизация
+            </h3>
+
+            <div class="big-price">
+              Индивидуально
+            </div>
+
+            <p>
+              Telegram-боты, заявки,
+              автоматические процессы
+              и другие цифровые решения.
+            </p>
+
+            <div class="price-note">
+
+              <strong>
+                Под конкретную задачу
+              </strong>
+
+              <span>
+                Функционал обсуждается индивидуально
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <article class="price-card featured reveal">
+
+            <div class="price-number">
+              03
+            </div>
+
+            <h3>
+              Подключение оплаты
+            </h3>
+
+            <div class="big-price">
+              49 €
+            </div>
+
+            <p>
+              Единоразовая помощь с настройкой
+              и подключением подходящего стороннего
+              платёжного решения.
+            </p>
+
+            <div class="price-note">
+
+              <strong>
+                Фиат + крипта онлайн
+              </strong>
+
+              <span>
+                Настройка через стороннего провайдера
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="about-box">
+
+          <div class="about-grid">
+
+            <div>
+
+              <div class="section-label">
+                О SchwarzPay
+              </div>
+
+              <h2>
+                Мы создаём
+                цифровую часть
+                твоего процесса.
+              </h2>
+
+            </div>
+
+            <div class="about-text">
+
+              SchwarzPay помогает создавать сайты,
+              настраивать цифровые процессы,
+              автоматизацию и интеграции.
+
+              <br><br>
+
+              Мы можем выступать посредником в настройке
+              и подключении подходящих сторонних решений,
+              но сами не являемся платёжным провайдером
+              или службой доставки.
+
+            </div>
+
+          </div>
+
+
+          <div class="about-columns">
+
+            <div class="about-list">
+
+              <h3>
+                Помогаем
+              </h3>
+
+              <div>Создать современный сайт</div>
+              <div>Настроить Telegram</div>
+              <div>Создать бота</div>
+              <div>Автоматизировать процессы</div>
+              <div>Настроить цифровую инфраструктуру</div>
+
+            </div>
+
+
+            <div class="about-list">
+
+              <h3>
+                Не являемся
+              </h3>
+
+              <div>Платёжным провайдером</div>
+              <div>Банком</div>
+              <div>Службой доставки</div>
+              <div>Хранителем средств клиентов</div>
+              <div>Стороной сделки продавца и покупателя</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+
+    <section class="final-cta">
+
+      <div class="final-glow"></div>
+
+      <div class="container final-content">
+
+        <h2>
+          ПРОДАВАЙ.<br>
+          <span>БУДЬ ОНЛАЙН.</span>
+        </h2>
+
+        <p>
+          Расскажи, что ты продаёшь или какие услуги
+          предоставляешь — обсудим подходящее
+          цифровое решение.
+        </p>
+
+        <a
+          href="https://t.me/Duf7484"
+          target="_blank"
+          class="telegram-big"
+        >
+          <i data-lucide="send"></i>
+          Написать @Duf7484
+        </a>
 
       </div>
 
@@ -3400,24 +3741,62 @@
   </main>
 
 
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
+  <!-- FOOTER -->
 
   <footer>
 
     <div class="container">
 
-      <div class="footer">
+      <div class="footer-grid">
+
+        <div>
+
+          <a href="#top" class="brand">
+
+            <div class="brand-mark">
+              <i data-lucide="zap"></i>
+            </div>
+
+            SchwarzPay
+
+          </a>
+
+          <p class="footer-description">
+            SchwarzPay помогает создавать сайты,
+            настраивать Telegram, автоматизацию
+            и цифровые процессы для товаров и услуг.
+          </p>
+
+        </div>
+
+
+        <div class="footer-note">
+
+          <strong style="color:#fff">
+            Важно
+          </strong>
+
+          <br><br>
+
+          SchwarzPay не является платёжным провайдером
+          или службой доставки. Мы помогаем с созданием
+          сайта, автоматизацией и настройкой цифровых
+          процессов, включая подключение подходящих
+          сторонних решений.
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
 
         <span>
           © 2026 SchwarzPay
         </span>
 
-
         <span>
-          Сайты • Telegram • Цифровые решения
+          Продавай. Будь онлайн.
         </span>
 
       </div>
@@ -3427,30 +3806,54 @@
   </footer>
 
 
-
   <script>
 
     /* =========================
-       SCROLL REVEAL
+       LUCIDE
     ========================= */
 
-    const elements =
-      document.querySelectorAll(".reveal");
+    lucide.createIcons();
 
+
+    /* =========================
+       NAV SCROLL
+    ========================= */
+
+    const nav =
+      document.getElementById("nav");
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        nav.classList.toggle(
+          "scrolled",
+          window.scrollY > 30
+        );
+
+      }
+    );
+
+
+    /* =========================
+       REVEAL ON SCROLL
+    ========================= */
 
     const observer =
       new IntersectionObserver(
         (entries) => {
 
           entries.forEach(
-            (entry) => {
+            entry => {
 
-              if (
-                entry.isIntersecting
-              ) {
+              if (entry.isIntersecting) {
 
                 entry.target.classList.add(
-                  "show"
+                  "visible"
+                );
+
+                observer.unobserve(
+                  entry.target
                 );
 
               }
@@ -3460,56 +3863,159 @@
 
         },
         {
-          threshold: .1
+          threshold: 0.12
         }
       );
 
 
-    elements.forEach(
-      (element) => {
+    document
+      .querySelectorAll(".reveal")
+      .forEach(
+        element => observer.observe(element)
+      );
 
-        observer.observe(element);
+
+    /* =========================
+       PAYMENT SWITCHER
+    ========================= */
+
+    const toggle =
+      document.getElementById(
+        "paymentToggle"
+      );
+
+    const buttons =
+      document.querySelectorAll(
+        ".toggle-btn"
+      );
+
+    const cashMode =
+      document.getElementById(
+        "cashMode"
+      );
+
+    const schwarzMode =
+      document.getElementById(
+        "schwarzMode"
+      );
+
+    const flowCash =
+      document.getElementById(
+        "flowCash"
+      );
+
+    const flowSchwarz =
+      document.getElementById(
+        "flowSchwarz"
+      );
+
+
+    buttons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const mode =
+              button.dataset.mode;
+
+
+            buttons.forEach(
+              btn =>
+                btn.classList.remove(
+                  "active"
+                )
+            );
+
+            button.classList.add(
+              "active"
+            );
+
+
+            if (mode === "cash") {
+
+              toggle.classList.remove(
+                "schwarz"
+              );
+
+              schwarzMode.classList.remove(
+                "active"
+              );
+
+              cashMode.classList.add(
+                "active"
+              );
+
+              flowSchwarz.style.display =
+                "none";
+
+              flowCash.style.display =
+                "flex";
+
+            }
+
+
+            if (mode === "schwarz") {
+
+              toggle.classList.add(
+                "schwarz"
+              );
+
+              cashMode.classList.remove(
+                "active"
+              );
+
+              schwarzMode.classList.add(
+                "active"
+              );
+
+              flowCash.style.display =
+                "none";
+
+              flowSchwarz.style.display =
+                "flex";
+
+            }
+
+          }
+        );
 
       }
     );
 
 
-
     /* =========================
-       NAV ON SCROLL
+       HERO PARALLAX
     ========================= */
 
-    const nav =
-      document.querySelector("nav");
-
+    const visual =
+      document.querySelector(
+        ".hero-visual"
+      );
 
     window.addEventListener(
-      "scroll",
-      () => {
+      "mousemove",
+      event => {
 
         if (
-          window.scrollY > 30
-        ) {
+          window.innerWidth < 900 ||
+          !visual
+        ) return;
 
-          nav.style.background =
-            "rgba(5,5,5,.94)";
 
-          nav.style.borderColor =
-            "rgba(255,255,255,.16)";
+        const x =
+          (event.clientX /
+            window.innerWidth - .5) * 10;
 
-        } else {
+        const y =
+          (event.clientY /
+            window.innerHeight - .5) * 10;
 
-          nav.style.background =
-            "rgba(8,8,8,.78)";
 
-          nav.style.borderColor =
-            "rgba(255,255,255,.10)";
+        visual.style.transform =
+          `translate(${x}px, ${y}px)`;
 
-        }
-
-      },
-      {
-        passive: true
       }
     );
 
