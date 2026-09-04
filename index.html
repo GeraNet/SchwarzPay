@@ -4,44 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SchwarzPay — Verkaufe. Bleib online.</title>
+  <title>SchwarzPay — Zahlungen annehmen. Online sein.</title>
 
   <meta
     name="description"
-    content="SchwarzPay hilft bei der Einrichtung von Online-Zahlungen, Websites, Telegram-Bots und digitalen Automatisierungen."
+    content="SchwarzPay — digitale Zahlungslösungen, Websites, Telegram-Systeme und Automatisierung mit Fokus auf Privatsphäre."
   />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
       --bg: #050505;
-      --bg-soft: #0a0a0a;
+      --bg-soft: #090909;
       --card: #0d0d0d;
+      --card-hover: #121212;
+
       --text: #ffffff;
-      --muted: #8d8d95;
-      --muted-2: #66666d;
+      --muted: #92929a;
+      --muted-2: #64646b;
 
       --accent: #c8ff5a;
-      --accent-dark: #a8dc40;
+      --accent-dark: #a9df3f;
 
-      --line: rgba(255,255,255,.09);
-      --line-accent: rgba(200,255,90,.28);
+      --line: rgba(255,255,255,0.08);
+      --line-accent: rgba(200,255,90,0.28);
+
+      --radius: 28px;
+      --radius-small: 18px;
 
       --container: 1240px;
-      --radius: 28px;
-
-      --shadow: 0 30px 100px rgba(0,0,0,.5);
+      --shadow: 0 30px 100px rgba(0,0,0,.55);
     }
 
     * {
@@ -56,32 +57,18 @@
 
     body {
       background:
-        radial-gradient(
-          circle at 75% 8%,
-          rgba(200,255,90,.06),
-          transparent 24%
-        ),
+        radial-gradient(circle at 80% 5%, rgba(200,255,90,.055), transparent 25%),
+        radial-gradient(circle at 10% 30%, rgba(255,255,255,.025), transparent 30%),
         var(--bg);
-
       color: var(--text);
       font-family: "Manrope", sans-serif;
+      line-height: 1.5;
       overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .035;
-
-      background-image:
-        linear-gradient(rgba(255,255,255,.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.25) 1px, transparent 1px);
-
-      background-size: 70px 70px;
-
-      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    ::selection {
+      background: var(--accent);
+      color: #000;
     }
 
     a {
@@ -90,1252 +77,941 @@
     }
 
     button {
-      font-family: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
+      font: inherit;
     }
 
     .container {
-      width: min(calc(100% - 40px), var(--container));
+      width: min(var(--container), calc(100% - 40px));
       margin: 0 auto;
     }
 
-    /* ================= NAV ================= */
+    /* ---------------- NAV ---------------- */
 
-    .nav {
+    nav {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       z-index: 1000;
-
+      height: 78px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
       transition: .3s ease;
     }
 
-    .nav.scrolled {
-      background: rgba(5,5,5,.78);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--line);
+    nav.scrolled {
+      background: rgba(5,5,5,.82);
+      backdrop-filter: blur(20px);
+      border-bottom-color: var(--line);
     }
 
     .nav-inner {
-      height: 78px;
-
+      width: min(var(--container), calc(100% - 40px));
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      gap: 20px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
+    .logo {
       font-family: "Space Grotesk", sans-serif;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 21px;
       letter-spacing: -1px;
     }
 
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-
-      border-radius: 11px;
-
-      background: var(--accent);
-      color: #050505;
-
-      display: grid;
-      place-items: center;
-
-      box-shadow: 0 0 35px rgba(200,255,90,.2);
-    }
-
-    .brand-mark i {
-      width: 19px;
+    .logo span {
+      color: var(--accent);
     }
 
     .nav-links {
       display: flex;
+      gap: 30px;
       align-items: center;
-      gap: 28px;
+      color: #a7a7ae;
+      font-size: 14px;
     }
 
     .nav-links a {
-      color: var(--muted);
-      font-size: 13px;
-      transition: .25s;
+      transition: .2s;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: white;
     }
 
-    .nav-telegram {
-      padding: 11px 18px;
-      border-radius: 999px;
-
-      background: var(--accent);
-      color: #050505;
-
-      display: flex;
+    .nav-cta {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-
-      font-size: 13px;
+      background: var(--accent);
+      color: #000;
+      padding: 11px 17px;
+      border-radius: 999px;
       font-weight: 800;
-
+      font-size: 13px;
       transition: .25s;
     }
 
-    .nav-telegram:hover {
+    .nav-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(200,255,90,.22);
+      background: #d5ff7c;
     }
 
-    /* ================= HERO ================= */
+    /* ---------------- HERO ---------------- */
 
     .hero {
-      min-height: 100vh;
-
+      min-height: 900px;
+      padding-top: 170px;
+      position: relative;
       display: flex;
       align-items: center;
-
-      padding: 145px 0 90px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.05fr .95fr;
-
-      align-items: center;
       gap: 70px;
+      align-items: center;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
-
-      padding: 9px 13px;
-
-      border: 1px solid var(--line);
+      color: var(--accent);
+      border: 1px solid var(--line-accent);
+      background: rgba(200,255,90,.045);
+      padding: 8px 12px;
       border-radius: 999px;
-
-      color: var(--muted);
-
       font-size: 11px;
+      font-weight: 800;
       letter-spacing: 1.5px;
-      text-transform: uppercase;
-
       margin-bottom: 25px;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(54px, 7vw, 96px);
+      line-height: .91;
+      letter-spacing: -5px;
+      max-width: 850px;
+    }
+
+    h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero-anonym {
+      margin-top: 26px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(38px, 5vw, 68px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -3px;
+      color: var(--accent);
+    }
+
+    .hero-description {
+      color: var(--muted);
+      max-width: 600px;
+      font-size: 17px;
+      line-height: 1.75;
+      margin-top: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 15px 21px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(200,255,90,.12);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      color: white;
+    }
+
+    .button-secondary:hover {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.16);
+    }
+
+    /* ---------------- HERO VISUAL ---------------- */
+
+    .hero-visual {
+      position: relative;
+      min-height: 550px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .visual-glow {
+      position: absolute;
+      width: 390px;
+      height: 390px;
+      border-radius: 50%;
+      background: rgba(200,255,90,.075);
+      filter: blur(80px);
+    }
+
+    .payment-card {
+      position: relative;
+      width: min(100%, 470px);
+      padding: 28px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018)),
+        rgba(8,8,8,.82);
+      backdrop-filter: blur(30px);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+    }
+
+    .payment-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+
+    .payment-brand {
+      font-family: "Space Grotesk";
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .payment-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
     .status-dot {
       width: 7px;
       height: 7px;
-
-      border-radius: 50%;
       background: var(--accent);
-
-      box-shadow: 0 0 15px var(--accent);
-
-      animation: pulse 2s infinite;
-    }
-
-    .hero h1 {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: clamp(58px,8vw,112px);
-      line-height: .9;
-
-      letter-spacing: -6px;
-    }
-
-    .hero h1 span {
-      color: var(--accent);
-    }
-
-    .hero-text {
-      max-width: 570px;
-
-      margin-top: 30px;
-
-      color: var(--muted);
-
-      font-size: 17px;
-      line-height: 1.8;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-
-      margin-top: 38px;
-    }
-
-    .btn {
-      min-height: 54px;
-      padding: 0 21px;
-
-      border-radius: 15px;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      font-size: 14px;
-      font-weight: 800;
-
-      transition: .25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #080808;
-
-      box-shadow: 0 16px 45px rgba(200,255,90,.14);
-    }
-
-    .btn-secondary {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.025);
-    }
-
-    /* HERO VISUAL */
-
-    .hero-visual {
-      position: relative;
-
-      min-height: 600px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-glow {
-      position: absolute;
-
-      width: 430px;
-      height: 430px;
-
       border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(200,255,90,.18),
-          transparent 68%
-        );
-
-      filter: blur(20px);
-
-      animation: floatGlow 7s ease-in-out infinite;
-    }
-
-    .main-panel {
-      width: 100%;
-      max-width: 510px;
-
-      padding: 25px;
-
-      border: 1px solid var(--line);
-      border-radius: 34px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.06),
-          rgba(255,255,255,.015)
-        );
-
-      backdrop-filter: blur(20px);
-
-      box-shadow: var(--shadow);
-
-      position: relative;
-      overflow: hidden;
-
-      transform: rotate(2deg);
-    }
-
-    .main-panel::before {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      background:
-        linear-gradient(
-          130deg,
-          transparent,
-          rgba(200,255,90,.05),
-          transparent
-        );
-
-      transform: translateX(-100%);
-      animation: shine 6s infinite;
-    }
-
-    .panel-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      margin-bottom: 30px;
-
-      position: relative;
-      z-index: 2;
-    }
-
-    .panel-title {
-      font-family: "Space Grotesk";
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .online-badge {
-      color: var(--accent);
-
-      display: flex;
-      align-items: center;
-      gap: 7px;
-
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .online-badge span {
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-      background: var(--accent);
-
       box-shadow: 0 0 12px var(--accent);
     }
 
-    .dashboard-box {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-
-      padding: 20px;
-
-      background: rgba(0,0,0,.25);
-
-      position: relative;
-      z-index: 2;
+    .payment-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 7px;
     }
 
-    .dashboard-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 16px 0;
-
-      border-bottom: 1px solid var(--line);
-    }
-
-    .dashboard-row:last-child {
-      border-bottom: none;
-    }
-
-    .dashboard-product {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .product-icon {
-      width: 42px;
-      height: 42px;
-
-      border-radius: 13px;
-
-      background: rgba(200,255,90,.1);
-
-      display: grid;
-      place-items: center;
-
-      color: var(--accent);
-    }
-
-    .product-name {
-      font-size: 13px;
+    .payment-amount {
+      font-family: "Space Grotesk";
+      font-size: 58px;
+      letter-spacing: -4px;
       font-weight: 700;
     }
 
-    .product-status {
-      margin-top: 3px;
-
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .price-tag {
-      color: var(--accent);
-      font-weight: 800;
-    }
-
-    .floating-card {
-      position: absolute;
-
-      border: 1px solid rgba(255,255,255,.12);
-
-      background: rgba(13,13,13,.82);
-      backdrop-filter: blur(20px);
-
-      border-radius: 19px;
-
-      padding: 15px 18px;
-
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .floating-card.one {
-      left: -30px;
-      top: 85px;
-
-      animation: floatingOne 5s ease-in-out infinite;
-    }
-
-    .floating-card.two {
-      right: -20px;
-      bottom: 65px;
-
-      animation: floatingTwo 6s ease-in-out infinite;
-    }
-
-    .floating-icon {
-      width: 39px;
-      height: 39px;
-
-      border-radius: 12px;
-
-      display: grid;
-      place-items: center;
-
-      background: var(--accent);
-      color: #050505;
-    }
-
-    .floating-label {
-      font-size: 10px;
-      color: var(--muted);
-    }
-
-    .floating-value {
-      margin-top: 3px;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    /* ================= TRUST ================= */
-
-    .trust-strip {
-      padding: 25px 0;
-
+    .payment-bottom {
+      margin-top: 45px;
+      padding-top: 20px;
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-    }
-
-    .trust-item {
-      padding: 15px 30px;
-
-      border-right: 1px solid var(--line);
-
       display: flex;
-      align-items: center;
-      gap: 12px;
-
+      justify-content: space-between;
       color: var(--muted);
       font-size: 12px;
     }
 
+    .floating-card {
+      position: absolute;
+      bottom: 35px;
+      left: 0;
+      width: 220px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(12,12,12,.92);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .floating-card strong {
+      display: block;
+      font-size: 22px;
+      font-family: "Space Grotesk";
+    }
+
+    .floating-card span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ---------------- STRIP ---------------- */
+
+    .trust-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 0;
+    }
+
+    .trust-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #a1a1a8;
+      font-size: 13px;
+      border-right: 1px solid var(--line);
+    }
+
     .trust-item:last-child {
-      border-right: none;
+      border-right: 0;
     }
 
     .trust-item i {
       color: var(--accent);
-      width: 19px;
+      width: 17px;
     }
 
-    /* ================= SECTIONS ================= */
+    /* ---------------- SECTIONS ---------------- */
 
     section {
       padding: 130px 0;
     }
 
-    .section-label {
-      color: var(--accent);
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 55px;
+    }
 
+    .section-kicker {
+      color: var(--accent);
       font-size: 11px;
+      font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
-      font-weight: 800;
-
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    .section-title {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: clamp(40px,5vw,74px);
-      line-height: .98;
-
+    h2 {
+      font-family: "Space Grotesk";
+      font-size: clamp(38px, 5vw, 65px);
+      line-height: 1;
       letter-spacing: -3px;
-
-      max-width: 900px;
     }
 
-    .section-subtitle {
-      margin-top: 23px;
-
-      max-width: 700px;
-
+    .section-description {
       color: var(--muted);
-
+      margin-top: 20px;
+      line-height: 1.7;
       font-size: 16px;
-      line-height: 1.8;
     }
 
-    /* ================= BENTO ================= */
+    /* ---------------- BENTO ---------------- */
 
     .bento {
-      margin-top: 60px;
-
       display: grid;
-      grid-template-columns: repeat(4,1fr);
-      grid-auto-rows: 210px;
-
-      gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
     }
 
     .bento-card {
-      position: relative;
-
+      min-height: 280px;
       border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
       border-radius: var(--radius);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.035),
-          rgba(255,255,255,.008)
-        );
-
-      padding: 28px;
-
+      padding: 30px;
+      position: relative;
       overflow: hidden;
-
-      transition: .35s ease;
+      transition: .3s;
     }
 
     .bento-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--line-accent);
-      background: rgba(200,255,90,.035);
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,.15);
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
     }
 
-    .bento-card.large {
-      grid-column: span 2;
-      grid-row: span 2;
+    .bento-large {
+      grid-column: span 7;
     }
 
-    .bento-card.wide {
-      grid-column: span 2;
+    .bento-small {
+      grid-column: span 5;
     }
 
-    .bento-icon {
+    .bento-full {
+      grid-column: span 12;
+    }
+
+    .icon-box {
       width: 48px;
       height: 48px;
-
-      border-radius: 15px;
-
       display: grid;
       place-items: center;
-
-      background: rgba(200,255,90,.1);
+      border-radius: 14px;
+      background: rgba(200,255,90,.08);
+      border: 1px solid var(--line-accent);
       color: var(--accent);
-
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .bento-card h3 {
       font-family: "Space Grotesk";
-      font-size: 25px;
-      letter-spacing: -1px;
+      font-size: 28px;
+      margin-bottom: 12px;
     }
 
     .bento-card p {
       color: var(--muted);
+      max-width: 570px;
+      line-height: 1.7;
+    }
 
-      margin-top: 9px;
+    .bento-number {
+      position: absolute;
+      right: 30px;
+      bottom: -25px;
+      font-family: "Space Grotesk";
+      font-size: 150px;
+      font-weight: 700;
+      color: rgba(255,255,255,.025);
+      line-height: 1;
+    }
 
+    /* ---------------- CASH TOGGLE ---------------- */
+
+    .compare-wrap {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .toggle {
+      display: flex;
+      width: fit-content;
+      margin: 0 auto 35px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      background: #090909;
+      border-radius: 999px;
+    }
+
+    .toggle button {
+      border: 0;
+      color: var(--muted);
+      background: transparent;
+      padding: 12px 25px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
+      transition: .25s;
+    }
+
+    .toggle button.active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .compare-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 45px;
+    }
+
+    .compare-card h3 {
+      font-family: "Space Grotesk";
+      font-size: 35px;
+      margin-bottom: 30px;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+    }
+
+    .pros,
+    .cons {
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
+    }
+
+    .pros h4,
+    .cons h4 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      margin-bottom: 20px;
+    }
+
+    .pros h4 {
+      color: var(--accent);
+    }
+
+    .cons h4 {
+      color: #aaa;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 13px;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      color: #c1c1c6;
+      font-size: 14px;
+    }
+
+    .feature-list i {
+      width: 17px;
+      min-width: 17px;
+      margin-top: 2px;
+    }
+
+    .pros i {
+      color: var(--accent);
+    }
+
+    .cons i {
+      color: #777;
+    }
+
+    /* ---------------- FLOW ---------------- */
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+    }
+
+    .flow-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 27px;
+      background: var(--card);
+      position: relative;
+    }
+
+    .flow-number {
+      color: var(--accent);
+      font-family: "Space Grotesk";
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .flow-card h3 {
+      font-family: "Space Grotesk";
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .flow-card p {
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.6;
     }
 
-    /* ================= PAYMENT ================= */
+    /* ---------------- TELEGRAM ---------------- */
 
-    .payment-section {
+    .telegram-section {
       background:
-        linear-gradient(
-          180deg,
-          transparent,
-          rgba(255,255,255,.015),
-          transparent
-        );
-
+        radial-gradient(circle at 80% 50%, rgba(200,255,90,.05), transparent 35%),
+        #080808;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
     }
 
-    .payment-head {
-      text-align: center;
-    }
-
-    .payment-head .section-title,
-    .payment-head .section-subtitle {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .payment-toggle {
-      width: min(100%,570px);
-
-      margin: 48px auto 55px;
-
-      padding: 6px;
-
-      border: 1px solid var(--line);
-      border-radius: 20px;
-
-      background: rgba(255,255,255,.025);
-
+    .telegram-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-
-      position: relative;
-    }
-
-    .toggle-indicator {
-      position: absolute;
-
-      top: 6px;
-      left: 6px;
-
-      width: calc(50% - 6px);
-      height: calc(100% - 12px);
-
-      background: var(--accent);
-      border-radius: 15px;
-
-      transition: transform .45s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .payment-toggle.schwarz .toggle-indicator {
-      transform: translateX(100%);
-    }
-
-    .toggle-btn {
-      position: relative;
-      z-index: 2;
-
-      min-height: 58px;
-
-      border: none;
-      background: transparent;
-
-      color: var(--muted);
-
-      border-radius: 15px;
-      cursor: pointer;
-
-      display: flex;
+      gap: 80px;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      font-weight: 800;
-
-      transition: color .3s;
     }
 
-    .toggle-btn.active {
-      color: #050505;
-    }
-
-    .payment-content {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-
-      gap: 25px;
-    }
-
-    .payment-info,
-    .payment-flow {
-      min-height: 520px;
-
+    .telegram-screen {
       border: 1px solid var(--line);
-      border-radius: 32px;
-
-      padding: 40px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.04),
-          rgba(255,255,255,.01)
-        );
+      background: #0c0c0c;
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: var(--shadow);
     }
 
-    .payment-mode {
-      display: none;
-      animation: modeIn .45s ease forwards;
+    .tg-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .payment-mode.active {
+    .tg-avatar {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #000;
+      border-radius: 50%;
+    }
+
+    .tg-header strong {
+      font-size: 14px;
+    }
+
+    .tg-header span {
       display: block;
-    }
-
-    .mode-top {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-
-      margin-bottom: 28px;
-    }
-
-    .mode-icon {
-      width: 58px;
-      height: 58px;
-
-      border-radius: 18px;
-
-      display: grid;
-      place-items: center;
-
-      background: rgba(200,255,90,.1);
-      color: var(--accent);
-    }
-
-    .mode-top h3 {
-      font-family: "Space Grotesk";
-      font-size: 29px;
-      letter-spacing: -1px;
-    }
-
-    .mode-description {
       color: var(--muted);
-      line-height: 1.75;
-
-      margin-bottom: 32px;
+      font-size: 11px;
     }
 
-    .advantages-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      gap: 11px;
-    }
-
-    .advantage {
-      padding: 15px;
-
+    .tg-message {
+      margin: 20px 0 0 auto;
+      max-width: 80%;
+      background: #161616;
       border: 1px solid var(--line);
-      border-radius: 15px;
-
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-
-      font-size: 12px;
-      line-height: 1.5;
-
-      background: rgba(255,255,255,.015);
-    }
-
-    .advantage i {
-      width: 17px;
-      flex-shrink: 0;
-    }
-
-    .plus i {
-      color: var(--accent);
-    }
-
-    .minus i {
-      color: #ff7070;
-    }
-
-    .payment-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-      overflow: hidden;
-    }
-
-    .flow {
-      width: 100%;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      gap: 13px;
-    }
-
-    .flow-node {
-      width: min(100%,320px);
-
-      min-height: 75px;
-
-      border: 1px solid var(--line);
-      border-radius: 18px;
-
-      background: rgba(5,5,5,.55);
-
-      display: flex;
-      align-items: center;
-
-      padding: 15px;
-      gap: 13px;
-    }
-
-    .flow-node.highlight {
-      border-color: rgba(200,255,90,.35);
-      background: rgba(200,255,90,.08);
-    }
-
-    .flow-node-icon {
-      width: 40px;
-      height: 40px;
-
-      border-radius: 12px;
-
-      display: grid;
-      place-items: center;
-
-      background: rgba(255,255,255,.06);
-    }
-
-    .highlight .flow-node-icon {
-      background: var(--accent);
-      color: #050505;
-    }
-
-    .flow-node-title {
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .flow-node-sub {
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .flow-line {
-      width: 1px;
-      height: 27px;
-
-      background: linear-gradient(var(--accent),transparent);
-    }
-
-    /* ================= SERVICES ================= */
-
-    .services-grid {
-      margin-top: 60px;
-
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-
-      gap: 14px;
-    }
-
-    .service-card {
-      padding: 28px;
-      min-height: 260px;
-
-      border: 1px solid var(--line);
-      border-radius: 25px;
-
-      background: rgba(255,255,255,.015);
-
-      transition: .3s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--line-accent);
-    }
-
-    .service-card i {
-      width: 27px;
-      color: var(--accent);
-
-      margin-bottom: 55px;
-    }
-
-    .service-card h3 {
-      font-family: "Space Grotesk";
-      font-size: 20px;
-    }
-
-    .service-card p {
-      margin-top: 10px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-      line-height: 1.65;
-    }
-
-    /* ================= PRICING ================= */
-
-    .pricing-grid {
-      margin-top: 60px;
-
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-
-      gap: 16px;
-    }
-
-    .price-card {
-      min-height: 500px;
-
-      padding: 35px;
-
-      border: 1px solid var(--line);
-      border-radius: 30px;
-
-      background: rgba(255,255,255,.018);
-
-      position: relative;
-
-      overflow: hidden;
-
-      display: flex;
-      flex-direction: column;
-
-      transition: .35s;
-    }
-
-    .price-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .price-card.featured {
-      border-color: rgba(200,255,90,.35);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(200,255,90,.1),
-          rgba(255,255,255,.02)
-        );
-    }
-
-    .price-number {
-      color: rgba(255,255,255,.12);
-
-      font-family: "Space Grotesk";
-
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    .price-card h3 {
-      margin-top: 38px;
-
-      font-family: "Space Grotesk";
-      font-size: 27px;
-    }
-
-    .big-price {
-      margin-top: 18px;
-
-      font-family: "Space Grotesk";
-
-      font-size: clamp(42px,5vw,62px);
-      font-weight: 700;
-
-      letter-spacing: -3px;
-
-      color: var(--accent);
-
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
-
-    .price-card p {
-      margin-top: 18px;
-
-      color: var(--muted);
-
-      line-height: 1.75;
+      padding: 16px;
+      border-radius: 17px 17px 4px 17px;
       font-size: 13px;
     }
 
-    .price-note {
-      margin-top: auto;
-      padding-top: 22px;
-
-      border-top: 1px solid var(--line);
-
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .price-note strong {
-      font-size: 12px;
-    }
-
-    .price-note span {
-      color: var(--muted);
-
-      font-size: 10px;
-      line-height: 1.55;
-    }
-
-    /* ================= PROCESS ================= */
-
-    .process-box {
-      margin-top: 60px;
-
-      border: 1px solid var(--line);
-      border-radius: 34px;
-
-      padding: 55px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.04),
-          rgba(255,255,255,.008)
-        );
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-
-      gap: 16px;
-    }
-
-    .process-step {
-      padding: 25px;
-
-      border: 1px solid var(--line);
-      border-radius: 22px;
-
-      background: rgba(5,5,5,.35);
-    }
-
-    .process-step span {
-      color: var(--accent);
-
-      font-family: "Space Grotesk";
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .process-step h3 {
-      margin-top: 25px;
-
-      font-family: "Space Grotesk";
-      font-size: 20px;
-    }
-
-    .process-step p {
-      margin-top: 10px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    /* ================= FINAL CTA ================= */
-
-    .final-cta {
-      min-height: 650px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
+    .tg-button {
+      margin-top: 12px;
+      background: var(--accent);
+      color: #000;
+      padding: 12px;
       text-align: center;
+      border-radius: 10px;
+      font-weight: 800;
+    }
 
-      position: relative;
+    /* ---------------- PRODUCTS ---------------- */
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 450px;
+      border: 1px solid var(--line);
+      background: #0a0a0a;
+      border-radius: 28px;
       overflow: hidden;
     }
 
-    .final-glow {
-      position: absolute;
-
-      width: 700px;
-      height: 700px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(200,255,90,.14),
-          transparent 65%
-        );
-
-      filter: blur(25px);
-
-      animation: floatGlow 8s ease-in-out infinite;
+    .dashboard-side {
+      border-right: 1px solid var(--line);
+      padding: 25px;
     }
 
-    .final-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .final-content h2 {
+    .dashboard-side-title {
       font-family: "Space Grotesk";
-
-      font-size: clamp(62px,10vw,150px);
-      line-height: .85;
-
-      letter-spacing: -7px;
+      font-weight: 700;
+      margin-bottom: 30px;
     }
 
-    .final-content h2 span {
+    .side-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+    }
+
+    .side-item.active {
+      background: rgba(200,255,90,.08);
       color: var(--accent);
     }
 
-    .final-content p {
-      color: var(--muted);
-
-      max-width: 600px;
-
-      margin: 30px auto;
-
-      line-height: 1.8;
+    .dashboard-main {
+      padding: 30px;
     }
 
-    .telegram-big {
-      width: fit-content;
-      margin: 0 auto;
-
-      padding: 17px 25px;
-
-      border-radius: 17px;
-
-      background: var(--accent);
-      color: #050505;
-
-      font-weight: 800;
-
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
-      transition: .3s;
+    .dashboard-title {
+      font-family: "Space Grotesk";
+      font-size: 30px;
+      margin-bottom: 25px;
     }
 
-    .telegram-big:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 25px 60px rgba(200,255,90,.2);
-    }
-
-    /* ================= FOOTER ================= */
-
-    footer {
-      border-top: 1px solid var(--line);
-
-      padding: 55px 0 30px;
-    }
-
-    .footer-grid {
+    .products-grid {
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
-
-      gap: 60px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
     }
 
-    .footer-description {
-      color: var(--muted);
-
-      max-width: 680px;
-
-      margin-top: 20px;
-
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .footer-note {
-      padding: 22px;
-
+    .product {
       border: 1px solid var(--line);
       border-radius: 18px;
+      padding: 18px;
+      background: rgba(255,255,255,.018);
+    }
 
+    .product-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(200,255,90,.08);
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .product strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .product span {
       color: var(--muted);
+      font-size: 12px;
+    }
 
-      font-size: 11px;
+    .product-price {
+      margin-top: 18px;
+      font-family: "Space Grotesk";
+      font-size: 21px;
+    }
+
+    /* ---------------- PRICING ---------------- */
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 900px;
+    }
+
+    .price-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 35px;
+    }
+
+    .price-card.featured {
+      border-color: var(--line-accent);
+      background:
+        linear-gradient(145deg, rgba(200,255,90,.055), rgba(255,255,255,.01)),
+        var(--card);
+    }
+
+    .price-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .price {
+      margin: 15px 0 10px;
+      font-family: "Space Grotesk";
+      font-size: 53px;
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    .price small {
+      font-family: "Manrope";
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .price-description {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 45px;
+    }
+
+    .price-features {
+      border-top: 1px solid var(--line);
+      margin-top: 25px;
+      padding-top: 23px;
+    }
+
+    .price-features li {
+      margin-bottom: 12px;
+    }
+
+    .individual {
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing: -2px;
+      overflow-wrap: anywhere;
+    }
+
+    /* ---------------- ABOUT ---------------- */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .about-points {
+      display: grid;
+      gap: 12px;
+    }
+
+    .about-point {
+      display: flex;
+      gap: 15px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .about-point i {
+      color: var(--accent);
+      min-width: 20px;
+    }
+
+    .about-point strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .about-point span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ---------------- CTA ---------------- */
+
+    .final-cta {
+      text-align: center;
+      border: 1px solid var(--line-accent);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(200,255,90,.09), transparent 45%),
+        #090909;
+      border-radius: 35px;
+      padding: 90px 30px;
+      overflow: hidden;
+    }
+
+    .final-cta h2 {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .final-cta p {
+      max-width: 620px;
+      margin: 20px auto 30px;
+      color: var(--muted);
+    }
+
+    /* ---------------- FOOTER ---------------- */
+
+    footer {
+      padding: 60px 0 35px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      padding-bottom: 45px;
+    }
+
+    .footer-brand {
+      max-width: 400px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 13px;
       line-height: 1.7;
     }
 
+    .footer-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
     .footer-bottom {
-      margin-top: 45px;
       padding-top: 25px;
-
       border-top: 1px solid var(--line);
-
       display: flex;
       justify-content: space-between;
       gap: 20px;
-
       color: var(--muted-2);
-      font-size: 10px;
+      font-size: 11px;
     }
 
-    /* ================= REVEAL ================= */
+    /* ---------------- REVEAL ---------------- */
 
     .reveal {
       opacity: 0;
-
-      transform: translateY(35px);
-
-      transition:
-        opacity .8s ease,
-        transform .8s cubic-bezier(.2,.8,.2,1);
+      transform: translateY(25px);
+      transition: opacity .7s ease, transform .7s ease;
     }
 
     .reveal.visible {
@@ -1343,249 +1019,129 @@
       transform: translateY(0);
     }
 
-    /* ================= ANIMATIONS ================= */
+    /* ---------------- MOBILE ---------------- */
 
-    @keyframes pulse {
-      0%,100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: .5;
-        transform: scale(.7);
-      }
-    }
-
-    @keyframes floatGlow {
-      0%,100% {
-        transform: translate(0,0) scale(1);
-      }
-
-      50% {
-        transform: translate(20px,-20px) scale(1.08);
-      }
-    }
-
-    @keyframes floatingOne {
-      0%,100% {
-        transform: translateY(0) rotate(-2deg);
-      }
-
-      50% {
-        transform: translateY(-15px) rotate(1deg);
-      }
-    }
-
-    @keyframes floatingTwo {
-      0%,100% {
-        transform: translateY(0) rotate(2deg);
-      }
-
-      50% {
-        transform: translateY(15px) rotate(-1deg);
-      }
-    }
-
-    @keyframes shine {
-      0%,65% {
-        transform: translateX(-130%);
-      }
-
-      100% {
-        transform: translateX(130%);
-      }
-    }
-
-    @keyframes modeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ================= TABLET ================= */
-
-    @media (max-width: 1000px) {
-
-      .hero-grid,
-      .payment-content,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 130px;
-      }
-
-      .hero-visual {
-        min-height: 500px;
-      }
-
-      .trust-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .trust-item:nth-child(2) {
-        border-right: none;
-      }
-
-      .trust-item {
-        border-bottom: 1px solid var(--line);
-      }
-
-      .bento {
-        grid-template-columns: repeat(2,1fr);
-      }
-
-      .services-grid,
-      .process-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .price-card {
-        min-height: auto;
-      }
-    }
-
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 650px) {
-
-      .container {
-        width: min(calc(100% - 28px), var(--container));
-      }
-
-      .nav-inner {
-        height: 68px;
-      }
-
+    @media (max-width: 900px) {
       .nav-links {
         display: none;
       }
 
-      .nav-telegram {
-        padding: 10px 14px;
-        font-size: 12px;
-      }
-
       .hero {
         min-height: auto;
-        padding: 120px 0 70px;
+        padding: 145px 0 90px;
       }
 
-      .hero h1 {
-        font-size: clamp(54px,16vw,80px);
-        letter-spacing: -4px;
-      }
-
-      .hero-text {
-        font-size: 15px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
+      .hero-grid,
+      .telegram-grid,
+      .about {
+        grid-template-columns: 1fr;
       }
 
       .hero-visual {
         min-height: 450px;
       }
 
-      .main-panel {
-        transform: none;
+      .trust-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px 0;
       }
 
-      .floating-card.one {
-        left: -5px;
-        top: 20px;
+      .trust-item:nth-child(2) {
+        border-right: 0;
       }
 
-      .floating-card.two {
-        right: -5px;
-        bottom: 15px;
+      .trust-item:nth-child(3),
+      .trust-item:nth-child(4) {
+        padding-top: 15px;
       }
 
-      .trust-grid {
+      .bento-large,
+      .bento-small,
+      .bento-full {
+        grid-column: span 12;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard {
         grid-template-columns: 1fr;
       }
 
-      .trust-item {
-        border-right: none;
+      .dashboard-side {
+        display: none;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container,
+      .nav-inner {
+        width: min(100% - 28px, var(--container));
+      }
+
+      h1 {
+        font-size: clamp(48px, 15vw, 70px);
+        letter-spacing: -3.5px;
+      }
+
+      .hero-anonym {
+        font-size: 43px;
       }
 
       section {
         padding: 90px 0;
       }
 
-      .section-title {
-        font-size: 42px;
-        letter-spacing: -2px;
+      .payment-card {
+        padding: 22px;
       }
 
-      .section-subtitle {
-        font-size: 14px;
+      .payment-amount {
+        font-size: 45px;
       }
 
-      .bento {
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
+      .floating-card {
+        left: -5px;
+        bottom: 5px;
       }
 
-      .bento-card.large,
-      .bento-card.wide {
-        grid-column: span 1;
-        grid-row: span 1;
-      }
-
-      .bento-card {
-        min-height: 220px;
-      }
-
-      .advantages-grid,
-      .services-grid,
-      .process-grid {
+      .compare-grid,
+      .pricing {
         grid-template-columns: 1fr;
       }
 
-      .payment-info,
-      .payment-flow {
-        min-height: auto;
-        padding: 25px;
+      .compare-card {
+        padding: 22px;
       }
 
-      .payment-toggle {
-        margin-top: 35px;
+      .flow {
+        grid-template-columns: 1fr;
       }
 
-      .toggle-btn {
-        min-height: 52px;
-        font-size: 11px;
+      .products-grid {
+        grid-template-columns: 1fr;
       }
 
-      .mode-top h3 {
-        font-size: 24px;
+      .dashboard-main {
+        padding: 20px;
       }
 
-      .final-content h2 {
-        font-size: clamp(60px,18vw,100px);
-        letter-spacing: -4px;
-      }
-
+      .footer-top,
       .footer-bottom {
         flex-direction: column;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+      }
+
+      .final-cta {
+        padding: 65px 20px;
       }
     }
   </style>
@@ -1593,36 +1149,34 @@
 
 <body>
 
-  <!-- NAV -->
+  <!-- NAVIGATION -->
 
-  <header class="nav" id="nav">
-    <div class="container nav-inner">
+  <nav id="navbar">
+    <div class="nav-inner">
 
-      <a href="#" class="brand">
-        <div class="brand-mark">
-          <i data-lucide="zap"></i>
-        </div>
-
-        SchwarzPay
+      <a href="#" class="logo">
+        SCHWARZ<span>PAY</span>
       </a>
 
-      <nav class="nav-links">
-        <a href="#services">Leistungen</a>
-        <a href="#payment">Zahlung</a>
-        <a href="#pricing">Preise</a>
-      </nav>
+      <div class="nav-links">
+        <a href="#loesung">Lösung</a>
+        <a href="#vergleich">Bargeld vs. Online</a>
+        <a href="#telegram">Telegram</a>
+        <a href="#preise">Preise</a>
+      </div>
 
       <a
+        class="nav-cta"
         href="https://t.me/Duf7484"
         target="_blank"
-        class="nav-telegram"
+        rel="noopener"
       >
-        <i data-lucide="send"></i>
-        Telegram
+        Kontakt
+        <i data-lucide="arrow-up-right"></i>
       </a>
 
     </div>
-  </header>
+  </nav>
 
 
   <!-- HERO -->
@@ -1630,25 +1184,33 @@
   <main>
 
     <section class="hero">
-
       <div class="container hero-grid">
 
-        <div class="hero-copy reveal">
+        <div class="reveal">
 
           <div class="eyebrow">
-            <span class="status-dot"></span>
-            DIGITAL. ONLINE. FLEXIBEL.
+            <span class="eyebrow-dot"></span>
+            ANONYM · ONLINE · PRIVAT
           </div>
 
           <h1>
-            VERKAUFE.<br />
-            BLEIB <span>ONLINE.</span>
+            SCHWARZPAY —
+            <br>
+            ZAHLUNGEN
+            <br>
+            ANNEHMEN.
+            <br>
+            <span class="accent">ONLINE SEIN.</span>
           </h1>
 
-          <p class="hero-text">
-            SchwarzPay hilft dir dabei, digitale Systeme für dein
-            Projekt aufzubauen: Online-Zahlungen, Websites,
-            Telegram-Bots und Automatisierung.
+          <div class="hero-anonym">
+            ANONYM.
+          </div>
+
+          <p class="hero-description">
+            Digitale Zahlungen, Websites, Telegram-Lösungen und
+            Automatisierung — entwickelt für einen einfachen Online-Ablauf
+            mit starkem Fokus auf Privatsphäre.
           </p>
 
           <div class="hero-actions">
@@ -1656,18 +1218,16 @@
             <a
               href="https://t.me/Duf7484"
               target="_blank"
-              class="btn btn-primary"
+              rel="noopener"
+              class="button button-primary"
             >
-              <i data-lucide="send"></i>
-              SchwarzPay kontaktieren
+              SchwarzPay starten
+              <i data-lucide="arrow-right"></i>
             </a>
 
-            <a
-              href="#payment"
-              class="btn btn-secondary"
-            >
-              <i data-lucide="arrow-down"></i>
+            <a href="#loesung" class="button button-secondary">
               Mehr erfahren
+              <i data-lucide="chevron-down"></i>
             </a>
 
           </div>
@@ -1677,277 +1237,204 @@
 
         <div class="hero-visual reveal">
 
-          <div class="hero-glow"></div>
+          <div class="visual-glow"></div>
 
-          <div class="floating-card one">
+          <div class="payment-card">
 
-            <div class="floating-icon">
-              <i data-lucide="credit-card"></i>
-            </div>
+            <div class="payment-top">
 
-            <div>
-              <div class="floating-label">
-                ONLINE PAYMENT
+              <div class="payment-brand">
+                SCHWARZPAY
               </div>
 
-              <div class="floating-value">
-                Fiat → Crypto
-              </div>
-            </div>
-
-          </div>
-
-
-          <div class="main-panel">
-
-            <div class="panel-top">
-
-              <div class="panel-title">
-                SchwarzPay System
-              </div>
-
-              <div class="online-badge">
-                <span></span>
+              <div class="payment-status">
+                <span class="status-dot"></span>
                 ONLINE
               </div>
 
             </div>
 
+            <div class="payment-label">
+              ZAHLUNG ERHALTEN
+            </div>
 
-            <div class="dashboard-box">
+            <div class="payment-amount">
+              149,00 €
+            </div>
 
-              <div class="dashboard-row">
-
-                <div class="dashboard-product">
-
-                  <div class="product-icon">
-                    <i data-lucide="credit-card"></i>
-                  </div>
-
-                  <div>
-                    <div class="product-name">
-                      Online Payment
-                    </div>
-
-                    <div class="product-status">
-                      Fiat → Crypto
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="price-tag">
-                  ONLINE
-                </div>
-
-              </div>
-
-
-              <div class="dashboard-row">
-
-                <div class="dashboard-product">
-
-                  <div class="product-icon">
-                    <i data-lucide="globe"></i>
-                  </div>
-
-                  <div>
-                    <div class="product-name">
-                      Website
-                    </div>
-
-                    <div class="product-status">
-                      Modern & mobil
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="price-tag">
-                  READY
-                </div>
-
-              </div>
-
-
-              <div class="dashboard-row">
-
-                <div class="dashboard-product">
-
-                  <div class="product-icon">
-                    <i data-lucide="bot"></i>
-                  </div>
-
-                  <div>
-                    <div class="product-name">
-                      Telegram
-                    </div>
-
-                    <div class="product-status">
-                      Automatisierung
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="price-tag">
-                  ACTIVE
-                </div>
-
-              </div>
-
+            <div class="payment-bottom">
+              <span>FIAT + KRYPTO</span>
+              <span>PRIVACY FOCUSED</span>
             </div>
 
           </div>
 
-
-          <div class="floating-card two">
-
-            <div class="floating-icon">
-              <i data-lucide="zap"></i>
-            </div>
-
-            <div>
-              <div class="floating-label">
-                SCHWARZPAY
-              </div>
-
-              <div class="floating-value">
-                Digital Setup
-              </div>
-            </div>
-
+          <div class="floating-card">
+            <strong>24/7</strong>
+            <span>Online erreichbar</span>
           </div>
 
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- TRUST -->
+    <!-- TRUST STRIP -->
 
     <div class="trust-strip">
-
-      <div class="container trust-grid">
+      <div class="container trust-items">
 
         <div class="trust-item">
-          <i data-lucide="globe"></i>
-          Online verfügbar
+          <i data-lucide="shield"></i>
+          Privatsphäre im Fokus
         </div>
 
         <div class="trust-item">
-          <i data-lucide="smartphone"></i>
-          Mobile optimiert
+          <i data-lucide="globe-2"></i>
+          Online erreichbar
+        </div>
+
+        <div class="trust-item">
+          <i data-lucide="coins"></i>
+          Fiat + Krypto
         </div>
 
         <div class="trust-item">
           <i data-lucide="zap"></i>
-          Schnell eingerichtet
-        </div>
-
-        <div class="trust-item">
-          <i data-lucide="send"></i>
-          Telegram Support
+          Automatisierbar
         </div>
 
       </div>
-
     </div>
 
 
-    <!-- SERVICES -->
+    <!-- SOLUTION -->
 
-    <section id="services">
+    <section id="loesung">
 
       <div class="container">
 
-        <div class="reveal">
+        <div class="section-header reveal">
 
-          <div class="section-label">
-            SCHWARZPAY SYSTEM
+          <div class="section-kicker">
+            SCHWARZPAY
           </div>
 
-          <h2 class="section-title">
-            ALLES, WAS DEIN PROJEKT DIGITAL BRAUCHT.
+          <h2>
+            Alles für deinen
+            <span style="color:var(--accent)">Online-Ablauf.</span>
           </h2>
 
-          <p class="section-subtitle">
-            Wir helfen dabei, digitale Lösungen einzurichten und
-            verschiedene Prozesse miteinander zu verbinden.
+          <p class="section-description">
+            Von der Zahlungsannahme bis zur Website oder Telegram-Lösung:
+            SchwarzPay verbindet digitale Systeme zu einem einfachen Ablauf.
           </p>
 
         </div>
 
 
-        <div class="bento reveal">
+        <div class="bento">
 
-          <div class="bento-card large">
+          <div class="bento-card bento-large reveal">
 
-            <div class="bento-icon">
+            <div class="icon-box">
+              <i data-lucide="shield-check"></i>
+            </div>
+
+            <h3>
+              Privatsphäre zuerst.
+            </h3>
+
+            <p>
+              SchwarzPay ist auf einen datensparsamen und
+              privatsphärefokussierten Online-Ablauf ausgelegt.
+              Keine unnötige Komplexität — nur die Systeme,
+              die du tatsächlich brauchst.
+            </p>
+
+            <div class="bento-number">01</div>
+
+          </div>
+
+
+          <div class="bento-card bento-small reveal">
+
+            <div class="icon-box">
               <i data-lucide="credit-card"></i>
             </div>
 
             <h3>
-              Online-Zahlungen
+              Online bezahlen.
             </h3>
 
             <p>
-              Unterstützung bei der Einrichtung eines digitalen
-              Zahlungssystems mit Fiat-zu-Krypto-Auszahlung.
+              Kunden können online bezahlen, ohne dass für die
+              Geldübergabe zwingend ein persönliches Treffen notwendig ist.
             </p>
+
+            <div class="bento-number">02</div>
 
           </div>
 
 
-          <div class="bento-card">
+          <div class="bento-card bento-small reveal">
 
-            <div class="bento-icon">
-              <i data-lucide="globe"></i>
+            <div class="icon-box">
+              <i data-lucide="wallet-cards"></i>
             </div>
 
             <h3>
-              Website
+              Fiat + Krypto.
             </h3>
 
             <p>
-              Moderne Websites für Desktop und Smartphone.
+              Klassische Online-Zahlungen und Kryptowährungen
+              in einem digitalen Ablauf kombinieren.
             </p>
+
+            <div class="bento-number">03</div>
 
           </div>
 
 
-          <div class="bento-card">
+          <div class="bento-card bento-large reveal">
 
-            <div class="bento-icon">
+            <div class="icon-box">
               <i data-lucide="bot"></i>
             </div>
 
             <h3>
-              Telegram-Bot
+              Websites & Telegram.
             </h3>
 
             <p>
-              Automatisierte Funktionen direkt in Telegram.
+              Zahlungsabläufe können mit Websites, Telegram-Bots,
+              Kanälen und weiteren digitalen Systemen verbunden werden.
             </p>
+
+            <div class="bento-number">04</div>
 
           </div>
 
 
-          <div class="bento-card wide">
+          <div class="bento-card bento-full reveal">
 
-            <div class="bento-icon">
-              <i data-lucide="workflow"></i>
+            <div class="icon-box">
+              <i data-lucide="settings-2"></i>
             </div>
 
             <h3>
-              Automatisierung
+              Automatisierung.
             </h3>
 
             <p>
-              Weniger manuelle Arbeit. Mehr automatisierte Prozesse.
+              Weniger manuelle Schritte. Bestellungen, Informationen,
+              Produkte und digitale Abläufe können strukturiert
+              und automatisiert werden.
             </p>
+
+            <div class="bento-number">05</div>
 
           </div>
 
@@ -1958,306 +1445,67 @@
     </section>
 
 
-    <!-- PAYMENT -->
+    <!-- CASH VS SCHWARZPAY -->
 
-    <section
-      id="payment"
-      class="payment-section"
-    >
+    <section id="vergleich">
 
       <div class="container">
 
-        <div class="payment-head reveal">
+        <div class="section-header reveal">
 
-          <div class="section-label">
-            ZAHLUNG VERGLEICHEN
+          <div class="section-kicker">
+            VERGLEICH
           </div>
 
-          <h2 class="section-title">
-            BARGELD ODER SCHWARZPAY?
+          <h2>
+            Bargeld oder
+            <span style="color:var(--accent)">SchwarzPay?</span>
           </h2>
 
-          <p class="section-subtitle">
-            Zwei unterschiedliche Wege. Du entscheidest,
-            welcher besser zu deinem Projekt passt.
+          <p class="section-description">
+            Wähle den Ablauf, der besser zu deinem Verkauf passt.
           </p>
 
         </div>
 
 
-        <div
-          class="payment-toggle reveal"
-          id="paymentToggle"
-        >
+        <div class="compare-wrap reveal">
 
-          <div class="toggle-indicator"></div>
+          <div class="toggle">
 
-          <button
-            class="toggle-btn active"
-            data-mode="cash"
-          >
-            <i data-lucide="banknote"></i>
-            Bargeld
-          </button>
+            <button class="compare-btn active" data-type="cash">
+              Bargeld
+            </button>
 
-          <button
-            class="toggle-btn"
-            data-mode="schwarz"
-          >
-            <i data-lucide="zap"></i>
-            SchwarzPay
-          </button>
-
-        </div>
-
-
-        <div class="payment-content reveal">
-
-          <!-- INFO -->
-
-          <div class="payment-info">
-
-
-            <!-- CASH -->
-
-            <div
-              class="payment-mode active"
-              id="cashMode"
-            >
-
-              <div class="mode-top">
-
-                <div class="mode-icon">
-                  <i data-lucide="banknote"></i>
-                </div>
-
-                <h3>
-                  Bargeld
-                </h3>
-
-              </div>
-
-              <p class="mode-description">
-                Klassische Bezahlung direkt zwischen dir und deinem
-                Kunden. Für die Übergabe des Geldes ist normalerweise
-                eine persönliche Organisation erforderlich.
-              </p>
-
-
-              <div class="advantages-grid">
-
-                <div class="advantage plus">
-                  <i data-lucide="plus-circle"></i>
-                  Direkte Bezahlung
-                </div>
-
-                <div class="advantage plus">
-                  <i data-lucide="plus-circle"></i>
-                  Kein Online-System notwendig
-                </div>
-
-                <div class="advantage minus">
-                  <i data-lucide="minus-circle"></i>
-                  Persönliche Übergabe organisieren
-                </div>
-
-                <div class="advantage minus">
-                  <i data-lucide="minus-circle"></i>
-                  Nicht vollständig online
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <!-- SCHWARZ -->
-
-            <div
-              class="payment-mode"
-              id="schwarzMode"
-            >
-
-              <div class="mode-top">
-
-                <div class="mode-icon">
-                  <i data-lucide="zap"></i>
-                </div>
-
-                <h3>
-                  SchwarzPay
-                </h3>
-
-              </div>
-
-              <p class="mode-description">
-                Dein Kunde kann online bezahlen, während du ein
-                digitales Zahlungssystem für dein Projekt nutzt.
-                Die technische Einrichtung und Automatisierung
-                können über SchwarzPay begleitet werden.
-              </p>
-
-
-              <div class="advantages-grid">
-
-                <div class="advantage plus">
-                  <i data-lucide="check-circle-2"></i>
-                  Online-Zahlungen
-                </div>
-
-                <div class="advantage plus">
-                  <i data-lucide="check-circle-2"></i>
-                  Keine persönliche Geldübergabe nötig
-                </div>
-
-                <div class="advantage plus">
-                  <i data-lucide="check-circle-2"></i>
-                  Fiat → Crypto
-                </div>
-
-                <div class="advantage plus">
-                  <i data-lucide="check-circle-2"></i>
-                  Einrichtung & Automatisierung
-                </div>
-
-              </div>
-
-            </div>
+            <button class="compare-btn" data-type="online">
+              SchwarzPay
+            </button>
 
           </div>
 
 
-          <!-- FLOW -->
+          <div class="compare-card">
 
-          <div class="payment-flow">
+            <h3 id="compare-title">
+              Bargeld
+            </h3>
 
-            <div
-              class="flow"
-              id="cashFlow"
-            >
+            <div class="compare-grid">
 
-              <div class="flow-node">
+              <div class="pros">
 
-                <div class="flow-node-icon">
-                  <i data-lucide="user"></i>
-                </div>
+                <h4>Vorteile</h4>
 
-                <div>
-                  <div class="flow-node-title">
-                    Kunde
-                  </div>
-
-                  <div class="flow-node-sub">
-                    bezahlt persönlich
-                  </div>
-                </div>
+                <ul class="feature-list" id="pros-list"></ul>
 
               </div>
 
-              <div class="flow-line"></div>
 
-              <div class="flow-node highlight">
+              <div class="cons">
 
-                <div class="flow-node-icon">
-                  <i data-lucide="banknote"></i>
-                </div>
+                <h4>Nachteile</h4>
 
-                <div>
-                  <div class="flow-node-title">
-                    Bargeld
-                  </div>
-
-                  <div class="flow-node-sub">
-                    direkte Übergabe
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="flow-line"></div>
-
-              <div class="flow-node">
-
-                <div class="flow-node-icon">
-                  <i data-lucide="package"></i>
-                </div>
-
-                <div>
-                  <div class="flow-node-title">
-                    Produkt / Service
-                  </div>
-
-                  <div class="flow-node-sub">
-                    Übergabe organisieren
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div
-              class="flow"
-              id="schwarzFlow"
-              style="display:none;"
-            >
-
-              <div class="flow-node">
-
-                <div class="flow-node-icon">
-                  <i data-lucide="user"></i>
-                </div>
-
-                <div>
-                  <div class="flow-node-title">
-                    Kunde
-                  </div>
-
-                  <div class="flow-node-sub">
-                    bezahlt online
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="flow-line"></div>
-
-              <div class="flow-node highlight">
-
-                <div class="flow-node-icon">
-                  <i data-lucide="credit-card"></i>
-                </div>
-
-                <div>
-                  <div class="flow-node-title">
-                    Online Payment
-                  </div>
-
-                  <div class="flow-node-sub">
-                    Fiat → Crypto
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="flow-line"></div>
-
-              <div class="flow-node">
-
-                <div class="flow-node-icon">
-                  <i data-lucide="wallet"></i>
-                </div>
-
-                <div>
-                  <div class="flow-node-title">
-                    Deine Auszahlung
-                  </div>
-
-                  <div class="flow-node-sub">
-                    digitales Wallet-System
-                  </div>
-                </div>
+                <ul class="feature-list" id="cons-list"></ul>
 
               </div>
 
@@ -2272,67 +1520,61 @@
     </section>
 
 
-    <!-- SERVICES CARDS -->
+    <!-- PAYMENT FLOW -->
 
     <section>
 
       <div class="container">
 
-        <div class="reveal">
+        <div class="section-header reveal">
 
-          <div class="section-label">
-            MEHR ALS NUR ZAHLUNG
+          <div class="section-kicker">
+            ABLAUF
           </div>
 
-          <h2 class="section-title">
-            WIR BAUEN DAS SYSTEM UM DEINE IDEE.
+          <h2>
+            Einfach.
+            <span style="color:var(--accent)">Digital.</span>
           </h2>
+
+          <p class="section-description">
+            Ein klarer Ablauf von deinem Angebot bis zum Zahlungseingang.
+          </p>
 
         </div>
 
 
-        <div class="services-grid reveal">
+        <div class="flow">
 
-          <div class="service-card">
-            <i data-lucide="monitor-smartphone"></i>
-
-            <h3>Website</h3>
-
+          <div class="flow-card reveal">
+            <div class="flow-number">01 — ANGEBOT</div>
+            <h3>Produkt zeigen</h3>
             <p>
-              Design und technische Umsetzung einer modernen Website.
+              Dein Produkt oder deine Dienstleistung wird online präsentiert.
             </p>
           </div>
 
-
-          <div class="service-card">
-            <i data-lucide="bot"></i>
-
-            <h3>Telegram</h3>
-
+          <div class="flow-card reveal">
+            <div class="flow-number">02 — ZAHLUNG</div>
+            <h3>Kunde bezahlt</h3>
             <p>
-              Bots, Kanäle und automatisierte Prozesse.
+              Der Kunde wählt den verfügbaren digitalen Zahlungsweg.
             </p>
           </div>
 
-
-          <div class="service-card">
-            <i data-lucide="credit-card"></i>
-
-            <h3>Online Payment</h3>
-
+          <div class="flow-card reveal">
+            <div class="flow-number">03 — VERARBEITUNG</div>
+            <h3>System arbeitet</h3>
             <p>
-              Unterstützung bei Einrichtung und Integration.
+              Zahlungs- und Bestellabläufe können automatisiert werden.
             </p>
           </div>
 
-
-          <div class="service-card">
-            <i data-lucide="workflow"></i>
-
-            <h3>Automation</h3>
-
+          <div class="flow-card reveal">
+            <div class="flow-number">04 — AUSZAHLUNG</div>
+            <h3>Du erhältst</h3>
             <p>
-              Digitale Prozesse einfacher und schneller organisieren.
+              Die Zahlung wird entsprechend der eingerichteten Lösung verarbeitet.
             </p>
           </div>
 
@@ -2343,74 +1585,198 @@
     </section>
 
 
-    <!-- PROCESS -->
+    <!-- TELEGRAM -->
+
+    <section class="telegram-section" id="telegram">
+
+      <div class="container telegram-grid">
+
+        <div class="telegram-screen reveal">
+
+          <div class="tg-header">
+
+            <div class="tg-avatar">
+              <i data-lucide="bot"></i>
+            </div>
+
+            <div>
+              <strong>SchwarzPay Bot</strong>
+              <span>online</span>
+            </div>
+
+          </div>
+
+
+          <div class="tg-message">
+
+            <strong>Bestellung</strong>
+
+            <br><br>
+
+            Digitales Produkt
+            <br>
+            49,00 €
+
+            <div class="tg-button">
+              Jetzt bezahlen
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="reveal">
+
+          <div class="section-kicker">
+            TELEGRAM
+          </div>
+
+          <h2>
+            Dein Verkauf direkt
+            <span style="color:var(--accent)">im Chat.</span>
+          </h2>
+
+          <p class="section-description">
+            Telegram-Bots und Kanäle können mit Produkten,
+            Informationen und Zahlungsabläufen verbunden werden.
+            So entsteht ein kompletter digitaler Ablauf innerhalb
+            einer Plattform.
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              href="https://t.me/Duf7484"
+              target="_blank"
+              rel="noopener"
+              class="button button-primary"
+            >
+              Telegram kontaktieren
+              <i data-lucide="send"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCT MANAGEMENT -->
 
     <section>
 
       <div class="container">
 
-        <div class="reveal">
+        <div class="section-header reveal">
 
-          <div class="section-label">
-            SO FUNKTIONIERT ES
+          <div class="section-kicker">
+            VERWALTUNG
           </div>
 
-          <h2 class="section-title">
-            EINFACH. DIGITAL. DIREKT.
+          <h2>
+            Produkte selbst
+            <span style="color:var(--accent)">verwalten.</span>
           </h2>
+
+          <p class="section-description">
+            Produkte und Preise sollen nicht jedes Mal manuell
+            geändert werden müssen. Deine Inhalte können selbstständig
+            aktualisiert und erweitert werden.
+          </p>
 
         </div>
 
 
-        <div class="process-box reveal">
+        <div class="dashboard reveal">
 
-          <div class="process-grid">
+          <aside class="dashboard-side">
 
-            <div class="process-step">
-              <span>01</span>
-
-              <h3>Schreib uns</h3>
-
-              <p>
-                Erzähl uns kurz, was du verkaufen oder digital
-                aufbauen möchtest.
-              </p>
+            <div class="dashboard-side-title">
+              SCHWARZPAY
             </div>
 
-
-            <div class="process-step">
-              <span>02</span>
-
-              <h3>System planen</h3>
-
-              <p>
-                Wir schauen, welche digitale Lösung zu deinem
-                Projekt passt.
-              </p>
+            <div class="side-item active">
+              <i data-lucide="package"></i>
+              Produkte
             </div>
 
-
-            <div class="process-step">
-              <span>03</span>
-
-              <h3>Einrichten</h3>
-
-              <p>
-                Website, Bot, Zahlungsintegration oder
-                Automatisierung werden eingerichtet.
-              </p>
+            <div class="side-item">
+              <i data-lucide="shopping-cart"></i>
+              Bestellungen
             </div>
 
+            <div class="side-item">
+              <i data-lucide="bar-chart-3"></i>
+              Übersicht
+            </div>
 
-            <div class="process-step">
-              <span>04</span>
+            <div class="side-item">
+              <i data-lucide="settings"></i>
+              Einstellungen
+            </div>
 
-              <h3>Online gehen</h3>
+          </aside>
 
-              <p>
-                Dein digitales System ist bereit für den nächsten
-                Schritt.
-              </p>
+
+          <div class="dashboard-main">
+
+            <div class="dashboard-title">
+              Produkte
+            </div>
+
+            <div class="products-grid">
+
+              <div class="product">
+
+                <div class="product-icon">
+                  <i data-lucide="globe"></i>
+                </div>
+
+                <strong>Website</strong>
+                <span>Digital</span>
+
+                <div class="product-price">
+                  149 €
+                </div>
+
+              </div>
+
+
+              <div class="product">
+
+                <div class="product-icon">
+                  <i data-lucide="bot"></i>
+                </div>
+
+                <strong>Telegram Bot</strong>
+                <span>Digital</span>
+
+                <div class="product-price">
+                  99 €
+                </div>
+
+              </div>
+
+
+              <div class="product">
+
+                <div class="product-icon">
+                  <i data-lucide="code-2"></i>
+                </div>
+
+                <strong>Setup</strong>
+                <span>Service</span>
+
+                <div class="product-price">
+                  49 €
+                </div>
+
+              </div>
+
             </div>
 
           </div>
@@ -2424,122 +1790,118 @@
 
     <!-- PRICING -->
 
-    <section id="pricing">
+    <section id="preise">
 
       <div class="container">
 
-        <div class="reveal">
+        <div class="section-header reveal">
 
-          <div class="section-label">
+          <div class="section-kicker">
             PREISE
           </div>
 
-          <h2 class="section-title">
-            KLARE IDEEN. INDIVIDUELLE LÖSUNGEN.
+          <h2>
+            Klar.
+            <span style="color:var(--accent)">Einfach.</span>
           </h2>
 
-          <p class="section-subtitle">
-            Der Preis hängt vom Umfang und der gewünschten
-            technischen Einrichtung ab.
+          <p class="section-description">
+            Einmalige Einrichtung oder individuelle Entwicklung —
+            abhängig davon, was du benötigst.
           </p>
 
         </div>
 
 
-        <div class="pricing-grid reveal">
+        <div class="pricing">
 
+          <div class="price-card featured reveal">
 
-          <div class="price-card">
-
-            <div class="price-number">
-              01 / START
+            <div class="price-label">
+              Online-Zahlungen
             </div>
 
-            <h3>
-              Basis
-            </h3>
-
-            <div class="big-price">
-              ab 49€
+            <div class="price">
+              49 € <small>einmalig</small>
             </div>
 
-            <p>
-              Unterstützung bei der grundlegenden digitalen
-              Einrichtung und Planung eines passenden Systems.
-            </p>
-
-            <div class="price-note">
-              <strong>
-                Für einfache Projekte
-              </strong>
-
-              <span>
-                Umfang wird individuell besprochen.
-              </span>
+            <div class="price-description">
+              Einrichtung und Konfiguration einer passenden
+              Online-Zahlungslösung.
             </div>
 
-          </div>
+            <div class="price-features">
 
+              <ul class="feature-list">
 
-          <div class="price-card featured">
+                <li>
+                  <i data-lucide="check"></i>
+                  Online-Zahlungsablauf
+                </li>
 
-            <div class="price-number">
-              02 / DIGITAL
-            </div>
+                <li>
+                  <i data-lucide="check"></i>
+                  Konfiguration
+                </li>
 
-            <h3>
-              System
-            </h3>
+                <li>
+                  <i data-lucide="check"></i>
+                  Integration in digitale Systeme
+                </li>
 
-            <div class="big-price">
-              Individuell
-            </div>
+                <li>
+                  <i data-lucide="check"></i>
+                  Fokus auf einen einfachen Ablauf
+                </li>
 
-            <p>
-              Kombination aus digitalen Funktionen wie Website,
-              Telegram und technischer Automatisierung.
-            </p>
+              </ul>
 
-            <div class="price-note">
-              <strong>
-                Individuelle Lösung
-              </strong>
-
-              <span>
-                Abhängig von Funktionen und Aufwand.
-              </span>
             </div>
 
           </div>
 
 
-          <div class="price-card">
+          <div class="price-card reveal">
 
-            <div class="price-number">
-              03 / CUSTOM
+            <div class="price-label">
+              Website / Bot / System
             </div>
 
-            <h3>
-              Custom
-            </h3>
-
-            <div class="big-price">
+            <div class="price individual">
               Individuell
             </div>
 
-            <p>
-              Für größere Ideen, spezielle Funktionen und
-              individuelle digitale Systeme.
-            </p>
+            <div class="price-description">
+              Preis abhängig von Umfang, Funktionen und
+              gewünschter Umsetzung.
+            </div>
 
-            <div class="price-note">
-              <strong>
-                Für besondere Projekte
-              </strong>
+            <div class="price-features">
 
-              <span>
-                Konzept und Umfang werden vorher besprochen.
-              </span>
+              <ul class="feature-list">
+
+                <li>
+                  <i data-lucide="check"></i>
+                  Websites
+                </li>
+
+                <li>
+                  <i data-lucide="check"></i>
+                  Telegram-Bots
+                </li>
+
+                <li>
+                  <i data-lucide="check"></i>
+                  Automatisierungen
+                </li>
+
+                <li>
+                  <i data-lucide="check"></i>
+                  Individuelle Systeme
+                </li>
+
+              </ul>
+
             </div>
 
           </div>
@@ -2551,32 +1913,107 @@
     </section>
 
 
-    <!-- CTA -->
+    <!-- ABOUT -->
 
-    <section class="final-cta">
+    <section>
 
-      <div class="final-glow"></div>
+      <div class="container about">
 
-      <div class="container final-content reveal">
+        <div class="reveal">
 
-        <h2>
-          LET'S GO<br />
-          <span>ONLINE.</span>
-        </h2>
+          <div class="section-kicker">
+            WARUM SCHWARZPAY?
+          </div>
 
-        <p>
-          Du hast eine Idee? Schreib uns auf Telegram und
-          erzähl uns, was du digital aufbauen möchtest.
-        </p>
+          <h2>
+            Online statt
+            <span style="color:var(--accent)">Umwege.</span>
+          </h2>
 
-        <a
-          href="https://t.me/Duf7484"
-          target="_blank"
-          class="telegram-big"
-        >
-          <i data-lucide="send"></i>
-          @Duf7484 kontaktieren
-        </a>
+          <p class="about-text">
+            SchwarzPay verbindet Zahlungsannahme, Websites,
+            Telegram und Automatisierung zu digitalen Lösungen.
+            Dabei steht ein möglichst einfacher und
+            privatsphärefokussierter Ablauf im Mittelpunkt.
+          </p>
+
+        </div>
+
+
+        <div class="about-points reveal">
+
+          <div class="about-point">
+            <i data-lucide="eye-off"></i>
+            <div>
+              <strong>Privatsphäre</strong>
+              <span>Datensparsame Abläufe und Privatsphäre als zentrale Idee.</span>
+            </div>
+          </div>
+
+          <div class="about-point">
+            <i data-lucide="globe"></i>
+            <div>
+              <strong>Online</strong>
+              <span>Kunden können dich digital erreichen und bezahlen.</span>
+            </div>
+          </div>
+
+          <div class="about-point">
+            <i data-lucide="layers"></i>
+            <div>
+              <strong>Ein System</strong>
+              <span>Website, Telegram, Zahlung und Automatisierung kombinierbar.</span>
+            </div>
+          </div>
+
+          <div class="about-point">
+            <i data-lucide="sliders-horizontal"></i>
+            <div>
+              <strong>Flexibel</strong>
+              <span>Produkte und Preise können selbst verwaltet werden.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="final-cta reveal">
+
+          <div class="section-kicker">
+            SCHWARZPAY
+          </div>
+
+          <h2>
+            Bereit für
+            <span style="color:var(--accent)">Online-Zahlungen?</span>
+          </h2>
+
+          <p>
+            Schreib uns direkt auf Telegram und beschreibe,
+            was du verkaufen oder automatisieren möchtest.
+          </p>
+
+          <a
+            href="https://t.me/Duf7484"
+            target="_blank"
+            rel="noopener"
+            class="button button-primary"
+          >
+            Kontakt aufnehmen
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+
+        </div>
 
       </div>
 
@@ -2591,44 +2028,37 @@
 
     <div class="container">
 
-      <div class="footer-grid">
+      <div class="footer-top">
 
-        <div>
+        <div class="footer-brand">
 
-          <a href="#" class="brand">
+          <div class="logo">
+            SCHWARZ<span>PAY</span>
+          </div>
 
-            <div class="brand-mark">
-              <i data-lucide="zap"></i>
-            </div>
-
-            SchwarzPay
-
-          </a>
-
-          <p class="footer-description">
-            SchwarzPay ist ein Vermittlungs- und
-            Unterstützungsservice für die technische Einrichtung
-            digitaler Lösungen. Wir helfen bei der Planung,
-            Einrichtung und Automatisierung von Websites,
-            Telegram-Systemen und Online-Zahlungsintegrationen.
+          <p>
+            Digitale Zahlungslösungen, Websites,
+            Telegram-Systeme und Automatisierung
+            mit Fokus auf Privatsphäre.
           </p>
 
         </div>
 
 
-        <div class="footer-note">
+        <div class="footer-links">
 
-          <strong style="color:white;">
-            Hinweis
-          </strong>
+          <a href="#loesung">Lösung</a>
+          <a href="#vergleich">Vergleich</a>
+          <a href="#telegram">Telegram</a>
+          <a href="#preise">Preise</a>
 
-          <br /><br />
-
-          SchwarzPay ist kein Zahlungsanbieter und verarbeitet
-          Zahlungen nicht selbst. SchwarzPay unterstützt bei der
-          technischen Einrichtung und Integration von Lösungen.
-          Zahlungsfunktionen werden über die jeweiligen
-          externen technischen Dienste und Anbieter bereitgestellt.
+          <a
+            href="https://t.me/Duf7484"
+            target="_blank"
+            rel="noopener"
+          >
+            Kontakt
+          </a>
 
         </div>
 
@@ -2641,12 +2071,11 @@
           © 2026 SchwarzPay
         </span>
 
-        <a
-          href="https://t.me/Duf7484"
-          target="_blank"
-        >
-          Telegram: @Duf7484
-        </a>
+        <span>
+          SchwarzPay ist ein Vermittler und kein Zahlungsanbieter.
+          Wir helfen bei der Einrichtung, Konfiguration,
+          Automatisierung und Erstellung digitaler Systeme.
+        </span>
 
       </div>
 
@@ -2655,123 +2084,153 @@
   </footer>
 
 
-  <!-- JAVASCRIPT -->
-
   <script>
 
-    // Icons
+    /* ---------------- ICONS ---------------- */
+
     lucide.createIcons();
 
 
-    // Navigation scroll
+    /* ---------------- NAV SCROLL ---------------- */
 
-    const nav = document.getElementById("nav");
+    const navbar = document.getElementById("navbar");
 
     window.addEventListener("scroll", () => {
-
       if (window.scrollY > 30) {
-        nav.classList.add("scrolled");
+        navbar.classList.add("scrolled");
       } else {
-        nav.classList.remove("scrolled");
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+
+    /* ---------------- REVEAL ---------------- */
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => {
+      observer.observe(el);
+    });
+
+
+    /* ---------------- CASH / ONLINE TOGGLE ---------------- */
+
+    const compareTitle = document.getElementById("compare-title");
+    const prosList = document.getElementById("pros-list");
+    const consList = document.getElementById("cons-list");
+
+    const data = {
+
+      cash: {
+        title: "Bargeld",
+
+        pros: [
+          "Geld direkt erhalten",
+          "Keine technische Einrichtung notwendig",
+          "Kein digitales Zahlungssystem erforderlich"
+        ],
+
+        cons: [
+          "Persönliches Treffen erforderlich",
+          "Lokal gebunden",
+          "Weniger potenzielle Kunden",
+          "Für Online- und Fernverkäufe weniger geeignet"
+        ]
+      },
+
+      online: {
+        title: "SchwarzPay",
+
+        pros: [
+          "Online-Zahlungen",
+          "Kein persönliches Treffen nur für die Geldübergabe",
+          "Kunden können dich auch aus der Entfernung erreichen",
+          "Fiat + Kryptowährungen",
+          "Privatsphäre steht im Fokus",
+          "Integration in Website und Telegram möglich",
+          "Automatisierbare Abläufe"
+        ],
+
+        cons: []
       }
 
-    });
+    };
 
 
-    // Reveal animation
+    function renderCompare(type) {
 
-    const revealElements =
-      document.querySelectorAll(".reveal");
+      const current = data[type];
 
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
+      compareTitle.textContent = current.title;
 
-          entries.forEach((entry) => {
+      prosList.innerHTML = current.pros
+        .map(item => `
+          <li>
+            <i data-lucide="check"></i>
+            <span>${item}</span>
+          </li>
+        `)
+        .join("");
 
-            if (entry.isIntersecting) {
+      if (current.cons.length === 0) {
 
-              entry.target.classList.add("visible");
+        consList.innerHTML = `
+          <li>
+            <i data-lucide="minus"></i>
+            <span>Keine zusätzlichen Nachteile in diesem Vergleich.</span>
+          </li>
+        `;
 
-            }
+      } else {
 
-          });
+        consList.innerHTML = current.cons
+          .map(item => `
+            <li>
+              <i data-lucide="minus"></i>
+              <span>${item}</span>
+            </li>
+          `)
+          .join("");
 
-        },
-        {
-          threshold: 0.12
-        }
-      );
+      }
 
-    revealElements.forEach((element) => {
-      observer.observe(element);
-    });
-
-
-    // Payment switcher
-
-    const toggle =
-      document.getElementById("paymentToggle");
-
-    const buttons =
-      document.querySelectorAll(".toggle-btn");
-
-    const cashMode =
-      document.getElementById("cashMode");
-
-    const schwarzMode =
-      document.getElementById("schwarzMode");
-
-    const cashFlow =
-      document.getElementById("cashFlow");
-
-    const schwarzFlow =
-      document.getElementById("schwarzFlow");
+      lucide.createIcons();
+    }
 
 
-    buttons.forEach((button) => {
+    document.querySelectorAll(".compare-btn").forEach(button => {
 
       button.addEventListener("click", () => {
 
-        const mode =
-          button.dataset.mode;
-
-
-        buttons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
+        document.querySelectorAll(".compare-btn")
+          .forEach(btn => btn.classList.remove("active"));
 
         button.classList.add("active");
 
-
-        if (mode === "cash") {
-
-          toggle.classList.remove("schwarz");
-
-          cashMode.classList.add("active");
-          schwarzMode.classList.remove("active");
-
-          cashFlow.style.display = "flex";
-          schwarzFlow.style.display = "none";
-
-        }
-
-
-        if (mode === "schwarz") {
-
-          toggle.classList.add("schwarz");
-
-          cashMode.classList.remove("active");
-          schwarzMode.classList.add("active");
-
-          cashFlow.style.display = "none";
-          schwarzFlow.style.display = "flex";
-
-        }
+        renderCompare(button.dataset.type);
 
       });
 
     });
+
+
+    renderCompare("cash");
 
   </script>
 
